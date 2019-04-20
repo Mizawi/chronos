@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chronos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/w3/w3.css">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <title>Chronos</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/w3/w3.css">
+        <!--===============================================================================================-->
+        <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+        <!--===============================================================================================-->
+        <!--não funciona localmente-->
+        <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+        <!--===============================================================================================-->
+        <link rel="stylesheet" type="text/css" href="css/util.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/student.css">
+        <!--===============================================================================================-->
+        <script src="vendor/jquery/jquery-3.2.1.min.js "></script>
+        <!--===============================================================================================-->
+        <script src="vendor/bootstrap/js/popper.js "></script>
+        <script src="vendor/bootstrap/js/bootstrap.min.js "></script>
+        <!--===============================================================================================-->
+        <script src="vendor/select2/select2.min.js "></script>
+        <!--===============================================================================================-->
+        <script src="js/student.js "></script>
+        <!--===============================================================================================-->
+    </head>
+
+    <body>
+
+
+        <div class="limiter">
+            <div class="page-wrapper chiller-theme toggled">
+                <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <nav id="sidebar" class="sidebar-wrapper">
+                    <div class="sidebar-content">
+                        <div class="sidebar-brand">
+                            <a href="#">CHRONOS STUDENT</a>
+                            <div id="close-sidebar">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </div>
+                        </div>
+                        <div class="sidebar-header">
+                            <div class="user-pic">
+                                <img class="img-responsive img-rounded" src="images/user.jpg" alt="User picture">
+                            </div>
+                            <div class="user-info">
+                                <span class="user-name">Miguel
+                                    <strong>Almeida</strong>
+                                </span>
+                                <span class="user-role">Student</span>
+                            </div>
+                        </div>
+                        <!-- sidebar-header  -->
+
+                        <div class="sidebar-menu">
+                            <ul>
+                                <li class="header-menu">
+                                    <span>General</span>
+                                </li>
+                                <li>
+                                    <a href="#" id="dashboard-button">
+                                        <i class="fa fa-tachometer-alt"></i>
+                                        <span id="dashboard">Dashboard</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="profile-button">
+                                        <i class="fas fa-user"></i>
+                                        <span id="profile">Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="subjects-button">
+                                        <i class="fa fa-book" aria-hidden="true"></i>
+                                        <span id="subjects">Subjects</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" id="schedule-button">
+                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                        <span id="requests">Schedule</span>
+                                    </a>
+                                </li>
+
+                                <li class="header-menu">
+                                    <span>Extra</span>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-book"></i>
+                                        <span>Support</span>
+                                        <span class="badge badge-pill badge-primary">Beta</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- sidebar-menu  -->
+                    </div>
+                    <!-- sidebar-content  -->
+                    <div class="sidebar-footer">
+                        <a href="#">
+                            <i class="fa fa-bell"></i>
+                            <span class="badge badge-pill badge-warning notification">0</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-envelope"></i>
+                            <span class="badge badge-pill badge-success notification">0</span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-cog"></i>
+                            <span class="badge-sonar"></span>
+                        </a>
+                        <a href="#">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </div>
+                </nav>
+                <!-- sidebar-wrapper  -->
+                <main class="container-student100">
+                    <div class="table-responsive" id="query_table_dashboard">
+                        </div>
+                    <div class="table-responsive" id="query_table_subjects">
+                        </div>
+                    <div class="table-responsive" id="query_table_schedule">
+                        </div>
+                    <div class="hidden container-profile">
+                        <div class="container-profile-icon">
+                            <h5>Informação Principal</h5>
+                            <br>
+                            <div class="container-profile-icon-image">
+                                <img src="images/user.jpg" alt="User picture">
+                            </div>
+                            <div class="container-profile-icon-info">
+                                <p> Nome: </p>
+                                <p> Cargo: </p>
+                                <p> Numero: </p>
+                                <p> Email: </p>
+                            </div>
+
+                        </div>
+                        <div class="container-profile-maininfo">
+                            <h5> Contactos e Disponibilização de Informação </h4>
+                                <br>
+                                <p> Nome de Utilizador: </p>
+                                <p> Morada [Pessoal]: </p>
+                                <p> Telefone [Pessoal]: </p>
+                                <p> Email [Pessoal]: </p>
+                                <p> Email [Institucional]: </p>
+                        </div>
+                        <div class="container-profile-personaldata">
+                            <h5>Dados Pessoais</h5>
+                            <br>
+                            <p> Nomes Próprios: </p>
+                            <p> Apelidos: </p>
+                            <p> Sexo: </p>
+                            <p> Documento de Identificação: </p>
+                            <p> Nº do Documento de Identificação: </p>
+                            <p> Local de Emissão: </p>
+                            <p> Emitido em: </p>
+                            <p> Válido até: </p>
+                            <p> Nº de Contribuinte: </p>
+                            <p> Profissão: </p>
+                            <p> Estado Civil: </p>
+                            <p> Data de Nascimento: </p>
+                            <p> Nacionalidade: </p>
+                            <p> País de Nascimento: </p>
+                            <p> Freguesia de Nascimento: </p>
+                            <p> Concelho de Nascimento: </p>
+                            <p> Distrito de Nascimento: </p>
+                        </div>
+                    </div>
+                </main>
+                <!-- page-content" -->
+            </div>
+            <!-- page-wrapper -->
+
+    </body>
+
+    </html>
+</body>
+
+</html>
