@@ -13,11 +13,6 @@ let config = {
     database: process.env.SQL_DATABASE,
     password: process.env.SQL_PASSWORD,
     multipleStatements: true,
-    ssl: {
-        ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
-        key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
-        cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-    }
 }
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
@@ -57,5 +52,6 @@ con = connection.connect(function(err) {
     console.log('Connected as thread id: ' + connection.threadId);
 });
 
+/*
 
 module.exports = connection; */
