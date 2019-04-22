@@ -10,23 +10,23 @@ const fs = require('fs');
 /*
 let config = {
 
-  user: process.env.SQL_USER,
-  database: process.env.SQL_DATABASE,
-  password: process.env.SQL_PASSWORD,
-  multipleStatements: true,
-  ssl: {
-      ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
-      key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
-      cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-  }
+    user: process.env.SQL_USER,
+    database: process.env.SQL_DATABASE,
+    password: process.env.SQL_PASSWORD,
+    multipleStatements: true,
+    ssl: {
+        ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
+        key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
+        cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
+    }
 }
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
-  config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
+    config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
 }
 
-let connection = mysql.createConnection(config); */
-
+let connection = mysql.createConnection(config);
+*/
 //************************************************************************************//
 //************************************************************************************//
 

@@ -5,15 +5,18 @@ var app = express();
 var path = require('path');
 const con = require('./database');
 var bodyParser = require('body-parser');
+const yes = require('yes-https');
 
 
 
-
+app.use(yes());
 
 //Routing
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '/views')));
 app.use(require('./routes'));
+
+
 
 
 //Querying
