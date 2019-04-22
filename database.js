@@ -13,6 +13,12 @@ let config = {
   user: process.env.SQL_USER,
   database: process.env.SQL_DATABASE,
   password: process.env.SQL_PASSWORD,
+  multipleStatements: true,
+  ssl: {
+      ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
+      key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
+      cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
+  }
 }
 
 if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production') {
@@ -37,10 +43,10 @@ let connection = mysql.createConnection({
     password: process.env.DB_PASS,
     multipleStatements: true,
     ssl: {
-      ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
-      key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
-      cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
-  }
+        ca: fs.readFileSync(__dirname + '/certs/server-ca.pem'),
+        key: fs.readFileSync(__dirname + '/certs/client-key.pem'),
+        cert: fs.readFileSync(__dirname + '/certs/client-cert.pem')
+    }
 });
 
 con = connection.connect(function(err) {
