@@ -1,0 +1,10 @@
+dispatch:
+  # Default service serves the typical web resources and all static resources.
+  - url: "*/favicon.ico"
+    service: default
+
+  # Default service serves simple hostname request.
+  - url: "chronos234322.appspot.com"
+    service: chronos-back-end
+
+    

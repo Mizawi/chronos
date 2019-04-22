@@ -1,5 +1,3 @@
 node_modules
 certs
-app.yaml
 .env
-.htaccess
