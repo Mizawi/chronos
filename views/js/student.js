@@ -42,12 +42,17 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('#query_table_profile_answer').remove();
-                content = '<h1 id="query_table_profile_answer">FETCH PROFILE INFO</h1>'
-                $('#query_table_profile').append(content);
-            }
-        })
-    });
+                var info = JSON.parse(data[0].information)
+                content = '<div class="show container-profile"> <div class="container-profile-icon"> <h5>Informação Principal</h5><br> <div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome:' +
+                    info.nome + '</p><p>Cargo:' +
+                    info.cargo + '</p><p>Numero:' +
+                    info.numero + '</p><p>Email:' +
+                    data[0].email + '</p></div>';
+                $('#query_table_profile').replace(content);
 
+            }
+        });
+    });
     $("#dashboard-button").click(() => {
         $(".container-profile").hide();
         $('#query_table_dashboard').show();
@@ -126,7 +131,7 @@ jQuery(function($) {
 
 });
 
-$(document).ready( ()=>{
+$(document).ready(() => {
     $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
@@ -143,4 +148,4 @@ $(document).ready( ()=>{
             $('#query_table_dashboard').append(content);
         }
     })
-} )
+})
