@@ -73,6 +73,20 @@ app.get("/searchStudent", (req, res) => {
     })
 })
 
+app.get("/searchStudentsByEmailOrNumber", (req, res) => {
+    email = req.query.texto_pesquisa
+    if(email.includes("@")){
+        sql = 'select * from aluno where email = ?';
+    }
+    else{
+        sql = 'select * from aluno where numero_aluno = ?';
+    }
+    con.query(sql,[email], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 //Student Queries
 app.get("/student-profile", (req, res) => {
     con.query('select * from aluno WHERE email = ?', ['aluno1@alunos.fc.ul.pt'], function(err, result) {
