@@ -27,7 +27,7 @@ function(req, email, pass, done) {
 }));
 
 app.use(require('serve-static')(__dirname + '/../../public'));
-app.use(require('cookie-parser')());
+//app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'ptiptr2019', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
@@ -75,8 +75,7 @@ app.get("/searchStudent", (req, res) => {
 
 //Student Queries
 app.get("/student-profile", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    con.query('select * from aluno WHERE email = ?', ['aluno1@alunos.fc.ul.pt'], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -96,7 +95,7 @@ app.get("/student-schedule", (req, res) => {
     })
 })
 
-app.get("/subject-enroll", (req,res) => {
+app.get("/subject-enroll", (req, res) => {
     sql = 'select * from aluno';
     con.query(sql, (err, result) => {
         if (err) throw err;
