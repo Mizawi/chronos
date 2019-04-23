@@ -134,6 +134,8 @@
             <!-- sidebar-wrapper  -->
             <main class="container-teacher100">
                 <div class="hidden container-profile">
+                    <button type='button' class='close' onclick='$(this).parent().removeClass("show").toggleClass("hidden");'>×</button>
+
                     <div class="container-profile-icon">
                         <h5>Informação Principal</h5>
                         <br>
@@ -180,14 +182,31 @@
                     </div>
                 </div>
                 <div class="hidden container-subjects">
-                    <div class="container-subjects-info">
+                    <button type='button' class='close' onclick='$(this).parent().removeClass("show").toggleClass("hidden");'>×</button>
+                    <div class="container-subject-info">
+                        <h3> NOME_DA_CADEIRA </h3>
+                        <button type='button'> Alunos Inscritos </button>
+                        <button type='button'> Horario </button>
+                        <button type='button'> Moodle </button>
+
 
                     </div>
+
+                    <div class="container-subject-info">
+                        <h3> NOME_DA_CADEIRA </h3>
+                        <button type='button'> Alunos Inscritos  </button>
+                        <button type='button'> Horario</button>
+                        <button type='button'> Moodle </button>
+
+                    </div>
+
+
                 </div>
-            </main>
-            <!-- page-content" -->
         </div>
-        <!-- page-wrapper -->
+        </main>
+        <!-- page-content" -->
+    </div>
+    <!-- page-wrapper -->
 
 </body>
 
