@@ -113,6 +113,11 @@ jQuery(function($) {
         })
     });
 
+    $("#subject-enroll-button").click(() => {
+        
+
+    });
+
 });
 
 $(document).ready( ()=>{

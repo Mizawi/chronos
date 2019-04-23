@@ -7,6 +7,7 @@ const fs = require('fs');
 //II        UNCOMMENT TO DEPLOY TO GCLOUD/COMMENT FOR LOCAL DEVELOPMENT       II//
 //II==========================================================================II//
 
+/*
 let config = {
 
     user: process.env.SQL_USER,
@@ -24,7 +25,7 @@ if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production
     config.socketPath = `/cloudsql/${process.env.INSTANCE_CONNECTION_NAME}`;
 }
 
-let connection = mysql.createConnection(config);
+let connection = mysql.createConnection(config);*/
 
 //************************************************************************************//
 //************************************************************************************//
@@ -33,7 +34,7 @@ let connection = mysql.createConnection(config);
 //II        UNCOMMENT FOR LOCAL DEVELOPMENT/COMMENT TO DEPLOY TO GCLOUD       II//
 //II==========================================================================II//
 
-/*
+
 // Database Connection for Development
 
 let connection = mysql.createConnection({
@@ -58,4 +59,4 @@ con = connection.connect(function(err) {
 });
 
 
-module.exports = connection; */
+module.exports = connection; 
