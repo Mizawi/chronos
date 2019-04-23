@@ -3,6 +3,7 @@ const fs = require('fs');
 
 // Database Connection for Production
 
+/*
 //II==========================================================================II//
 //II        UNCOMMENT TO DEPLOY TO GCLOUD/COMMENT FOR LOCAL DEVELOPMENT       II//
 //II==========================================================================II//
@@ -20,7 +21,7 @@ if (process.env.INSTANCE_CONNECTION_NAME && process.env.NODE_ENV === 'production
 }
 
 let connection = mysql.createConnection(config);
-
+*/
 //************************************************************************************//
 //************************************************************************************//
 
@@ -28,7 +29,7 @@ let connection = mysql.createConnection(config);
 //II        UNCOMMENT FOR LOCAL DEVELOPMENT/COMMENT TO DEPLOY TO GCLOUD       II//
 //II==========================================================================II//
 
-/*
+
 // Database Connection for Development
 
 let connection = mysql.createConnection({
@@ -52,6 +53,4 @@ con = connection.connect(function(err) {
     console.log('Connected as thread id: ' + connection.threadId);
 });
 
-/*
-
-module.exports = connection; */
+module.exports = connection;

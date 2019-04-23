@@ -297,6 +297,7 @@ iframe {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .container-profile h5 {
@@ -365,16 +366,6 @@ iframe {
     padding: 20px 20px 40px 30px;
 }
 
-.container-subjects {
-    width: 700px;
-    background: #3a3f48;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-}
-
 .container-profile-info {
     width: 600px;
     height: 200px;
@@ -388,6 +379,70 @@ iframe {
     padding: 20px 20px 40px 30px;
 }
 
+.container-subjects {
+    width: 700px;
+    background: #3a3f48;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: inline;
+    position: relative;
+}
+
+.container-subject-info {
+    width: 400px;
+    height: 200px;
+    background: #1f2022;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 30px 30px 30px 50px;
+    padding: 20px 20px 40px 30px;
+    position: relative;
+}
+
+.container-subject-info h3 {
+    color: white;
+    margin-bottom: 40px;
+}
+
+.container-subject-info p {
+    color: rgb(212, 194, 194);
+}
+
+.container-subject-info button {
+    font-family: Montserrat-Bold;
+    font-size: 10px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 30%;
+    height: 60px;
+    border-radius: 100px;
+    border: 2px solid #e67300;
+    background: #1a1a1d;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: inline-block;
+    font-display: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
+.container-subject-info button:hover {
+    background: #e67300;
+}
+
 .hidden {
     display: none;
 }
@@ -398,6 +453,14 @@ iframe {
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 3%;
+    color: red;
+    font-size: 40px;
 }
 
 .wrap-login100 {
