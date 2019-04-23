@@ -30,10 +30,7 @@ jQuery(function($) {
     });
 
     $("#profile-button").click(() => {
-        var x = $(".container-profile");
-        x.addClass('show');
-        x.removeClass('hidden');
-
+        $(".container-profile").show();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -52,10 +49,7 @@ jQuery(function($) {
     });
 
     $("#dashboard-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -74,10 +68,7 @@ jQuery(function($) {
     });
 
     $("#subjects-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_schedule').hide();
@@ -96,10 +87,7 @@ jQuery(function($) {
     });
 
     $("#schedule-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
@@ -118,10 +106,7 @@ jQuery(function($) {
     });
 
     $("#subject-enroll-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -142,10 +127,7 @@ jQuery(function($) {
 });
 
 $(document).ready( ()=>{
-    var x = $(".container-profile");
-    x.removeClass('show');
-    x.addClass('hidden');
-
+    $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_schedule').hide();

@@ -112,8 +112,32 @@ app.get("/subject-enroll", (req,res) => {
     })
 })
 
-//Server Functions
+//Teacher queries
+app.get("/teacher-profile", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
 
+app.get("/teacher-subject", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/teacher-request", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+//Server Functions
 //Login
 app.post('/auth', passport.authenticate('local', { failureRedirect: '/' }),(req, res) => {
     var email = req.query.email;
