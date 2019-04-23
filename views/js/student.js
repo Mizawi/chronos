@@ -30,13 +30,11 @@ jQuery(function($) {
     });
 
     $("#profile-button").click(() => {
-        var x = $(".container-profile");
-        x.addClass('show');
-        x.removeClass('hidden');
-
+        $(".container-profile").show();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-profile",
@@ -51,13 +49,11 @@ jQuery(function($) {
     });
 
     $("#dashboard-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-subject",
@@ -72,13 +68,11 @@ jQuery(function($) {
     });
 
     $("#subjects-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-subject",
@@ -93,13 +87,11 @@ jQuery(function($) {
     });
 
     $("#schedule-button").click(() => {
-        var x = $(".container-profile");
-        x.removeClass('show');
-        x.addClass('hidden');
-
+        $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-schedule",
@@ -114,20 +106,32 @@ jQuery(function($) {
     });
 
     $("#subject-enroll-button").click(() => {
-        
+        $(".container-profile").hide();
+        $('#query_table_dashboard').hide();
+        $('#query_table_subjects').hide();
+        $('#query_table_schedule').hide();
+        $('#query_subject_enroll').show();
 
+        $.ajax({
+            url: "/subject-enroll",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('#query_table_schedule_answer').remove();
+                content = '<h1 id="query_table_schedule_answer">FETCH ENROLL</h1>'
+                $('#query_subject_enroll').append(content);
+            }
+        })
     });
 
 });
 
 $(document).ready( ()=>{
-    var x = $(".container-profile");
-    x.removeClass('show');
-    x.addClass('hidden');
-
+    $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_schedule').hide();
+    $('#query_subject_enroll').hide();
 
     $.ajax({
         url: "/student-subject",

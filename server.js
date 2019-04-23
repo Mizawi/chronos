@@ -95,14 +95,41 @@ app.get("/student-schedule", (req, res) => {
         res.send(result);
     })
 })
-app.get("/subject-enroll", (req,res, user) => {
-    con.query("select name from admin where email=?", [user.email], (err, result) => {
-        console.log(result)
+
+app.get("/subject-enroll", (req,res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+//Teacher queries
+app.get("/teacher-profile", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/teacher-subject", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/teacher-request", (req, res) => {
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
     })
 })
 
 //Server Functions
-
 //Login
 
 app.post("/authAdmin", passport.authenticate('local', {
