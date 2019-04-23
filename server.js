@@ -105,7 +105,11 @@ app.get("/student-schedule", (req, res) => {
 })
 
 app.get("/subject-enroll", (req,res) => {
-    con.query("select * from aluno where curr")
+    sql = 'select * from aluno';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
 })
 
 //Server Functions

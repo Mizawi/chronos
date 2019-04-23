@@ -37,6 +37,7 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-profile",
@@ -58,6 +59,7 @@ jQuery(function($) {
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-subject",
@@ -79,6 +81,7 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_schedule').hide();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-subject",
@@ -100,6 +103,7 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
+        $('#query_subject_enroll').hide();
 
         $.ajax({
             url: "/student-schedule",
@@ -114,8 +118,25 @@ jQuery(function($) {
     });
 
     $("#subject-enroll-button").click(() => {
-        
+        var x = $(".container-profile");
+        x.removeClass('show');
+        x.addClass('hidden');
 
+        $('#query_table_dashboard').hide();
+        $('#query_table_subjects').hide();
+        $('#query_table_schedule').hide();
+        $('#query_subject_enroll').show();
+
+        $.ajax({
+            url: "/subject-enroll",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('#query_table_schedule_answer').remove();
+                content = '<h1 id="query_table_schedule_answer">FETCH ENROLL</h1>'
+                $('#query_subject_enroll').append(content);
+            }
+        })
     });
 
 });
@@ -128,6 +149,7 @@ $(document).ready( ()=>{
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_schedule').hide();
+    $('#query_subject_enroll').hide();
 
     $.ajax({
         url: "/student-subject",
