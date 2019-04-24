@@ -1,30 +1,30 @@
 //Imports
 require('dotenv').config()
-var express = require('express')
-, app = express()
-, path = require('path')
-, con = require('./database')
-, yes = require('yes-https')
-, passport = require('passport')
-, LocalStrategy = require('passport-local').Strategy
-, flash=require("connect-flash");
+var express = require('express'),
+    app = express(),
+    path = require('path'),
+    con = require('./database'),
+    yes = require('yes-https'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
+    flash = require("connect-flash");
 app.use(flash());
 
 //Passport
 passport.use('local', new LocalStrategy({
-    usernameField : 'email',
-    passwordField : 'pass',
-    passReqToCallback : true 
-},
-function(req, email, pass, done) {
-     con.query("select * from admin where email=?", [email],function(err,rows){
-        if (err) return done(err);
-        if (!rows.length) {return done(null, false, req.flash('loginMessage', 'No user found.'))} 
-        if (!( rows[0].password == pass))
-            return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); 
-        return done(null, rows[0]);			
-    });
-}));
+        usernameField: 'email',
+        passwordField: 'pass',
+        passReqToCallback: true
+    },
+    function(req, email, pass, done) {
+        con.query("select * from admin where email=?", [email], function(err, rows) {
+            if (err) return done(err);
+            if (!rows.length) { return done(null, false, req.flash('loginMessage', 'No user found.')) }
+            if (!(rows[0].password == pass))
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            return done(null, rows[0]);
+        });
+    }));
 
 app.use(require('serve-static')(__dirname + '/../../public'));
 //app.use(require('cookie-parser')());
@@ -34,11 +34,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
 
-passport.serializeUser(function(user, done){
+passport.serializeUser(function(user, done) {
     done(null, user.id);
 });
-passport.deserializeUser(function(id, done){
-    con.query("select * from admin where id = "+ id, function (err, rows){
+passport.deserializeUser(function(id, done) {
+    con.query("select * from admin where id = " + id, function(err, rows) {
         done(err, rows[0]);
     });
 });
@@ -75,13 +75,12 @@ app.get("/searchStudent", (req, res) => {
 
 app.get("/searchStudentsByEmailOrNumber", (req, res) => {
     email = req.query.texto_pesquisa
-    if(email.includes("@")){
+    if (email.includes("@")) {
         sql = 'select * from aluno where email = ?';
-    }
-    else{
+    } else {
         sql = 'select * from aluno where numero_aluno = ?';
     }
-    con.query(sql,[email], (err, result) => {
+    con.query(sql, [email], (err, result) => {
         if (err) throw err;
         res.send(result);
     })
@@ -94,6 +93,11 @@ app.get("/student-profile", (req, res) => {
         res.send(result);
     })
 })
+
+app.put("/student-edit-profile", (req, res) => {
+
+})
+
 app.get("/student-subject", (req, res) => {
     sql = 'select * from aluno';
     con.query(sql, (err, result) => {

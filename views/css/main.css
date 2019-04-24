@@ -379,6 +379,31 @@ iframe {
     padding: 20px 20px 40px 30px;
 }
 
+.profile-edit-btn {
+    font-family: Montserrat-Bold;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #fff;
+    text-transform: uppercase;
+    width: 20%;
+    height: 40px;
+    border-radius: 100px;
+    border: 2px solid #1B9CE5;
+    background: #1a1a1d;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25px;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
 .container-subjects {
     width: 700px;
     background: #3a3f48;
@@ -612,6 +637,19 @@ iframe {
 
 /*------------------------------------------------------------------
 [ Button ]*/
+
+.container-profile-form-btn {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 10px;
+    margin-bottom: 5%;
+}
 
 .container-login100-form-btn {
     width: 100%;
