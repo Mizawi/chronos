@@ -12,6 +12,7 @@ router.get('/', function(req, res) {
 //Admin Page Route
 router.get('/admin', (req,res) => {
     res.sendFile(path.join(__dirname, '../views/admin.html'));
+    console.log(req.isAuthenticated())
 
 });
 

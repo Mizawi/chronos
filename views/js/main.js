@@ -58,68 +58,6 @@
         $(thisAlert).removeClass('alert-validate');
     }
 
-    $("#login").click(() => {
-        email = $("#email")
-        pass = $("#password")
-        role = email.split("@")[1]; 
-
-        switch (role) {
-            case 'email.com':
-                if (email && password) {
-                    console.log("aqui")
-                    fetch('/authAdmin', {
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            user: {
-                                email: $("#email"),
-                                password: $("#password")
-                            }
-                        })
-                    });
-                        
-                }
-            break;
-
-            case 'alunos.fc.ul.pt':
-                if (email && password) {
-                    fetch('/authStudent', {
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            user: {
-                                email: $("#email"),
-                                password: $("#password")
-                            }
-                        })
-                    });
-                }
-                break;
-    
-            case 'fc.ul.pt':
-                if (email && password) {
-                    fetch('/auth', {
-                        method: 'post',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            user: {
-                                email: $("#email"),
-                                password: $("#password")
-                            }
-                        })
-                    });
-                }
-                break;
-        }
-
-    })
-
 })(jQuery);
 
 
