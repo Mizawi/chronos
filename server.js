@@ -59,7 +59,7 @@ passport.use('teacher', new LocalStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.email);
+    done(null, user.email, user.role);
 });
 passport.deserializeUser((email, done) => {
     role = email.split("@")[1]; 
