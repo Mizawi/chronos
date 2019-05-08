@@ -59,7 +59,10 @@ passport.use('teacher', new LocalStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.email, user.role);
+    role = user.email.split("@")[1]; 
+    time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    con.query("insert into logs (user, timestamp) values (?,?)", [user.email, time]);
+    done(null, user.email, role);
 });
 passport.deserializeUser((email, done) => {
     role = email.split("@")[1]; 
@@ -115,6 +118,7 @@ app.get("/searchTeacher", (req, res) => {
         res.send(result);
     })
 })
+
 app.get("/searchStudent", (req, res) => {
     sql = 'select * from aluno';
     con.query(sql, (err, result) => {
@@ -131,6 +135,14 @@ app.get("/searchStudentsByEmailOrNumber", (req, res) => {
         sql = 'select * from aluno where numero_aluno = ?';
     }
     con.query(sql, [email], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/getLogs", (req, res) => {
+    sql = 'select * from logs';
+    con.query(sql, (err, result) => {
         if (err) throw err;
         res.send(result);
     })

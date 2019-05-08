@@ -38,9 +38,7 @@ jQuery(function($) {
                 $('#query-table-answer').remove();
                 var text = "";
                 var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>Name </th> <th>Email</th></tr></thead>"
-                for (key in data) {
-                    console.log(data[key]);
-                    
+                for (key in data) {                    
                     for (item in data[key]) {
                         var info = JSON.parse(item.information);
                         content += '<tr><td>' + info.nome  + '</td>' + '<td>' + data[key][item].email + '<td>' + '</tr>'
@@ -114,6 +112,24 @@ jQuery(function($) {
                 content += "<thead class='table-info' > <tr><th scope='col'>Cargo </th></tr></thead>"
                 content += '<tr><td>' + info.cargo + '<td></tr>';
                 content += "</table>";
+                $('#query_table').append(content);
+            }
+        })
+    });
+
+    $("#getLogs").click(() => {
+        $.ajax({
+            url: "/getLogs",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('#query-table-answer').remove();
+                var text = "";
+                var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
+                for (key in data) {                    
+                    content += '<tr><td>' + data[key].user  + '</td>' + '<td>' + data[key].timestamp + '<td>' + '</tr>'
+                }
+                content += "</table>"
                 $('#query_table').append(content);
             }
         })
