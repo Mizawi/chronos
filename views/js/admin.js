@@ -29,6 +29,21 @@ jQuery(function($) {
         $(".page-wrapper").addClass("toggled");
     });
 
+    $("#dashboard-button").click(() => {
+        $(".search-admin-bar").hide();
+        $('#query-table-answer').remove();
+        $.ajax({
+            url: "/searchAll",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('#query_table_answer').remove();
+                content = '<h1 id="query-table-answer">FETCH DASHBOARD</h1>'
+                $('#query_table').append(content);
+            }
+        })
+    });
+
     $("#searchAll").click(() => {
         $(".search-admin-bar").hide();
         $.ajax({
@@ -145,4 +160,15 @@ jQuery(function($) {
 
 $(document).ready( ()=>{
     $(".search-admin-bar").hide();
+
+    $.ajax({
+        url: "/searchAll",
+        type: "get",
+        dataType: "json",
+        success: (data) => {
+            $('#query-table-answer').remove();
+            content = '<h1 id="query-table-answer">FETCH DASHBOARD</h1>'
+            $('#query_table').append(content);
+        }
+    })
 } )
