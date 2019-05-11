@@ -90,6 +90,7 @@ jQuery(function($) {
 
     $("#btnBusca").click(() => {
         valor_a_pesquisar = document.getElementById("txtBusca").value
+        $("#txtBusca").val('');
         $.ajax({
             url: "/searchStudentsByEmailOrNumber",
             type: "get",
@@ -123,7 +124,7 @@ jQuery(function($) {
     });
 
     $("#getLogs").click(() => {
-        $(".search-admin-bar").show();
+        $(".search-admin-bar").hide();
         $.ajax({
             url: "/getLogs",
             type: "get",
@@ -141,3 +142,7 @@ jQuery(function($) {
         })
     });
 });
+
+$(document).ready( ()=>{
+    $(".search-admin-bar").hide();
+} )

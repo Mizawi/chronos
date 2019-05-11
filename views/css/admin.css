@@ -1,20 +1,10 @@
 /*-----------------------------search-bar-------------------------------------------------*/
-
-.container-admin{
-    height:500px;
-    width:500px;
-
-}
-
 .search-admin-bar{
     background-color:#000000;
     border:solid 2px #000000;
     border-radius:10px;
-    position: relative;
-    width: 350px;
-    left: 20%;
-    top: 10%;
-
+    width: 50%;
+    margin: 0 auto 40px auto;
   }
    
   #txtBusca{
@@ -24,21 +14,22 @@
     color: white;
     border:none;
     height:32px;
-    width:300px;
+    width:100%;
   }
    
   #btnBusca{
     border:solid 2px #000000;
     height:32px;
-    border-radius:0 7px 7px 0;
-    width:50%;
+    border-radius:7px;
+    width:100%;
     font-weight:bold;
     background:#5F9EA0;
   }
-
-#query-table-answer{
-  position: absolute;
-  top: 50%;
-  width:30%;
-  left:40%;
-}
+  #btnBusca:hover{
+    border:solid 2px #000000;
+    height:32px;
+    border-radius:7px;
+    width:100%;
+    font-weight:bold;
+    background:rgb(172, 206, 207);
+  }
