@@ -116,7 +116,7 @@ $(document).ready( ()=>{
         dataType: "json",
         success: (data) => {
             $('#query_table_dashboard_answer').remove();
-            content = '<h1 id="query_table_dashboard_answer">FETCH DASHBOARD</h1>'
+            content = '<h1 id="query_table_dashboard_answer">FETCH INITIAL DASHBOARD</h1>'
             $('#query_table_dashboard').append(content);
         }
     })

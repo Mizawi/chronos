@@ -13,13 +13,11 @@
     font-size:18px;
     color: white;
     border:none;
-    height:32px;
     width:100%;
   }
    
   #btnBusca{
     border:solid 2px #000000;
-    height:32px;
     border-radius:7px;
     width:100%;
     font-weight:bold;
@@ -27,9 +25,36 @@
   }
   #btnBusca:hover{
     border:solid 2px #000000;
-    height:32px;
     border-radius:7px;
     width:100%;
+    font-weight:bold;
+    background:rgb(172, 206, 207);
+  }
+
+  /*-----------------------------settings div-------------------------------------------------*/
+  #formsettings{
+    padding: 10px 0 10px 0;
+    margin: 10px;
+    font-size: 20px;
+  }
+
+  #formsettings > select{
+    margin: 0 0 10px 0;
+  }
+
+  #savesettings-button{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:#5F9EA0;
+    margin-top: 10px;
+  }
+
+  #savesettings-button:hover{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
     font-weight:bold;
     background:rgb(172, 206, 207);
   }
