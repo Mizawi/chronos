@@ -149,46 +149,6 @@ jQuery(function($) {
         })
     });
 
-    $("#btnBusca").click(() => {
-        valor_a_pesquisar = document.getElementById("txtBusca").value
-        $("#txtBusca").val('');
-
-        $.ajax({
-            url: "/searchByEmailOrNumber",
-            type: "get",
-            dataType: "json",
-            data: {texto_pesquisa:valor_a_pesquisar},
-            success: (data) => {
-                $('#messagesettings').remove();
-                $('#query-table-answer').remove();
-
-                const datainfo = data[0][0];
-
-                if(datainfo){
-                    const info = JSON.parse(datainfo.information);
-                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
-                    content += "<thead class='table-info' > <tr><th scope='col'>Name </th></tr></thead>"
-                    content += '<tr><td>' + info.nome + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Birthday </th></tr></thead>"
-                    content += '<tr><td>' + info.dataNascimento + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Id </th></tr></thead>"
-                    content += '<tr><td>' + info.documentoDeIdentificacao + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Number </th></tr></thead>"
-                    content += '<tr><td>' + info.numero + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Role </th></tr></thead>"
-                    content += '<tr><td>' + info.cargo + '<td></tr>';
-                    content += "</table>";
-                    $('#query_table').append(content);
-                }else{
-                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
-                    content += '<tr><td>' + "There isn't such student with this information" + '<td></tr>';
-                    content += "</table>";
-                    $('#query_table').append(content);
-                }
-            }
-        })
-    });
-
     const generalInput = document.getElementById("generalInput");
     // Execute a function when the user releases a key on the keyboard
     generalInput.addEventListener("keyup", function(event) {
