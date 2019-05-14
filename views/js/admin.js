@@ -92,7 +92,7 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>Name </th> <th>Email</th></tr></thead>"
+                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>Name </th> <th>Email</th></tr></thead>"
                 data.forEach(datai => {
                     datai.forEach(item => {
                         const info = JSON.parse(item.information);
@@ -116,7 +116,7 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
+                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
                     content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '<td>' + '</tr>'
@@ -138,7 +138,7 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
+                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
                     content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '<td>' + '</tr>'
@@ -154,36 +154,88 @@ jQuery(function($) {
         $("#txtBusca").val('');
 
         $.ajax({
-            url: "/searchStudentsByEmailOrNumber",
+            url: "/searchByEmailOrNumber",
             type: "get",
             dataType: "json",
             data: {texto_pesquisa:valor_a_pesquisar},
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                if(data[0]){
-                    var info = JSON.parse(data[0].information);
-                    var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMAÇAO </th></tr></thead>";
-                    content += "<thead class='table-info' > <tr><th scope='col'>Nome </th></tr></thead>"
+
+                const datainfo = data[0][0];
+
+                if(datainfo){
+                    const info = JSON.parse(datainfo.information);
+                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
+                    content += "<thead class='table-info' > <tr><th scope='col'>Name </th></tr></thead>"
                     content += '<tr><td>' + info.nome + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Data Nascimento </th></tr></thead>"
+                    content += "<thead class='table-info' > <tr><th scope='col'>Birthday </th></tr></thead>"
                     content += '<tr><td>' + info.dataNascimento + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Documento Identificação </th></tr></thead>"
+                    content += "<thead class='table-info' > <tr><th scope='col'>Id </th></tr></thead>"
                     content += '<tr><td>' + info.documentoDeIdentificacao + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Numero </th></tr></thead>"
+                    content += "<thead class='table-info' > <tr><th scope='col'>Number </th></tr></thead>"
                     content += '<tr><td>' + info.numero + '<td></tr>';
-                    content += "<thead class='table-info' > <tr><th scope='col'>Cargo </th></tr></thead>"
+                    content += "<thead class='table-info' > <tr><th scope='col'>Role </th></tr></thead>"
                     content += '<tr><td>' + info.cargo + '<td></tr>';
                     content += "</table>";
                     $('#query_table').append(content);
                 }else{
-                    var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMAÇAO </th></tr></thead>";
-                    content += '<tr><td>' + "Não existe nenhum aluno que corresponda a esta pesquisa" + '<td></tr>';
+                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
+                    content += '<tr><td>' + "There isn't such student with this information" + '<td></tr>';
                     content += "</table>";
                     $('#query_table').append(content);
                 }
             }
         })
+    });
+
+    const generalInput = document.getElementById("generalInput");
+    // Execute a function when the user releases a key on the keyboard
+    generalInput.addEventListener("keyup", function(event) {
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) {
+        // Cancel the default action, if needed
+        event.preventDefault();
+
+        valor_a_pesquisar = document.getElementById("generalInput").value
+        $("#generalInput").val('');
+
+        $.ajax({
+            url: "/searchByEmailOrNumber",
+            type: "get",
+            dataType: "json",
+            data: {texto_pesquisa:valor_a_pesquisar},
+            success: (data) => {
+                $('#messagesettings').remove();
+                $('#query-table-answer').remove();
+
+                let datainfo;
+                data[0].length > 0 ? datainfo = data[0][0] : datainfo = data[1][0];
+
+                if(datainfo){
+                    const info = JSON.parse(datainfo.information);
+                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
+                    content += "<thead class='table-info' > <tr><th scope='col'>Name </th></tr></thead>"
+                    content += '<tr><td>' + info.nome + '<td></tr>';
+                    content += "<thead class='table-info' > <tr><th scope='col'>Birthday </th></tr></thead>"
+                    content += '<tr><td>' + info.dataNascimento + '<td></tr>';
+                    content += "<thead class='table-info' > <tr><th scope='col'>Id </th></tr></thead>"
+                    content += '<tr><td>' + info.documentoDeIdentificacao + '<td></tr>';
+                    content += "<thead class='table-info' > <tr><th scope='col'>Number </th></tr></thead>"
+                    content += '<tr><td>' + info.numero + '<td></tr>';
+                    content += "<thead class='table-info' > <tr><th scope='col'>Role </th></tr></thead>"
+                    content += '<tr><td>' + info.cargo + '<td></tr>';
+                    content += "</table>";
+                    $('#query_table').append(content);
+                }else{
+                    let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
+                    content += '<tr><td>' + "There isn't such user with this information" + '<td></tr>';
+                    content += "</table>";
+                    $('#query_table').append(content);
+                }
+            }
+        })
+    }
     });
 
     $("#getLogs").click(() => {
@@ -197,8 +249,7 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                var text = "";
-                var content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
+                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
                 for (key in data) {                    
                     content += '<tr><td>' + data[key].user  + '</td>' + '<td>' + data[key].timestamp + '<td>' + '</tr>'
                 }
@@ -211,11 +262,11 @@ jQuery(function($) {
 
 $(document).ready( ()=>{
     function getCookie(cname) {
-        var name = cname + "=";
-        var decodedCookie = decodeURIComponent(document.cookie);
-        var ca = decodedCookie.split(';');
-        for(var i = 0; i <ca.length; i++) {
-          var c = ca[i];
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+          let c = ca[i];
           while (c.charAt(0) == ' ') {
             c = c.substring(1);
           }

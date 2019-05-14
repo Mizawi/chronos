@@ -127,14 +127,14 @@ app.get("/searchStudent", (req, res) => {
     })
 })
 
-app.get("/searchStudentsByEmailOrNumber", (req, res) => {
-    email = req.query.texto_pesquisa
-    if (email.includes("@")) {
-        sql = 'select * from aluno where email = ?';
+app.get("/searchByEmailOrNumber", (req, res) => {
+    input = req.query.texto_pesquisa
+    if (input.includes("@")) {
+        sql = 'select * from aluno where email = ?; select * from professor where email = ?';
     } else {
-        sql = 'select * from aluno where numero_aluno = ?';
+        sql = 'select * from aluno where numero_aluno = ?; select * from professor where numero_prof = ?';
     }
-    con.query(sql, [email], (err, result) => {
+    con.query(sql, [input, input], (err, result) => {
         if (err) throw err;
         res.send(result);
     })
