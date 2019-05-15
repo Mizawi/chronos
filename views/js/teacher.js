@@ -21,6 +21,14 @@ jQuery(function($) {
         }
     });
 
+    $("#logoutbtn").click(() => {
+        console.log("aqui")
+        $.ajax({
+            url: "/logout",
+            type: "get"
+        })
+    });
+
     $("#close-sidebar").click(function() {
         $(".page-wrapper").removeClass("toggled");
     });

@@ -27,6 +27,7 @@
     });
 
 
+
     $('.validate-form .input100').each(function() {
         $(this).focus(function() {
             hideValidate(this);
@@ -73,16 +74,18 @@ $(document).ready(function() {
         }
 
     })
-    $.ajax({
-        url: "/session-info",
-        type: "get",
-        dataType: "json",
-        success: (data) => {
-            session_info = JSON.parse(data[0].information)
-            session_nome = session_info.nome.split(" ")
-            session_content = '<span id="user-name">' + session_nome[0] + " " + session_nome[session_nome.length - 1] + '</span>' +
-                '<span id="user-role">' + session_info.cargo + '</span>'
-            $('.user-info').append(session_content)
-        }
-    })
+    if (window.location.pathname == !'/') {
+        $.ajax({
+            url: "/session-info",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                session_info = JSON.parse(data[0].information)
+                session_nome = session_info.nome.split(" ")
+                session_content = '<span id="user-name">' + session_nome[0] + " " + session_nome[session_nome.length - 1] + '</span>' +
+                    '<span id="user-role">' + session_info.cargo + '</span>'
+                $('.user-info').append(session_content)
+            }
+        })
+    }
 });

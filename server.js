@@ -91,7 +91,7 @@ passport.deserializeUser((email, done) => {
 app.use(require('serve-static')(__dirname + '/../../public'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'ptiptr2019', resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'ptiptr2019', resave: true, saveUninitialized: true, cookie: { maxAge: 1000 } }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.json());
@@ -127,14 +127,16 @@ app.get("/searchStudent", (req, res) => {
     })
 })
 
-app.get("/searchStudentsByEmailOrNumber", (req, res) => {
-    email = req.query.texto_pesquisa
-    if (email.includes("@")) {
+app.get("/searchByEmailOrNumber", (req, res) => {
+    input = req.query.texto_pesquisa
+    if (input.includes("@")) {
         sql = 'select * from aluno where email = ?';
+        'select * from professor where email = ?';
     } else {
         sql = 'select * from aluno where numero_aluno = ?';
+        'select * from professor where numero_prof = ?';
     }
-    con.query(sql, [email], (err, result) => {
+    con.query(sql, [input, input], (err, result) => {
         if (err) throw err;
         res.send(result);
     })
@@ -173,9 +175,7 @@ app.get("/student-subject", (req, res) => {
 })
 
 app.get("/session-info", (req, res) => {
-    console.log(req.user)
     info = JSON.parse(req.user.information)
-    console.log(info.cargo)
     switch (info.cargo) {
         case 'Aluno':
             con.query("select * from aluno where email = ?", [req.user.email], function(err, result) {
