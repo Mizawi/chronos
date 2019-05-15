@@ -209,8 +209,7 @@ app.get("/subject-enroll", (req, res) => {
 
 //Teacher queries
 app.get("/teacher-profile", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    con.query('select * from professor WHERE email = ?', [req.user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
