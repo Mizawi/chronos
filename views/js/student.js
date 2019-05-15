@@ -186,7 +186,7 @@ $(document).ready(() => {
     $('#query_subject_enroll').hide();
 
     $.ajax({
-        url: "/student-subject",
+        url: "/student-profile",
         type: "get",
         dataType: "json",
         success: (data) => {
