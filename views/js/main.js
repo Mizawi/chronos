@@ -74,7 +74,7 @@ $(document).ready(function() {
         }
 
     })
-    if (window.location.pathname == !'/') {
+    if (window.location.pathname.includes("dashboard")) {
         $.ajax({
             url: "/session-info",
             type: "get",
