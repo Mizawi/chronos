@@ -150,12 +150,28 @@ $(document).ready(() => {
     $('#query_table_requests').hide();
 
     $.ajax({
-        url: "/teacher-subject",
+        url: "/teacher-profile",
         type: "get",
         dataType: "json",
         success: (data) => {
             $('#query_table_dashboard_answer').remove();
-            content = '<h1 id="query_table_dashboard_answer">FETCH INITIAL DASHBOARD</h1>'
+            var info = JSON.parse(data[0].cadeiras_teacher)
+            content = '<div class="card-deck">'
+            for (var key in info){
+                //var attrName = key; CHAVE
+                //var attrValue = obj[key]; VALUE
+            
+                content += '<div class="card" style="width: 18rem;">'
+                content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
+                content += '<div class="card-body">'
+                content += '<h5 class="'+key+'">'+key+'</h5>'
+                content += '<p class="card-text">BEM VINDO A '+key+'</p>'
+                content += '<a href="#" class="btn '+key+'">Gerir Página</a>'
+                content += '</div>'
+                content += '</div>'
+                content += '<br>'
+            }
+            content += '</div>'
             $('#query_table_dashboard').append(content);
         }
     })

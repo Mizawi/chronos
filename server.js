@@ -152,6 +152,20 @@ app.get("/adminSettings", (req, res) => {
     res.send({ status: 'Changes has been saved' });
 })
 
+app.post("/adminCreateStudent", (req, res) => {
+    var nome = req.body.aluno_nome;
+    var numero = req.body.aluno_numero;
+    console.log(nome);
+    console.log(numero);
+    var email = "fc"+numero+"@alunos.fc.ul.pt";
+    var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
+    sql = `insert into aluno (email,information,password,cadeiras,numero_aluno) VALUES ("${email}",${informacao},"123",'{"PTI": "inscrito"}',${numero})`;
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
 //Student Queries
 app.get("/student-profile", (req, res) => {
     con.query('select * from aluno WHERE email = ?', [req.user.email], function(err, result) {

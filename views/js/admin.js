@@ -39,23 +39,15 @@ jQuery(function($) {
     $("#dashboard-button").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-
-        $.ajax({
-            url: "/searchAll",
-            type: "get",
-            dataType: "json",
-            success: (data) => {
-                $('#messagesettings').remove();
-                $('#query-table-answer').remove();
-                content = '<h1 id="query-table-answer">FETCH DASHBOARD</h1>'
-                $('#query_table').append(content);
-            }
-        })
+        $(".createStudent-admin-div").show();
+        $(".admin_table").hide();
+        $('#messagesettings').remove();
     });
 
     $("#settingsbutton").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").show();
+        $(".createStudent-admin-div").hide();
 
         $('#query-table-answer').remove();
         $('#messagesettings').remove();
@@ -64,7 +56,8 @@ jQuery(function($) {
     $("#savesettings-button").click(() => {
         $(".search-admin-bar").hide();
         $('#messagesettings').remove();
-
+        $(".createStudent-admin-div").hide();
+        
         $.ajax({
             url: "/adminSettings",
             type: "get",
@@ -91,6 +84,7 @@ jQuery(function($) {
     $("#searchAll").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
+        $(".createStudent-admin-div").hide();
 
         $.ajax({
             url: "/searchAll",
@@ -99,11 +93,12 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>Name </th> <th>Email</th></tr></thead>"
+                let content = "<table class='admin_table' id='query-table-answer'>"
+                content += "<thead class='' > <tr> <th> Name </th> <th> Email </th> </tr> </thead>"
                 data.forEach(datai => {
                     datai.forEach(item => {
                         const info = JSON.parse(item.information);
-                        content += '<tr><td>' + info.nome + '</td>' + '<td>' + item.email + '<td>' + '</tr>'
+                        content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
                     })
                 });
                 content += "</table>"
@@ -115,6 +110,7 @@ jQuery(function($) {
     $("#searchStudents").click(() => {
         $(".search-admin-bar").show();
         $(".settings-admin-div").hide();
+        $(".createStudent-admin-div").hide();
 
         $.ajax({
             url: "/searchStudent",
@@ -123,10 +119,10 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
+                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th >Name </th> <th> Email </th></tr></thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
-                    content += '<tr><td>' + info.nome + '</td>' + '<td>' + item.email + '<td>' + '</tr>'
+                    content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
                 });
                 content += "</table>"
                 $('#query_table').append(content);
@@ -139,6 +135,7 @@ jQuery(function($) {
     $("#searchTeachers").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
+        $(".createStudent-admin-div").hide();
 
         $.ajax({
             url: "/searchTeacher",
@@ -147,13 +144,29 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>Name </th> <th scope='col'> Email </th></tr></thead>"
+                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th >Name </th> <th> Email </th></tr></thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
-                    content += '<tr><td>' + info.nome + '</td>' + '<td>' + item.email + '<td>' + '</tr>'
+                    content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
                 });
                 content += "</table>"
                 $('#query_table').append(content);
+            }
+        })
+    });
+
+    $("#criar_aluno").click(() => {
+        var aluno_nome = $("#aluno_nome").val()
+        var aluno_numero = $("#aluno_numero").val()
+        $.ajax({
+            url: "/adminCreateStudent",
+            type: "post",
+            data: {"aluno_nome": aluno_nome, "aluno_numero": aluno_numero },
+            dataType: "json",
+            success: (data) => {
+                alert("ALUNO CRIADO");
+                $("#aluno_numero").val(" ");
+                $("#aluno_nome").val(" ");
             }
         })
     });
@@ -165,7 +178,7 @@ jQuery(function($) {
         if (event.keyCode === 13) {
             // Cancel the default action, if needed
             event.preventDefault();
-
+            $(".createStudent-admin-div").hide();
             valor_a_pesquisar = document.getElementById("generalInput").value
             $("#generalInput").val('');
 
@@ -181,35 +194,37 @@ jQuery(function($) {
                     let datainfo;
                     data[0].length > 0 ? datainfo = data[0][0] : datainfo = data[1][0];
 
-                    if (datainfo) {
-                        const info = JSON.parse(datainfo.information);
-                        let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
-                        content += "<thead class='table-info' > <tr><th scope='col'>Name </th></tr></thead>"
-                        content += '<tr><td>' + info.nome + '<td></tr>';
-                        content += "<thead class='table-info' > <tr><th scope='col'>Birthday </th></tr></thead>"
-                        content += '<tr><td>' + info.dataNascimento + '<td></tr>';
-                        content += "<thead class='table-info' > <tr><th scope='col'>Id </th></tr></thead>"
-                        content += '<tr><td>' + info.documentoDeIdentificacao + '<td></tr>';
-                        content += "<thead class='table-info' > <tr><th scope='col'>Number </th></tr></thead>"
-                        content += '<tr><td>' + info.numero + '<td></tr>';
-                        content += "<thead class='table-info' > <tr><th scope='col'>Role </th></tr></thead>"
-                        content += '<tr><td>' + info.cargo + '<td></tr>';
-                        content += "</table>";
-                        $('#query_table').append(content);
-                    } else {
-                        let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th scope='col'>INFORMATION </th></tr></thead>";
-                        content += '<tr><td>' + "There isn't such user with this information" + '<td></tr>';
-                        content += "</table>";
-                        $('#query_table').append(content);
-                    }
+                if(datainfo){
+                    const info = JSON.parse(datainfo.information);
+                    let content = "<table class='admin_table' id='query-table-answer'> <thead> <tr><th>INFORMATION </th></tr></thead>";
+                    content += "<thead> <tr><th>Name </th></tr></thead>";
+                    content += '<tr><td>' + info.nome + '</td></tr>';
+                    content += "<thead> <tr><th>Birthday </th></tr></thead>";
+                    content += '<tr><td>' + info.dataNascimento + '</td></tr>';
+                    content += "<thead> <tr><th>Id </th></tr></thead>";
+                    content += '<tr><td>' + info.documentoDeIdentificacao + '</td></tr>';
+                    content += "<thead> <tr><th>Number </th></tr></thead>";
+                    content += '<tr><td>' + info.numero + '</td></tr>';
+                    content += "<thead> <tr><th>Role </th></tr></thead>";
+                    content += '<tr><td>' + info.cargo + '</td></tr>';
+                    content += "</table>";
+                    $('#query_table').append(content);
+                }else{
+                    let content = "<table class='admin_table' id='query-table-answer'> <thead> <tr><th>INFORMATION </th></tr></thead>";
+                    content += '<tr><td>' + "There isn't such user with this information" + '</td></tr>';
+                    content += "</table>";
+                    $('#query_table').append(content);
                 }
-            })
+            
         }
-    });
+    })
+    }
+});
 
     $("#getLogs").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
+        $(".createStudent-admin-div").hide();
 
         $.ajax({
             url: "/getLogs",
@@ -218,9 +233,9 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='table table-sm table-dark' id='query-table-answer'> <thead class='table-info' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
-                for (key in data) {
-                    content += '<tr><td>' + data[key].user + '</td>' + '<td>' + data[key].timestamp + '<td>' + '</tr>'
+                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
+                for (key in data) {                    
+                    content += '<tr><td>' + data[key].user  + '</td>' + '<td>' + data[key].timestamp + '</td>' + '</tr>'
                 }
                 content += "</table>"
                 $('#query_table').append(content);
@@ -255,15 +270,6 @@ $(document).ready(() => {
     $(".search-admin-bar").hide();
     $(".settings-admin-div").hide();
 
-    $.ajax({
-        url: "/searchAll",
-        type: "get",
-        dataType: "json",
-        success: (data) => {
-            $('#messagesettings').remove();
-            $('#query-table-answer').remove();
-            content = '<h1 id="query-table-answer">FETCH INITIAL DASHBOARD</h1>'
-            $('#query_table').append(content);
-        }
-    })
-})
+    $(".createStudent-admin-div").show();
+    $(".admin_table").hide();
+} )
