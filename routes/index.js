@@ -10,13 +10,13 @@ router.get('/', function(req, res) {
 });
 
 //Admin Page Route
-router.get('/admin', (req,res) => {
-    if(req.isAuthenticated()){
-        if(req.user.email.split("@")[1] == 'email.com'){
+router.get('/admin', (req, res) => {
+    if (req.isAuthenticated()) {
+        if (req.user.email.split("@")[1] == 'email.com') {
             res.sendFile(path.join(__dirname, '../views/admin.html'));
-        }else if(req.user.email.split("@")[1] == 'alunos.fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
             res.redirect('/student-dashboard');
-        }else if(req.user.email.split("@")[1] == 'fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.redirect('/teacher-dashboard');
         }
     }
@@ -29,12 +29,12 @@ router.get('/errPage', function(req, res) {
 
 //P-Dashboard Route
 router.get('/teacher-dashboard', function(req, res) {
-    if(req.isAuthenticated()){
-        if(req.user.email.split("@")[1] == 'email.com'){
+    if (req.isAuthenticated()) {
+        if (req.user.email.split("@")[1] == 'email.com') {
             res.redirect('/admin');
-        }else if(req.user.email.split("@")[1] == 'alunos.fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
             res.redirect('/student-dashboard');
-        }else if(req.user.email.split("@")[1] == 'fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.sendFile(path.join(__dirname, '../views/teacher-dashboard.html'));
         }
     }
@@ -43,20 +43,24 @@ router.get('/teacher-dashboard', function(req, res) {
 
 //S-Dashboard Route
 router.get('/student-dashboard', function(req, res) {
-    if(req.isAuthenticated()){
-        if(req.user.email.split("@")[1] == 'email.com'){
+    if (req.isAuthenticated()) {
+        if (req.user.email.split("@")[1] == 'email.com') {
             res.redirect('/admin');
-        }else if(req.user.email.split("@")[1] == 'alunos.fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
             res.sendFile(path.join(__dirname, '../views/student-dashboard.html'));
-        }else if(req.user.email.split("@")[1] == 'fc.ul.pt'){
+        } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.redirect('/teacher-dashboard');
         }
     }
 });
 
-router.get('/logout', function(req, res){
+router.get('/logout', function(req, res) {
+    console.log(req.isAuthenticated())
     req.logout();
-    res.redirect('/');
-  });
+    console.log(req.isAuthenticated())
+    if (!req.isAuthenticated()) {
+        res.redirect('/admin');
+    }
+});
 
 module.exports = router;

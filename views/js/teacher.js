@@ -22,12 +22,12 @@ jQuery(function($) {
     });
 
     $("#logoutbtn").click(() => {
-        console.log("aqui")
         $.ajax({
             url: "/logout",
-            type: "get"
-        })
+            type: "get",
+        }).done(window.location.assign('/'))
     });
+
 
     $("#close-sidebar").click(function() {
         $(".page-wrapper").removeClass("toggled");

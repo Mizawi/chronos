@@ -26,8 +26,6 @@
         return check;
     });
 
-
-
     $('.validate-form .input100').each(function() {
         $(this).focus(function() {
             hideValidate(this);

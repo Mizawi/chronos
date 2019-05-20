@@ -138,6 +138,13 @@ jQuery(function($) {
         })
     });
 
+    $("#logoutbtn").click(() => {
+        $.ajax({
+            url: "/logout",
+            type: "get",
+        }).done(window.location.assign('/'))
+    });
+
     $("#schedule-button").click(() => {
         $(".container-profile").hide();
         $('#query_table_dashboard').hide();
