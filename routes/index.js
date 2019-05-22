@@ -6,7 +6,30 @@ var passport = require('passport');
 
 //Home Page Route
 router.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname, '../views/index.html'));
+    console.log("aqui");
+    if(req.user.isAuthenticated()){
+        switch (role) {
+            case 'email.com':
+                if (email && password) {
+                    res.redirect(307, "/authAdmin")
+                }
+                break;
+    
+            case 'alunos.fc.ul.pt':
+                if (email && password) {
+                    res.redirect(307, "/authStudent")
+                }
+                break;
+    
+            case 'fc.ul.pt':
+                if (email && password) {
+                    res.redirect(307, "/authTeacher")
+                }
+                break;
+        }
+    }else{
+        res.sendFile(path.join(__dirname, '../views/index.html'));
+    }
 });
 
 //Admin Page Route
