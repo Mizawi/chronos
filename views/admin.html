@@ -35,6 +35,7 @@
     <script src="vendor/select2/select2.min.js "></script>
     <!--===============================================================================================-->
     <script src="js/admin.js "></script>
+    <script src="js/main.js"></script>
     <!--===============================================================================================-->
 </head>
 
@@ -67,7 +68,7 @@
                     <div class="sidebar-search">
                         <div>
                             <div class="input-group">
-                                <input type="text" class="form-control search-menu" placeholder="Search...">
+                                <input id="generalInput" type="text" class="form-control search-menu" placeholder="Search and press enter">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                       </span>
@@ -82,7 +83,7 @@
                                 <span>General</span>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="#" id="dashboard-button">
                                     <i class="fa fa-tachometer-alt"></i>
                                     <span id="dashboard">Dashboard</span>
                                 </a>
@@ -102,6 +103,9 @@
                                         </li>
                                         <li>
                                             <button class="admin100-form-btn" id="searchTeachers">Show Teachers</button>
+                                        </li>
+                                        <li>
+                                            <button class="admin100-form-btn" id="getLogs">Show Logs</button>
                                         </li>
                                     </ul>
                                 </div>
@@ -131,31 +135,68 @@
                         <i class="fa fa-envelope"></i>
                         <span class="badge badge-pill badge-success notification">7</span>
                     </a>
-                    <a href="#">
+                    <a href="#" id="settingsbutton">
                         <i class="fa fa-cog"></i>
                         <span class="badge-sonar"></span>
                     </a>
-                    <a href="#">
+                    <a href="#" id="logoutbtn">
                         <i class="fa fa-power-off"></i>
                     </a>
                 </div>
             </nav>
 
-			<!-- sidebar-wrapper  -->
+            <!-- sidebar-wrapper  -->
             <main class="container-admin100">
-                <div class="container-admin">
-                    <div class="search-admin-bar">
+                <div class="table-responsive" id="query_table">
+                    <div class="settings-admin-div">
                         <div>
-                            <input type="text" id="txtBusca" placeholder="Search By: Email/Number..."/>
-                            <br>
-                            <button id="btnBusca">Search Student</button>
+                            <h1>Your settings:</h1>
+                            <form id="formsettings">
+                                Timezone:
+                                <br>
+                                <select id="timezoneselector">
+                                        <option value="gmt">GMT +0</option>
+                                        <option value="cet">GMT +1</option>
+                                        <option value="eet">GMT +2</option>
+                                        <option value="wat">GMT -1</option>
+                                        <option value="cdt">GMT -5</option>
+                                        <option value="pdt">GMT -7</option>
+                                    </select>
+                                <br> Theme:
+                                <br>
+                                <select id="themeselector">
+                                        <option value="regulartheme">Regular theme</option>
+                                        <option value="darktheme">Dark theme</option>
+                                    </select>
+                                <br>
+                                <button type="button" id="savesettings-button">Save</button>
+                            </form>
+                        </div>
+                        </div>
+                        <div class="createStudent-admin-div">
+                            <form class="criaAluno-form validate-form">
+                                <span class="criaAluno-form-title ">
+                                    CHRONOS CREATE STUDENT
+                                </span>
+            
+                                <div class="form-group">
+                                    <label>Nome Completo</label>
+                                    <input type="text" class="form-control" id="aluno_nome"  placeholder="Nome Completo">
+                                </div>
+                                <div class="form-group">
+                                    <label>Numero Aluno</label>
+                                    <input type="text" class="form-control" id="aluno_numero" placeholder="Numero Aluno">
+                                </div>
+                                <div class="container-criaAluno-form-btn">
+                                    <button type='button' class="criaAluno-form-btn" id="criar_aluno" type="submit">
+                                        Cria Aluno
+                                    </button>
+                                </div>
+            
+                            </form>
                         </div>
 
-
                     </div>
-                    <div class="table-responsive" id="query_table">
-                    </div>
-                </div>
             </main>
             <!-- page-content" -->
         </div>

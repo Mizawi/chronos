@@ -107,16 +107,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_subject_enroll').hide();
 
-        $.ajax({
-            url: "/student-subject",
-            type: "get",
-            dataType: "json",
-            success: (data) => {
-                $('#query_table_dashboard_answer').remove();
-                content = '<h1 id="query_table_dashboard_answer">FETCH DASHBOARD</h1>'
-                $('#query_table_dashboard').append(content);
-            }
-        })
+
     });
 
     $("#subjects-button").click(() => {
@@ -136,6 +127,13 @@ jQuery(function($) {
                 $('#query_table_subjects').append(content);
             }
         })
+    });
+
+    $("#logoutbtn").click(() => {
+        $.ajax({
+            url: "/logout",
+            type: "get",
+        }).done(window.location.assign('/'))
     });
 
     $("#schedule-button").click(() => {
@@ -186,13 +184,29 @@ $(document).ready(() => {
     $('#query_subject_enroll').hide();
 
     $.ajax({
-        url: "/student-subject",
+        url: "/student-profile",
         type: "get",
         dataType: "json",
         success: (data) => {
             $('#query_table_dashboard_answer').remove();
-            content = '<h1 id="query_table_dashboard_answer">FETCH DASHBOARD</h1>'
-            $('#query_table_dashboard').append(content);
+            var info = JSON.parse(data[0].cadeiras)
+            content = '<div class="card-deck">'
+                for (var key in info){
+                    //var attrName = key; CHAVE
+                    //var attrValue = obj[key]; VALUE
+                
+                    content += '<div class="card" style="width: 18rem;">'
+                    content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
+                    content += '<div class="card-body">'
+                    content += '<h5 class="'+key+'">'+key+'</h5>'
+                    content += '<p class="card-text">BEM VINDO A '+key+'</p>'
+                    content += '<a href="#" class="btn '+key+'">Página Inicial</a>'
+                    content += '</div>'
+                    content += '</div>'
+                    content += '<br>'
+                }
+                content += '</div>'
+                $('#query_table_dashboard').append(content);
         }
     })
 })

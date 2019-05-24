@@ -59,28 +59,31 @@ passport.use('teacher', new LocalStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-    done(null, user.email);
+    role = user.email.split("@")[1];
+    time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    con.query("insert into logs (user, timestamp) values (?,?)", [user.email, time]);
+    done(null, user.email, role);
 });
 passport.deserializeUser((email, done) => {
-    role = email.split("@")[1]; 
+    role = email.split("@")[1];
     switch (role) {
         case 'email.com':
             con.query("select * from admin where email = ?", [email], function(err, rows) {
                 done(err, rows[0]);
             });
-        break;
+            break;
 
         case 'alunos.fc.ul.pt':
             con.query("select * from aluno where email = ?", [email], function(err, rows) {
                 done(err, rows[0]);
             });
-        break;
+            break;
 
         case 'fc.ul.pt':
             con.query("select * from professor where email = ?", [email], function(err, rows) {
                 done(err, rows[0]);
             });
-        break;
+            break;
     }
 });
 
@@ -115,6 +118,7 @@ app.get("/searchTeacher", (req, res) => {
         res.send(result);
     })
 })
+
 app.get("/searchStudent", (req, res) => {
     sql = 'select * from aluno';
     con.query(sql, (err, result) => {
@@ -123,14 +127,40 @@ app.get("/searchStudent", (req, res) => {
     })
 })
 
-app.get("/searchStudentsByEmailOrNumber", (req, res) => {
-    email = req.query.texto_pesquisa
-    if (email.includes("@")) {
-        sql = 'select * from aluno where email = ?';
+app.get("/searchByEmailOrNumber", (req, res) => {
+    input = req.query.texto_pesquisa
+    if (input.includes("@")) {
+        sql = 'select * from aluno where email = ?; select * from professor where email = ?';
     } else {
-        sql = 'select * from aluno where numero_aluno = ?';
+        sql = 'select * from aluno where numero_aluno = ?; select * from professor where numero_prof = ?';
     }
-    con.query(sql, [email], (err, result) => {
+    con.query(sql, [input, input], (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/getLogs", (req, res) => {
+    sql = 'select * from logs';
+    con.query(sql, (err, result) => {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/adminSettings", (req, res) => {
+    res.send({ status: 'Changes has been saved' });
+})
+
+app.post("/adminCreateStudent", (req, res) => {
+    var nome = req.body.aluno_nome;
+    var numero = req.body.aluno_numero;
+    console.log(nome);
+    console.log(numero);
+    var email = "fc"+numero+"@alunos.fc.ul.pt";
+    var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
+    sql = `insert into aluno (email,information,password,cadeiras,numero_aluno) VALUES ("${email}",${informacao},"123",'{"PTI": "inscrito"}',${numero})`;
+    con.query(sql, (err, result) => {
         if (err) throw err;
         res.send(result);
     })
@@ -138,7 +168,7 @@ app.get("/searchStudentsByEmailOrNumber", (req, res) => {
 
 //Student Queries
 app.get("/student-profile", (req, res) => {
-    con.query('select * from aluno WHERE email = ?', ['aluno1@alunos.fc.ul.pt'], function(err, result) {
+    con.query('select * from aluno WHERE email = ?', [req.user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -155,6 +185,24 @@ app.get("/student-subject", (req, res) => {
         res.send(result);
     })
 })
+
+app.get("/session-info", (req, res) => {
+    info = JSON.parse(req.user.information)
+    switch (info.cargo) {
+        case 'Aluno':
+            con.query("select * from aluno where email = ?", [req.user.email], function(err, result) {
+                res.send(result);
+            });
+            break;
+
+        case 'Docente':
+            con.query("select * from professor where email = ?", [req.user.email], function(err, result) {
+                res.send(result);
+            });
+            break;
+    }
+})
+
 app.get("/student-schedule", (req, res) => {
     sql = 'select * from aluno';
     con.query(sql, (err, result) => {
@@ -173,8 +221,8 @@ app.get("/subject-enroll", (req, res) => {
 
 //Teacher queries
 app.get("/teacher-profile", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    console.log(req.user)
+    con.query('select * from professor WHERE email = ?', [req.user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -216,17 +264,17 @@ app.post("/authStudent", passport.authenticate('student', {
     failureRedirect: '/errPage'
 }));
 
-app.post("/auth", (req,res) => {
+app.post("/auth", (req, res) => {
     email = req.body.email
     password = req.body.pass
-    role = email.split("@")[1]; 
-    
+    role = email.split("@")[1];
+
     switch (role) {
         case 'email.com':
             if (email && password) {
-                res.redirect(307, "/authAdmin") 
+                res.redirect(307, "/authAdmin")
             }
-        break;
+            break;
 
         case 'alunos.fc.ul.pt':
             if (email && password) {
@@ -236,7 +284,7 @@ app.post("/auth", (req,res) => {
 
         case 'fc.ul.pt':
             if (email && password) {
-               res.redirect(307, "/authTeacher")
+                res.redirect(307, "/authTeacher")
             }
             break;
     }

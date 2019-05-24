@@ -1,44 +1,27 @@
-/*-----------------------------search-bar-------------------------------------------------*/
-
-.container-admin{
-    height:500px;
-    width:500px;
-
-}
-
-.search-admin-bar{
-    background-color:#000000;
-    border:solid 2px #000000;
-    border-radius:10px;
-    position: relative;
-    width: 350px;
-    left: 20%;
-    top: 10%;
-
+  /*-----------------------------settings div-------------------------------------------------*/
+  #formsettings{
+    padding: 10px 0 10px 0;
+    margin: 10px;
+    font-size: 20px;
   }
-   
-  #txtBusca{
-    background-color:transparent;
-    padding-left:5px; 
-    font-size:18px;
-    color: white;
-    border:none;
-    height:32px;
-    width:300px;
+
+  #formsettings > select{
+    margin: 0 0 10px 0;
   }
-   
-  #btnBusca{
-    border:solid 2px #000000;
-    height:32px;
-    border-radius:0 7px 7px 0;
-    width:50%;
+
+  #savesettings-button{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
     font-weight:bold;
     background:#5F9EA0;
+    margin-top: 10px;
   }
 
-#query-table-answer{
-  position: absolute;
-  top: 50%;
-  width:30%;
-  left:40%;
-}
+  #savesettings-button:hover{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:rgb(172, 206, 207);
+  }
