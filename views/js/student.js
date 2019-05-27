@@ -148,9 +148,10 @@ jQuery(function($) {
             type: "get",
             dataType: "json",
             success: (data) => {
+                console.log(JSON.parse(data[0].cadeiras))
                 $('#query_table_schedule_answer').remove();
-                content = '<h1 id="query_table_schedule_answer">FETCH SCHEDULE</h1>'
-                $('#query_table_schedule').append(content);
+            
+                $('#query_table_schedule').append(data);
             }
         })
     });

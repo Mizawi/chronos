@@ -204,8 +204,8 @@ app.get("/session-info", (req, res) => {
 })
 
 app.get("/student-schedule", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    sql = 'select cadeiras from aluno where email=?';
+    con.query(sql, [req.user.email], (err, result) => {
         if (err) throw err;
         res.send(result);
     })
