@@ -206,7 +206,28 @@ app.get("/student-schedule", (req, res) => {
     sql = 'select cadeiras from aluno where email=?';
     con.query(sql, [req.user.email], (err, result) => {
         if (err) throw err;
-        res.send(result);
+        cadeiras = JSON.parse(result[0].cadeiras);
+        for (key in cadeiras) {
+            if(cadeiras[key] == "concluido"){
+                delete cadeiras[key];
+            }
+        }
+        sql = 'select nome, horario from cadeiras';
+        con.query(sql, (err, result) =>{
+            if(err) throw err;
+            for(k in cadeiras){
+                for(i in result){
+                    if(k == result[i].nome){
+                       for(key in JSON.parse(result[i].horario)){
+                           if(cadeiras[k] == key){
+                               cadeiras[k] = ['T',JSON.parse(result[i].horario)['T'], cadeiras[k], JSON.parse(result[i].horario)[key]];
+                           }
+                       }
+                    }
+                }
+            }
+            res.send(cadeiras);            
+        })
     })
 })
 
@@ -231,6 +252,7 @@ app.get("/subject-enroll", (req, res) => {
                 }
             }
             res.send(cadeiras_insc);
+            res.redirect("/student-dashboard")
 
         })
     })

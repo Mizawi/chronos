@@ -148,7 +148,7 @@ jQuery(function($) {
             type: "get",
             dataType: "json",
             success: (data) => {
-                console.log(JSON.parse(data[0].cadeiras))
+                console.log(data)
                 $('#query_table_schedule_answer').remove();
 
                 $('#query_table_schedule').append(data);
