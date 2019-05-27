@@ -86,4 +86,10 @@ $(document).ready(function() {
             }
         })
     }
+    
+    if(window.location.search.substring(1).includes("error=1")){
+        console.log("ls")
+        $("#badLogin").show();
+        
+    }
 });

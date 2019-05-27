@@ -22,10 +22,6 @@ router.get('/admin', (req, res) => {
     }
 });
 
-//Error Page Route
-router.get('/errPage', function(req, res) {
-    res.sendFile(path.join(__dirname, '../views/errPage.html'));
-});
 
 //P-Dashboard Route
 router.get('/teacher-dashboard', function(req, res) {

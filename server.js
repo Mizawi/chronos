@@ -212,13 +212,14 @@ app.get("/student-schedule", (req, res) => {
 })
 
 app.get("/subject-enroll", (req, res) => {
-    sql = 'select cadeiras from aluno where email=?; select curso from aluno where email=?';
-    con.query(sql, [req.user.email, req.user.email], (err, result) => {
+    sql = 'select cadeiras, curso, ano from aluno where email=?';
+    con.query(sql, [req.user.email], (err, result) => {
         if (err) throw err;
-        aluno_cadeiras = JSON.parse(result[0][0].cadeiras);
-        aluno_curso = JSON.parse(result[1][0].curso)
+        aluno_cadeiras = JSON.parse(result[0].cadeiras);
+        aluno_curso = JSON.parse(result[0].curso);
+        aluno_ano = JSON.parse(result[0].ano);
         
-        con.query('select nome, horario from cadeiras where curso=?', [aluno_curso], (err, result) => {
+        con.query('select nome, horario from cadeiras where curso=? and ano=?', [aluno_curso, aluno_ano], (err, result) => {
             if(err) throw err;
             
             var cadeiras_insc = []
@@ -267,19 +268,19 @@ app.get("/teacher-request", (req, res) => {
 
 app.post("/authAdmin", passport.authenticate('admin', {
     successRedirect: '/admin',
-    failureRedirect: '/errPage'
+    failureRedirect: "/?error=1"
 }));
 
 
 app.post("/authTeacher", passport.authenticate('teacher', {
     successRedirect: '/teacher-dashboard',
-    failureRedirect: '/errPage'
+    failureRedirect: "/?error=1"
 }));
 
 
 app.post("/authStudent", passport.authenticate('student', {
     successRedirect: '/student-dashboard',
-    failureRedirect: '/errPage'
+    failureRedirect: "/?error=1"
 }));
 
 app.post("/auth", (req, res) => {
@@ -305,6 +306,10 @@ app.post("/auth", (req, res) => {
                 res.redirect(307, "/authTeacher")
             }
             break;
+        
+        default:
+            res.redirect("/?error=1")
+        break;
     }
 })
 

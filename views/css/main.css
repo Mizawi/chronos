@@ -765,6 +765,18 @@ iframe {
 /*------------------------------------------------------------------
 [ Alert validate ]*/
 
+#badLogin {
+    animation: blinker 1s linear;
+    background-color: red;
+    border-radius: 50px;
+  }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+
 .validate-input {
     position: relative;
 }
