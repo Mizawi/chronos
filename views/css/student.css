@@ -1,0 +1,58 @@
+.selectTurn {
+    background-color: rgb(255, 0, 0);
+    color: black;
+    display: block;
+    text-decoration: none;
+    width: 150px;
+    border-radius: 25px
+}
+
+.selectedTurn {
+    background-color: rgb(20, 235, 12);
+    color: black;
+    display: block;
+    text-decoration: none;
+    width: 250px;
+    border-radius: 25px
+}
+
+.card-text {
+    display: center;
+}
+
+.btnTurn {
+    border: 1px solid rgb(253, 7, 7);
+    background-color: rgb(253, 7, 7);
+    color: black;
+    padding: 4px 12px;
+    margin-left: 30%;
+    -o-transition: background-color .2s ease-in;
+    -moz-transition: background-color .2s ease-in;
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+    border-radius: 50px
+}
+
+.btnTurn:hover {
+    background-color: #a50f0f;
+}
+
+.btnTurn:active {
+    background-color: rgb(11, 133, 11);
+}
+
+.selectedTurn .btnTurn {
+    background-color: rgb(20, 235, 12);
+    border: 1px solid rgb(20, 235, 12);
+    color: black;
+    padding: 4px 12px;
+    -o-transition: background-color .2s ease-in;
+    -moz-transition: background-color .2s ease-in;
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+    border-radius: 50px
+}
+
+.selectedTurn btnTurn:hover {
+    background-color: rgb(11, 133, 11);
+}

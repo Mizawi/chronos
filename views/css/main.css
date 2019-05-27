@@ -1361,7 +1361,6 @@ body {
 }
 
 
-
 /*-----------------------------ADMIN TABLES CSS-------------------------------------------------*/
 
 table.admin_table {
@@ -1369,27 +1368,37 @@ table.admin_table {
     background-color: #6A7381;
     width: 100%;
     text-align: center;
-  }
-  table.admin_table td, table.admin_table th {
+}
+
+table.admin_table td,
+table.admin_table th {
     border: 1px solid #F7FCFA;
     padding: 4px 4px;
-  }
-  table.admin_table tbody td {
+}
+
+table.admin_table tbody td {
     font-size: 13px;
     color: #F7F7F7;
-  }
-  table.admin_table thead {
+}
+
+table.admin_table thead {
     background: #3A3F48;
     background: -moz-linear-gradient(top, #6b6f76 0%, #4d525a 66%, #3A3F48 100%);
     background: -webkit-linear-gradient(top, #6b6f76 0%, #4d525a 66%, #3A3F48 100%);
     background: linear-gradient(to bottom, #6b6f76 0%, #4d525a 66%, #3A3F48 100%);
-  }
-  table.admin_table thead th {
+}
+
+table.admin_table thead th {
     font-size: 17px;
     font-weight: bold;
     color: #F0F0F0;
     text-align: center;
-  }
-.card-text{
+}
+
+.card-text {
     color: black;
+}
+
+.card {
+    border-radius: 50px
 }
