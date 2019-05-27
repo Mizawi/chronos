@@ -1,4 +1,3 @@
-import { stringify } from "querystring";
 jQuery(function($) {
     $(".sidebar-dropdown > a").click(function() {
         $(".sidebar-submenu").slideUp(200);
@@ -151,11 +150,12 @@ jQuery(function($) {
             success: (data) => {
                 console.log(JSON.parse(data[0].cadeiras))
                 $('#query_table_schedule_answer').remove();
-            
+
                 $('#query_table_schedule').append(data);
             }
         })
     });
+
 
     $("#subject-enroll-button").click(() => {
         $(".container-profile").hide();
@@ -170,33 +170,38 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('#query_table_subject_enroll_answer').remove();
-                content = ''
+                content = '<div class="card-deck">'
                 for (i = 0; i < data.length; i++) {
                     turnos = JSON.parse(data[i].value)
-                    content += '<div class="card" style="width: 18rem;">'
+                    console.log(turnos["T"])
+                    content += '<div class="card" style="width: 20rem;">'
                     content += '<div class="card-body">'
-                    content += '<h5>' + data[i].key + '</h5>'
-                    for (c = 0; c < turnos.length; c++) {
-                        if (turnos[c].key == "T") {
-                            content += '<p class="card-text"> Teorica </p>'
-                            content += '<p class="card-text"> ' + numberToDay(turnos[key][0]) + '</p>'
-                            content += '<p class="card-text"> ' + addHours(turnos[key][1], '0' + turnos[key][2] + ':00') + '</p>'
-                        }
-
+                    content += '<h3 class="w3-center">' + data[i].key + '</h3> <br>'
+                    for (var t in turnos) {
+                        content += '<a class="selectTurn" id=' + t + data[i].key + '>'
+                        content += '<br><h3 class="w3-center" id="card-text">[' + t + '] </h3><h5 class="w3-center">' + numberToDay(turnos[t][0]) + '</h5>'
+                        content += '<h5 class="card-text w3-center">' + turnos[t][1] + ' - ' + addHours(turnos[t][1], '0' + turnos[t][2] + ':00') + '</h5> <br>'
+                        content += '<input class="btnTurn" id="btn' + t + data[i].key + '" type="button" onclick="changeClass(' + t + data[i].key + ')" value="Select"> </>'
+                        content += '</a>'
+                        content += '<br>'
                     }
                     content += '</div>'
                     content += '</div>'
                     content += '<br>'
 
                 }
+                content += '</div>'
                 $('#query_table_subject_enroll').append(content);
             }
         })
+
     });
 
 });
 
 $(document).ready(() => {
+
+
     $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
@@ -232,14 +237,16 @@ $(document).ready(() => {
 })
 
 function addHours(t, i) {
-    h = Integer.parseInt(t[0] + t[1]);
-    m = Integer.parseInt(t[3] + t[4]);
-    i_h = Integer.parseInt(i[0] + i[1]);
-    i_m = Integer.parseInt(i[3] + i[4]);
+    h = parseInt(t[0] + t[1]);
+    m = parseInt(t[3] + t[4]);
+    i_h = parseInt(i[0] + i[1]);
+    i_m = parseInt(i[3] + i[4]);
 
     f_h = h + i_h;
     f_m = m + i_m;
-    return stringify(f_h + ':' + f_m);
+
+    return f_h + ':' + f_m + '0';
+
 }
 
 function numberToDay(number) {
@@ -259,4 +266,21 @@ function numberToDay(number) {
         case 6:
             return 'Sexta-feira'
     }
+
+
+}
+
+function changeClass(s) {
+    if (s.classList.contains('selectTurn')) {
+        s.classList.remove('selectTurn');
+        s.classList.add('selectedTurn');
+        document.getElementById('btn' + s.id).value = "Unselect"
+
+    } else if (s.classList.contains('selectedTurn')) {
+        s.classList.remove('selectedTurn');
+        s.classList.add('selectTurn');
+        document.getElementById('btn' + s.id).value = "Select"
+    }
+
+
 }
