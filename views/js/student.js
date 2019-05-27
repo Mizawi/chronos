@@ -169,8 +169,13 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('#query_table_schedule_answer').remove();
-                content = '<h1 id="query_table_schedule_answer">FETCH ENROLL</h1>'
-                $('#query_subject_enroll').append(content);
+                console.log(data.lenght)
+                for(i=0; i<data.lenght;i++){
+                    content = '<h1 id="query_table_schedule_answer">' + data[i].key + '</h1>'
+                    content = '<h1 id="query_table_schedule_answer">' + data[i].value + '</h1>'
+                    console.log(content)
+                    $('#query_subject_enroll').append(content);
+                }
             }
         })
     });

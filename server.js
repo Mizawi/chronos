@@ -212,10 +212,28 @@ app.get("/student-schedule", (req, res) => {
 })
 
 app.get("/subject-enroll", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    sql = 'select cadeiras from aluno where email=?; select curso from aluno where email=?';
+    con.query(sql, [req.user.email, req.user.email], (err, result) => {
         if (err) throw err;
-        res.send(result);
+        aluno_cadeiras = JSON.parse(result[0][0].cadeiras);
+        aluno_curso = JSON.parse(result[1][0].curso)
+        
+        con.query('select nome, horario from cadeiras where curso=?', [aluno_curso], (err, result) => {
+            if(err) throw err;
+            
+            var cadeiras_insc = []
+            for(i=0; i<result.length; i++){
+                if(result[i].nome in aluno_cadeiras){}
+                else{
+                    cadeiras_insc.push({
+                        key: result[i].nome,
+                        value: result[i].horario
+                    });
+                }
+            }
+            res.send(cadeiras_insc);
+            
+        })
     })
 })
 
