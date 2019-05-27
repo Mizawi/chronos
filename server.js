@@ -157,7 +157,7 @@ app.post("/adminCreateStudent", (req, res) => {
     var numero = req.body.aluno_numero;
     console.log(nome);
     console.log(numero);
-    var email = "fc"+numero+"@alunos.fc.ul.pt";
+    var email = "fc" + numero + "@alunos.fc.ul.pt";
     var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
     sql = `insert into aluno (email,information,password,cadeiras,numero_aluno) VALUES ("${email}",${informacao},"123",'{"PTI": "inscrito"}',${numero})`;
     con.query(sql, (err, result) => {
@@ -179,8 +179,7 @@ app.put("/student-edit-profile", (req, res) => {
 })
 
 app.get("/student-subject", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    con.query('select * from aluno WHERE email = ?', [req.user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -217,14 +216,13 @@ app.get("/subject-enroll", (req, res) => {
         if (err) throw err;
         aluno_cadeiras = JSON.parse(result[0][0].cadeiras);
         aluno_curso = JSON.parse(result[1][0].curso)
-        
+
         con.query('select nome, horario from cadeiras where curso=?', [aluno_curso], (err, result) => {
-            if(err) throw err;
-            
+            if (err) throw err;
+
             var cadeiras_insc = []
-            for(i=0; i<result.length; i++){
-                if(result[i].nome in aluno_cadeiras){}
-                else{
+            for (i = 0; i < result.length; i++) {
+                if (result[i].nome in aluno_cadeiras) {} else {
                     cadeiras_insc.push({
                         key: result[i].nome,
                         value: result[i].horario
@@ -232,7 +230,7 @@ app.get("/subject-enroll", (req, res) => {
                 }
             }
             res.send(cadeiras_insc);
-            
+
         })
     })
 })

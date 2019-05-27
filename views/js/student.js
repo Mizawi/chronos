@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 jQuery(function($) {
     $(".sidebar-dropdown > a").click(function() {
         $(".sidebar-submenu").slideUp(200);
@@ -160,21 +161,34 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
-        $('#query_subject_enroll').show();
+        $('#query_table_subject_enroll').show();
 
         $.ajax({
             url: "/subject-enroll",
             type: "get",
             dataType: "json",
             success: (data) => {
-                $('#query_table_schedule_answer').remove();
-                console.log(data.lenght)
-                for(i=0; i<data.lenght;i++){
-                    content = '<h1 id="query_table_schedule_answer">' + data[i].key + '</h1>'
-                    content = '<h1 id="query_table_schedule_answer">' + data[i].value + '</h1>'
-                    console.log(content)
-                    $('#query_subject_enroll').append(content);
+                $('#query_table_subject_enroll_answer').remove();
+                content = ''
+                for (i = 0; i < data.length; i++) {
+                    turnos = JSON.parse(data[i].value)
+                    content += '<div class="card" style="width: 18rem;">'
+                    content += '<div class="card-body">'
+                    content += '<h5>' + data[i].key + '</h5>'
+                    for (c = 0; c < turnos.length; c++) {
+                        if (turnos[c].key == "T") {
+                            content += '<p class="card-text"> Teorica </p>'
+                            content += '<p class="card-text"> ' + numberToDay(turnos[key][0]) + '</p>'
+                            content += '<p class="card-text"> ' + addHours(turnos[key][1], '0' + turnos[key][2] + ':00') + '</p>'
+                        }
+
+                    }
+                    content += '</div>'
+                    content += '</div>'
+                    content += '<br>'
+
                 }
+                $('#query_table_subject_enroll').append(content);
             }
         })
     });
@@ -189,29 +203,59 @@ $(document).ready(() => {
     $('#query_subject_enroll').hide();
 
     $.ajax({
-        url: "/student-profile",
+        url: "/student-subject",
         type: "get",
         dataType: "json",
         success: (data) => {
             $('#query_table_dashboard_answer').remove();
             var info = JSON.parse(data[0].cadeiras)
             content = '<div class="card-deck">'
-                for (var key in info){
-                    //var attrName = key; CHAVE
-                    //var attrValue = obj[key]; VALUE
-                
-                    content += '<div class="card" style="width: 18rem;">'
-                    content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
-                    content += '<div class="card-body">'
-                    content += '<h5 class="'+key+'">'+key+'</h5>'
-                    content += '<p class="card-text">BEM VINDO A '+key+'</p>'
-                    content += '<a href="#" class="btn '+key+'">Página Inicial</a>'
-                    content += '</div>'
-                    content += '</div>'
-                    content += '<br>'
-                }
+            for (var key in info) {
+                //var attrName = key; CHAVE
+                //var attrValue = obj[key]; VALUE
+
+                content += '<div class="card" style="width: 18rem;">'
+                content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
+                content += '<div class="card-body">'
+                content += '<h5 class="' + key + '">' + key + '</h5>'
+                content += '<p class="card-text">BEM VINDO A ' + key + '</p>'
+                content += '<a href="#" class="btn ' + key + '">Página Inicial</a>'
                 content += '</div>'
-                $('#query_table_dashboard').append(content);
+                content += '</div>'
+                content += '<br>'
+            }
+            content += '</div>'
+            $('#query_table_dashboard').append(content);
         }
     })
 })
+
+function addHours(t, i) {
+    h = Integer.parseInt(t[0] + t[1]);
+    m = Integer.parseInt(t[3] + t[4]);
+    i_h = Integer.parseInt(i[0] + i[1]);
+    i_m = Integer.parseInt(i[3] + i[4]);
+
+    f_h = h + i_h;
+    f_m = m + i_m;
+    return stringify(f_h + ':' + f_m);
+}
+
+function numberToDay(number) {
+
+    switch (number) {
+        case 2:
+            return 'Segunda Feira'
+
+        case 3:
+            return 'Terça Feira'
+
+        case 4:
+            return 'Quarta Feira'
+
+        case 5:
+            return 'Quinta-feira'
+        case 6:
+            return 'Sexta-feira'
+    }
+}
