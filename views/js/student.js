@@ -34,7 +34,8 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
-        $('#query_subject_enroll').hide();
+        $('#query_table_subject_enroll').hide();
+
 
         $.ajax({
             url: "/student-profile",
@@ -105,7 +106,8 @@ jQuery(function($) {
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
-        $('#query_subject_enroll').hide();
+        $('#query_table_subject_enroll').hide();
+
 
 
     });
@@ -115,7 +117,8 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_schedule').hide();
-        $('#query_subject_enroll').hide();
+        $('#query_table_subject_enroll').hide();
+
 
         $.ajax({
             url: "/student-subject",
@@ -141,7 +144,7 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
-        $('#query_subject_enroll').hide();
+        $('#query_table_subject_enroll').hide();
 
         $.ajax({
             url: "/student-schedule",
@@ -170,11 +173,11 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('#query_table_subject_enroll_answer').remove();
-                content = '<div class="card-deck">'
+                content = '<div class="card-deck" id="query_table_subject_enroll_answer">'
                 for (i = 0; i < data.length; i++) {
                     turnos = JSON.parse(data[i].value)
                     console.log(turnos["T"])
-                    content += '<div class="card" style="width: 20rem;">'
+                    content += '<div class="card card-enroll" style="width: 20rem;">'
                     content += '<div class="card-body">'
                     content += '<h3 class="w3-center">' + data[i].key + '</h3> <br>'
                     for (var t in turnos) {
