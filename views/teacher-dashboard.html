@@ -131,7 +131,50 @@
             <main class="container-teacher100">
                 <div class="table-responsive" id="query_table_profile"></div>
                 <div class="table-responsive" id="query_table_dashboard"></div>
-                <div class="table-responsive" id="query_table_subjects"></div>
+                <div class="table-responsive" id="query_table_subjects">
+                    <h2>Your list of students</h2>
+                    <br>
+                    <h3>Select a subject to list students</h3>
+                    <br>
+                    Your subjects:<br>
+                    <select id="subjectshow">
+                    </select>
+                    <br>
+                    <br>
+                    <button id="show-button" type="button">Show my students</button>
+                    <br>
+                    <hr>
+                    <br>
+                    <h2>Manage your classes</h2>
+                    <br>
+                    <h3>Transfer student between classes</h3>
+                    <p>You can only perform actions if you select remove and add</p>
+                    <form id="formtransfer">
+                        Student number:<br>
+                        <input type="text" id="student">
+                        <br>
+                        Subject:<br>
+                        <select id="subjectsallowed">
+                            
+                        </select>
+                        <br>
+                        Remove from:<br>
+                        <select id="turnosin">
+                            
+                        </select>
+                        <br>
+                        Add to:<br>
+                        <select id="turnosjoin">
+                            
+                        </select>
+                        <br>
+                        <br>
+                        <button id="transfer-button" type="button">Transfer</button>
+                        <br>
+                        <br>
+                        <p id="transfermsg"></p>
+                    </form>
+                </div>
                 <div class="table-responsive" id="query_table_requests"></div>
 
         </div>

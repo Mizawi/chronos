@@ -1,0 +1,33 @@
+#transfer-button{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:#5F9EA0;
+    margin-top: 10px;
+  }
+
+  #transfer-button:hover{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:rgb(172, 206, 207);
+  }
+
+  #show-button{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:#5F9EA0;
+    margin-top: 10px;
+  }
+
+  #show-button:hover{
+    border:solid 1px #000000;
+    border-radius:7px;
+    padding: 5px 20px 5px 20px;
+    font-weight:bold;
+    background:rgb(172, 206, 207);
+  }

@@ -122,25 +122,184 @@ jQuery(function($) {
             }
         })
     });
-
+    
     $("#subjects-button").click(() => {
+        $('#student').on('keydown', function(event){
+            if (event.which == 13) {
+                event.preventDefault();
+            }
+        });
+
         $(".container-profile").hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_requests').hide();
 
+        $('#query_table_subjects_answer').remove();
+
         $.ajax({
-            url: "/teacher-subject",
+            url: "/teacher-profile",
             type: "get",
             dataType: "json",
             success: (data) => {
+                const cadeiras = Object.keys(JSON.parse(data[0].cadeiras_teacher));
+                let content = '';
+                cadeiras.forEach(subj => {
+                    content += `<option value='${subj}'>${subj}</option>`
+                });
+                $('#subjectshow').html(content);
+            }
+        })
+    });
+
+    $("#student").keyup(() => {
+        const student = $("#student").val();
+        if(student.length > 3){
+            $.ajax({
+                url: "/teacher-fetch",
+                type: "get",
+                dataType: "json",
+                data: {
+                    student: student,
+                },
+                success: (data) => {
+                    if(data.code == 1){
+                        firstsubject = data.matched[0];
+                        subjectsallowed = '';
+                        data.matched.forEach(subj => {
+                            subjectsallowed += `<option value="${subj}">${subj}</option>`;
+                        })
+                        $('#subjectsallowed').html(subjectsallowed);
+                        $.ajax({
+                            url: "/teacher-fetch-classes",
+                            type: "get",
+                            dataType: "json",
+                            data: {
+                                student: student,
+                                subject: firstsubject
+                            },
+                            success: (data) => {
+                                if(data.code == 1){
+                                    turnosin = '';
+                                    data.turnoatual.forEach(turno => {
+                                        turnosin += `<option value="${turno}">${turno}</option>`;
+                                    })
+                                    turnosjoin = '';
+                                    data.turnoscadeira.forEach(turno => {
+                                        turnosjoin += `<option value="${turno}">${turno}</option>`;
+                                    })
+                                    $('#turnosin').html(turnosin);
+                                    $('#turnosjoin').html(turnosjoin);
+                                }else{
+                                    $('#turnosin').html('');
+                                    $('#turnosjoin').html('');
+                                }
+                            }
+                        })
+                    }else{
+                        $('#subjectsallowed').html('');
+                    }
+                }
+            })
+        }
+    });
+
+    $("#subjectsallowed").change(() => {
+        const student = $("#student").val();
+        const subject = $("#subjectsallowed").val();
+        if(student.length > 3){
+            $.ajax({
+                url: "/teacher-fetch-classes",
+                type: "get",
+                dataType: "json",
+                data: {
+                    student: student,
+                    subject: subject
+                },
+                success: (data) => {
+                    if(data.code == 1){
+                        turnosin = '';
+                        data.turnoatual.forEach(turno => {
+                            turnosin += `<option value="${turno}">${turno}</option>`;
+                        })
+                        turnosjoin = '';
+                        data.turnoscadeira.forEach(turno => {
+                            turnosjoin += `<option value="${turno}">${turno}</option>`;
+                        })
+                        $('#turnosin').html(turnosin);
+                        $('#turnosjoin').html(turnosjoin);
+                    }else{
+                        $('#turnosin').html('');
+                        $('#turnosjoin').html('');
+                    }
+                }
+            })
+        }
+    });
+
+    $("#show-button").click(() => {
+        const subject = $("#subjectshow").val();
+        //$("#subjectshow").val('');
+        $.ajax({
+            url: "/teacher-show",
+            type: "get",
+            dataType: "json",
+            data: {
+                subject: subject
+            },
+            success: (data) => {
+                $('#transfermsg').text('');
                 $('#query_table_subjects_answer').remove();
-                content = '<h1 id="query_table_subjects_answer">FETCH SUBJECTS</h1>'
+                let content = "<table class='admin_table' id='query_table_subjects_answer'> <thead class='' > <tr><th >Number </th> <th> Email </th></tr></thead>"
+                data.forEach(item => {
+                    content += '<tr><td>' + item.numero_aluno  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
+                });
+                content += "</table>"
                 $('#query_table_subjects').append(content);
             }
         })
     });
 
+    $("#transfer-button").click(() => {
+        const student = $("#student").val();
+        const subject = $("#subjectsallowed").val();
+        const removefrom = $("#turnosin").val();
+        const addto = $("#turnosjoin").val();
+        $("#student").val('');
+        
+        $.ajax({
+            url: "/teacher-transfer",
+            type: "get",
+            dataType: "json",
+            data: {
+                student: student,
+                subject: subject,
+                removefrom: removefrom,
+                addto: addto
+            },
+            success: (data) => {
+                if(data.code==0){
+                    $('#transfermsg').text('');
+                    $('#transfermsg').append(data.msg);
+                }else{
+                    cadeiras = data;
+                    $.ajax({
+                        url: "/teacher-transfer-set",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            student: student,
+                            cadeiras: cadeiras
+                        },
+                        success: (data) => {
+                            $('#transfermsg').text('');
+                            $('#transfermsg').append(data.msg);
+                        }
+                    })
+                }
+            }
+        })
+    });
 });
 
 $(document).ready(() => {
