@@ -188,6 +188,7 @@ jQuery(function($) {
                 dataType: "json",
                 data: { texto_pesquisa: valor_a_pesquisar },
                 success: (data) => {
+                    $(".settings-admin-div").hide();
                     $('#messagesettings').remove();
                     $('#query-table-answer').remove();
 

@@ -35,7 +35,9 @@ jQuery(function($) {
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').hide();
 
+        $('#messagesettings').remove();
 
         $.ajax({
             url: "/student-profile",
@@ -107,8 +109,9 @@ jQuery(function($) {
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').hide();
 
-
+        $('#messagesettings').remove();
 
     });
 
@@ -118,7 +121,9 @@ jQuery(function($) {
         $('#query_table_subjects').show();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').hide();
 
+        $('#messagesettings').remove();
 
         $.ajax({
             url: "/student-subject",
@@ -145,6 +150,9 @@ jQuery(function($) {
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
         $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').hide();
+
+        $('#messagesettings').remove();
 
         $.ajax({
             url: "/student-schedule",
@@ -166,6 +174,9 @@ jQuery(function($) {
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').show();
+        $('#query_table_settings').hide();
+
+        $('#messagesettings').remove();
 
         $.ajax({
             url: "/subject-enroll",
@@ -200,16 +211,75 @@ jQuery(function($) {
 
     });
 
+    $("#settingsbutton").click(() => {
+        $(".container-profile").hide();
+        $('#query_table_dashboard').hide();
+        $('#query_table_subjects').hide();
+        $('#query_table_schedule').hide();
+        $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').show();
+
+        $('#messagesettings').remove();
+    });
+
+    $("#savesettings-button").click(() => {
+        $('#messagesettings').remove();
+        
+        $.ajax({
+            url: "/adminSettings",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                const theme = document.getElementById("themeselector").value;
+                const timezone = document.getElementById("timezoneselector").value;
+                document.cookie = "timezone=" + timezone + ";";
+                document.cookie = "theme=" + theme + ";";
+
+                content = "<p id='messagesettings'>" + data.status + "</p>";
+                $('#query_table_settings').append(content);
+
+                if (theme === "darktheme") {
+                    $(".container-student100").css("background", "#444a55");
+                } else {
+                    $(".container-student100").css("background", "linear-gradient(-135deg, #014483, #1B9CE5)");
+                }
+
+            }
+        })
+    });
+
 });
 
 $(document).ready(() => {
+    function getCookie(cname) {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 
+    if (getCookie("theme") === "darktheme") {
+        $(".container-student100").css("background", "#444a55");
+    } else {
+        $(".container-student100").css("background", "linear-gradient(-135deg, #014483, #1B9CE5)");
+    }
 
     $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_schedule').hide();
-    $('#query_subject_enroll').hide();
+    $('#query_table_subject_enroll').hide();
+    $('#query_table_settings').hide();
+
 
     $.ajax({
         url: "/student-subject",

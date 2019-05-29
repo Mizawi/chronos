@@ -118,7 +118,7 @@
                         <i class="fa fa-envelope"></i>
                         <span class="badge badge-pill badge-success notification">0</span>
                     </a>
-                    <a href="#">
+                    <a href="#" id="settingsbutton">
                         <i class="fa fa-cog"></i>
                         <span class="badge-sonar"></span>
                     </a>
@@ -176,6 +176,31 @@
                     </form>
                 </div>
                 <div class="table-responsive" id="query_table_requests"></div>
+                <div class="table-responsive" id="query_table_settings">
+                    <div>
+                        <h1>Your settings:</h1>
+                        <form id="formsettings">
+                            Timezone:
+                            <br>
+                            <select id="timezoneselector">
+                                    <option value="gmt">GMT +0</option>
+                                    <option value="cet">GMT +1</option>
+                                    <option value="eet">GMT +2</option>
+                                    <option value="wat">GMT -1</option>
+                                    <option value="cdt">GMT -5</option>
+                                    <option value="pdt">GMT -7</option>
+                                </select>
+                            <br> Theme:
+                            <br>
+                            <select id="themeselector">
+                                    <option value="regulartheme">Regular theme</option>
+                                    <option value="darktheme">Dark theme</option>
+                                </select>
+                            <br>
+                            <button type="button" id="savesettings-button">Save</button>
+                        </form>
+                    </div>
+                    </div>
 
         </div>
         </main>

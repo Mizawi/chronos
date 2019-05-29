@@ -1,15 +1,4 @@
-  /*-----------------------------settings div-------------------------------------------------*/
-  #formsettings{
-    padding: 10px 0 10px 0;
-    margin: 10px;
-    font-size: 20px;
-  }
-
-  #formsettings > select{
-    margin: 0 0 10px 0;
-  }
-
-  #savesettings-button{
+#criar_aluno{
     border:solid 1px #000000;
     border-radius:7px;
     padding: 5px 20px 5px 20px;
@@ -18,7 +7,7 @@
     margin-top: 10px;
   }
 
-  #savesettings-button:hover{
+  #criar_aluno:hover{
     border:solid 1px #000000;
     border-radius:7px;
     padding: 5px 20px 5px 20px;

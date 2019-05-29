@@ -159,7 +159,7 @@ app.post("/adminCreateStudent", (req, res) => {
     console.log(numero);
     var email = "fc" + numero + "@alunos.fc.ul.pt";
     var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
-    sql = `insert into aluno (email,information,password,cadeiras,numero_aluno) VALUES ("${email}",${informacao},"123",'{"PTI": "inscrito"}',${numero})`;
+    sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},123,0)`;
     con.query(sql, (err, result) => {
         if (err) throw err;
         res.send(result);

@@ -41,8 +41,11 @@ jQuery(function($) {
         $(".container-profile").show();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
-        $('#query_table_schedule').hide();
-        $('#query_subject_enroll').hide();
+        $('#query_table_requests').hide();
+        $('#query_table_settings').hide();
+
+        $('#transfermsg').text('');
+        $('#messagesettings').remove();
 
         $.ajax({
             url: "/teacher-profile",
@@ -91,6 +94,10 @@ jQuery(function($) {
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_requests').hide();
+        $('#query_table_settings').hide();
+
+        $('#transfermsg').text('');
+        $('#messagesettings').remove();
 
 
         $.ajax({
@@ -110,7 +117,10 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_requests').show();
+        $('#query_table_settings').hide();
 
+        $('#transfermsg').text('');
+        $('#messagesettings').remove();
         $.ajax({
             url: "/teacher-request",
             type: "get",
@@ -134,6 +144,10 @@ jQuery(function($) {
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_requests').hide();
+        $('#query_table_settings').hide();
+
+        $('#transfermsg').text('');
+        $('#messagesettings').remove();
 
         $('#query_table_subjects_answer').remove();
 
@@ -261,6 +275,8 @@ jQuery(function($) {
     });
 
     $("#transfer-button").click(() => {
+        $('#query_table_subjects_answer').remove();
+
         const student = $("#student").val();
         const subject = $("#subjectsallowed").val();
         const removefrom = $("#turnosin").val();
@@ -300,13 +316,73 @@ jQuery(function($) {
             }
         })
     });
+
+    $("#settingsbutton").click(() => {
+        $(".container-profile").hide();
+        $('#query_table_dashboard').hide();
+        $('#query_table_subjects').hide();
+        $('#query_table_requests').hide();
+        $('#query_table_settings').show();
+
+        $('#transfermsg').text('');
+        $('#messagesettings').remove();
+    });
+
+    $("#savesettings-button").click(() => {
+        $('#messagesettings').remove();
+        
+        $.ajax({
+            url: "/adminSettings",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                const theme = document.getElementById("themeselector").value;
+                const timezone = document.getElementById("timezoneselector").value;
+                document.cookie = "timezone=" + timezone + ";";
+                document.cookie = "theme=" + theme + ";";
+
+                content = "<p id='messagesettings'>" + data.status + "</p>";
+                $('#query_table_settings').append(content);
+
+                if (theme === "darktheme") {
+                    $(".container-teacher100").css("background", "#444a55");
+                } else {
+                    $(".container-teacher100").css("background", "linear-gradient(-135deg, #e67300, #ff8c1a)");
+                }
+
+            }
+        })
+    });
 });
 
 $(document).ready(() => {
+    function getCookie(cname) {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    if (getCookie("theme") === "darktheme") {
+        $(".container-teacher100").css("background", "#444a55");
+    } else {
+        $(".container-teacher100").css("background", "linear-gradient(-135deg, #e67300, #ff8c1a)");
+    }
+
     $(".container-profile").hide();
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_requests').hide();
+    $('#query_table_settings').hide();
 
     $.ajax({
         url: "/teacher-profile",
