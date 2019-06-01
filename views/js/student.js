@@ -167,7 +167,6 @@ jQuery(function($) {
         })
     });
 
-
     $("#subject-enroll-button").click(() => {
         $(".container-profile").hide();
         $('#query_table_dashboard').hide();
@@ -187,29 +186,32 @@ jQuery(function($) {
                 content = '<div class="card-deck" id="query_table_subject_enroll_answer">'
                 for (i = 0; i < data.length; i++) {
                     turnos = JSON.parse(data[i].value)
-                    console.log(turnos["T"])
-                    content += '<div class="card card-enroll" style="width: 20rem;">'
+                    content += '<div class="card card-enroll" id=' + data[i].key + ' style="width: 20rem;">'
                     content += '<div class="card-body">'
                     content += '<h3 class="w3-center">' + data[i].key + '</h3> <br>'
                     for (var t in turnos) {
-                        content += '<a class="selectTurn" id=' + t + data[i].key + '>'
+                        content += '<a class="selectTurn" id=' + t + "_" + data[i].key + '>'
                         content += '<br><h3 class="w3-center" id="card-text">[' + t + '] </h3><h5 class="w3-center">' + numberToDay(turnos[t][0]) + '</h5>'
                         content += '<h5 class="card-text w3-center">' + turnos[t][1] + ' - ' + addHours(turnos[t][1], '0' + turnos[t][2] + ':00') + '</h5> <br>'
-                        content += '<input class="btnTurn" id="btn' + t + data[i].key + '" type="button" onclick="changeClass(' + t + data[i].key + ')" value="Select"> </>'
+                        content += '<input class="btnTurn" id="btn' + t + "_" + data[i].key + '" type="button" onclick="changeClass(' + t + "_" + data[i].key + ')" value="Select"> </>'
                         content += '</a>'
                         content += '<br>'
                     }
                     content += '</div>'
+                    content += '<input class="subject-enroll-submit-btn" id="submit-btn' + t + "_" + data[i].key + '" type="button" onclick="enroll(' + data[i].key + ')" value="Submit"> </>'
                     content += '</div>'
                     content += '<br>'
 
                 }
+
                 content += '</div>'
                 $('#query_table_subject_enroll').append(content);
             }
         })
 
     });
+
+
 
     $("#settingsbutton").click(() => {
         $(".container-profile").hide();
@@ -224,7 +226,7 @@ jQuery(function($) {
 
     $("#savesettings-button").click(() => {
         $('#messagesettings').remove();
-        
+
         $.ajax({
             url: "/adminSettings",
             type: "get",
@@ -356,4 +358,27 @@ function changeClass(s) {
     }
 
 
+}
+
+function enroll(s) {
+    var card = document.querySelectorAll('.selectedTurn');
+    Array.prototype.forEach.call(card, function(element, index) {
+        subject = element.id.split("_")[1]
+        turno = element.id.split("_")[0]
+        if (s.id == subject) {
+            if (turno.includes("TP")) {
+                $.ajax({
+                    url: "/subject-enroll-submit",
+                    type: "POST",
+                    data: { "subject": subject, "turno": turno },
+                    dataType: "json",
+                    success: (data) => {
+                        alert(subject + " : " + data.msg + ' in ' + turno);
+                        $('#' + turno + "_" + subject).remove('selectedTurn')
+                        $('#' + subject).remove()
+                    }
+                })
+            }
+        }
+    })
 }

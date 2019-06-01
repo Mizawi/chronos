@@ -208,25 +208,25 @@ app.get("/student-schedule", (req, res) => {
         if (err) throw err;
         cadeiras = JSON.parse(result[0].cadeiras);
         for (key in cadeiras) {
-            if(cadeiras[key] == "concluido"){
+            if (cadeiras[key] == "concluido") {
                 delete cadeiras[key];
             }
         }
         sql = 'select nome, horario from cadeiras';
-        con.query(sql, (err, result) =>{
-            if(err) throw err;
-            for(k in cadeiras){
-                for(i in result){
-                    if(k == result[i].nome){
-                       for(key in JSON.parse(result[i].horario)){
-                           if(cadeiras[k] == key){
-                               cadeiras[k] = ['T',JSON.parse(result[i].horario)['T'], cadeiras[k], JSON.parse(result[i].horario)[key]];
-                           }
-                       }
+        con.query(sql, (err, result) => {
+            if (err) throw err;
+            for (k in cadeiras) {
+                for (i in result) {
+                    if (k == result[i].nome) {
+                        for (key in JSON.parse(result[i].horario)) {
+                            if (cadeiras[k] == key) {
+                                cadeiras[k] = ['T', JSON.parse(result[i].horario)['T'], cadeiras[k], JSON.parse(result[i].horario)[key]];
+                            }
+                        }
                     }
                 }
             }
-            res.send(cadeiras);            
+            res.send(cadeiras);
         })
     })
 })
@@ -238,10 +238,10 @@ app.get("/subject-enroll", (req, res) => {
         aluno_cadeiras = JSON.parse(result[0].cadeiras);
         aluno_curso = JSON.parse(result[0].curso);
         aluno_ano = JSON.parse(result[0].ano);
-        
+
         con.query('select nome, horario from cadeiras where curso=? and ano=?', [aluno_curso, aluno_ano], (err, result) => {
-            if(err) throw err;
-            
+            if (err) throw err;
+
             var cadeiras_insc = []
             for (i = 0; i < result.length; i++) {
                 if (result[i].nome in aluno_cadeiras) {} else {
@@ -273,23 +273,23 @@ app.get("/teacher-fetch", (req, res) => {
     sql = 'select cadeiras from aluno where numero_aluno = ?;select cadeiras_teacher from professor where numero_prof = ?;';
 
     con.query(sql, [student, numero_prof], (err, result) => {
-        if(result[0].length>0 && result[1].length>0){
+        if (result[0].length > 0 && result[1].length > 0) {
             let cadeirasin = Object.keys(JSON.parse(result[0][0].cadeiras));
             let subjects = Object.keys(JSON.parse(result[1][0].cadeiras_teacher));
 
             let matched = [];
             subjects.forEach(subj => {
                 cadeirasin.forEach(cad => {
-                    if(subj == cad){
+                    if (subj == cad) {
                         matched.push(subj);
                     }
                 })
             })
-            res.send({code: 1, matched: matched, subjects:subjects})
-        }else{
-            res.send({code: 0})
+            res.send({ code: 1, matched: matched, subjects: subjects })
+        } else {
+            res.send({ code: 0 })
         }
-        
+
     })
 
 })
@@ -309,7 +309,7 @@ app.get("/teacher-fetch-classes", (req, res) => {
         const turnos = Object.keys(JSON.parse(result[1][0].horario));
         turnoscadeira = turnos.filter(x => x != "T");
 
-        res.send({code: 1, turnoatual: turnoatual, turnoscadeira: turnoscadeira})
+        res.send({ code: 1, turnoatual: turnoatual, turnoscadeira: turnoscadeira })
     })
 })
 
@@ -319,7 +319,7 @@ app.get("/teacher-transfer", (req, res) => {
     const subject = req.query.subject;
     const removefrom = req.query.removefrom;
     const addto = req.query.addto;
-    if(student.length > 0 && subject.length>0 && removefrom.length>0 && addto.length>0){
+    if (student.length > 0 && subject.length > 0 && removefrom.length > 0 && addto.length > 0) {
         sql = 'select cadeiras from aluno where numero_aluno = ?;';
 
         con.query(sql, [student], (err, result) => {
@@ -332,8 +332,8 @@ app.get("/teacher-transfer", (req, res) => {
 
             res.send(cadeiras);
         })
-    }else{
-        res.send({msg: "Fill all fields before transfer", code: 0});
+    } else {
+        res.send({ msg: "Fill all fields before transfer", code: 0 });
     }
 })
 
@@ -344,7 +344,7 @@ app.get("/teacher-transfer-set", (req, res) => {
     sql = `UPDATE aluno SET cadeiras = '${newinfo}' WHERE numero_aluno = ${student};`;
     con.query(sql, (err, result) => {
         if (err) throw err;
-        res.send({msg: "Student classes changed successfully"});
+        res.send({ msg: "Student classes changed successfully" });
     })
 })
 
@@ -364,6 +364,18 @@ app.get("/teacher-request", (req, res) => {
         res.send(result);
     })
 })
+
+app.post("/subject-enroll-submit", (req, res) => {
+    con.query("select * from aluno where email = ?", [req.user.email], function(err, result) {
+        cadeiras = JSON.parse(result[0].cadeiras)
+        cadeiras[req.body.subject] = [req.body.turno]
+        sql = `UPDATE aluno SET cadeiras = ? WHERE email = ?`;
+        con.query(sql, [JSON.stringify(cadeiras), req.user.email], (err, result) => {
+            if (err) throw err;
+            res.send({ msg: "Student enroll sucess" });
+        })
+    })
+});
 
 //Server Functions
 //Login
@@ -408,10 +420,10 @@ app.post("/auth", (req, res) => {
                 res.redirect(307, "/authTeacher")
             }
             break;
-        
+
         default:
             res.redirect("/?error=1")
-        break;
+            break;
     }
 })
 
