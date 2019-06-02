@@ -155,11 +155,12 @@ app.get("/adminSettings", (req, res) => {
 app.post("/adminCreateStudent", (req, res) => {
     var nome = req.body.aluno_nome;
     var numero = req.body.aluno_numero;
+    var curso = req.body.aluno_curso;
 
     if(nome.length>0 && numero.length>0){
         var email = "fc" + numero + "@alunos.fc.ul.pt";
         var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
-        sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},123,0)`;
+        sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},${curso},0)`;
         con.query(sql, (err, result) => {
             if (err) throw err;
             res.send({code: 1, msg:"Student has been created"});

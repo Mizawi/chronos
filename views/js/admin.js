@@ -160,10 +160,16 @@ jQuery(function($) {
     $("#criar_aluno").click(() => {
         var aluno_nome = $("#aluno_nome").val()
         var aluno_numero = $("#aluno_numero").val()
+        var aluno_curso = $("#aluno_curso").val()
+
         $.ajax({
             url: "/adminCreateStudent",
             type: "post",
-            data: {"aluno_nome": aluno_nome, "aluno_numero": aluno_numero },
+            data: {
+                "aluno_nome": aluno_nome, 
+                "aluno_numero": aluno_numero,
+                "aluno_curso": aluno_curso
+             },
             dataType: "json",
             success: (data) => {
                 if(data.code==1){
