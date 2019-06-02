@@ -391,7 +391,7 @@ $(document).ready(() => {
                 content += '<div class="card-body">'
                 content += '<h5 class="' + key + '">' + key + '</h5>'
                 content += '<p class="card-text">BEM VINDO A ' + key + '</p>'
-                content += '<a href="#" class="btn ' + key + '">Página Inicial</a>'
+                content += '<a class="btn ' + key + '">Página Inicial</a>'
                 content += '</div>'
                 content += '</div>'
                 content += '<br>'

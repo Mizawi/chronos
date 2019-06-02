@@ -346,7 +346,6 @@ app.get("/teacher-fetch-classes", (req, res) => {
     })
 })
 
-
 app.get("/teacher-transfer", (req, res) => {
     const student = req.query.student;
     const subject = req.query.subject;
@@ -409,6 +408,8 @@ app.post("/subject-enroll-submit", (req, res) => {
         })
     })
 });
+
+
 
 //Server Functions
 //Login

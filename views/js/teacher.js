@@ -353,6 +353,9 @@ jQuery(function($) {
             }
         })
     });
+
+
+
 });
 
 $(document).ready(() => {
@@ -401,7 +404,7 @@ $(document).ready(() => {
                 content += '<div class="card-body">'
                 content += '<h5 class="'+key+'">'+key+'</h5>'
                 content += '<p class="card-text">BEM VINDO A '+key+'</p>'
-                content += '<a href="#" class="btn '+key+'">Gerir Página</a>'
+                content += '<a class="btn '+key+'">Gerir Página</a>'
                 content += '</div>'
                 content += '</div>'
                 content += '<br>'
