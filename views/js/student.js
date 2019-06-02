@@ -151,7 +151,6 @@ jQuery(function($) {
         $('#query_table_schedule').show();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
-
         $('#messagesettings').remove();
 
         $.ajax({
@@ -159,11 +158,55 @@ jQuery(function($) {
             type: "get",
             dataType: "json",
             success: (data) => {
-                console.log(data)
-                $('#query_table_schedule_answer').remove();
+                var table = $('#schedule')
+                for (subject in data) {
+                    var i = 0
+                    while (i != Object.keys(data[subject]).length) {
+                        horario_subject = data[subject]
+                        if (horario_subject[i].includes('T')) {
 
-                $('#query_table_schedule').append(data);
+                            turno = horario_subject[i]
+                            diaSemana = numberToDay(horario_subject[parseInt(i) + 1][0])
+                            horaInicial = horario_subject[parseInt(i) + 1][1]
+                            horaFinal = addHours(horaInicial, '0' + horario_subject[parseInt(i) + 1][2] + ':00')
+
+                            console.log('Informacao: ' + turno, diaSemana, horaInicial, horaFinal)
+
+
+                            $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
+                                if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
+                                    console.log(el)
+                                    el.classList.remove('empty')
+                                    el.classList.add('full')
+                                    el.append(subject + '   ' + '[' + turno + ']')
+                                }
+                            })
+
+                        } else if ((horario_subject[i][0]).includes('TP')) {
+
+                            turno = horario_subject[i][0]
+                            diaSemana = numberToDay(horario_subject[parseInt(i) + 1][0])
+                            horaInicial = horario_subject[parseInt(i) + 1][1]
+                            horaFinal = addHours(horaInicial, '0' + horario_subject[parseInt(i) + 1][2] + ':00')
+
+                            console.log('Informacao: ' + turno, diaSemana, horaInicial, horaFinal)
+
+                            $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
+                                if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
+                                    console.log(el)
+                                    el.classList.remove('empty')
+                                    el.classList.add('full')
+                                    el.append(subject + '   ' + '[' + turno + ']')
+                                }
+                            })
+
+                        }
+                        i = i + 2
+                    }
+                }
             }
+
+
         })
     });
 
@@ -320,7 +363,11 @@ function addHours(t, i) {
     f_h = h + i_h;
     f_m = m + i_m;
 
-    return f_h + ':' + f_m + '0';
+    if (f_m == 30) {
+        return f_h + ':' + f_m;
+    } else {
+        return f_h + ':' + f_m + '0';
+    }
 
 }
 
@@ -340,6 +387,8 @@ function numberToDay(number) {
             return 'Quinta-feira'
         case 6:
             return 'Sexta-feira'
+        case 7:
+            return 'Sabado'
     }
 
 

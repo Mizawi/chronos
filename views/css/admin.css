@@ -1,16 +1,16 @@
-#criar_aluno{
-    border:solid 1px #000000;
-    border-radius:7px;
+#criar_aluno {
+    border: solid 1px #000000;
+    border-radius: 7px;
     padding: 5px 20px 5px 20px;
-    font-weight:bold;
-    background:#5F9EA0;
+    font-weight: bold;
+    background: #5F9EA0;
     margin-top: 10px;
-  }
+}
 
-  #criar_aluno:hover{
-    border:solid 1px #000000;
-    border-radius:7px;
+#criar_aluno:hover {
+    border: solid 1px #000000;
+    border-radius: 7px;
     padding: 5px 20px 5px 20px;
-    font-weight:bold;
-    background:rgb(172, 206, 207);
-  }
+    font-weight: bold;
+    background: rgb(172, 206, 207);
+}
