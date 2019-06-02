@@ -157,11 +157,7 @@ jQuery(function($) {
         $('#query_table_schedule').show();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
-<<<<<<< HEAD
-=======
         $('#query_table_pedido').hide();
-
->>>>>>> 12b7615a455d039b83f189c59f79985561ce918d
         $('#messagesettings').remove();
 
         $.ajax({
@@ -319,24 +315,24 @@ jQuery(function($) {
         initialFetch(0);
     });
 
-    $("#requestChange").click(()=> {
+    $("#requestChange").click(() => {
         const cadeira = $("#mySubjects").val();
         const turnoin = $("#myClasses").val();
         const turnojoin = $("#joinClasses").val();
-        
+
         $.ajax({
             url: "/studentRequest",
             type: "get",
             dataType: "json",
-            data:{
+            data: {
                 cadeira: cadeira,
                 turnoin: turnoin,
                 turnojoin: turnojoin
             },
             success: (data) => {
-               if(data.code == 1){
-                   $("#requestmsg").text(data.msg);
-               }
+                if (data.code == 1) {
+                    $("#requestmsg").text(data.msg);
+                }
             }
         })
     });
@@ -360,7 +356,7 @@ $(document).ready(() => {
         return "";
     }
 
-    $( "#mySubjects" ).change(() => {
+    $("#mySubjects").change(() => {
         initialFetch(1);
     });
 
@@ -486,7 +482,7 @@ function enroll(s) {
     })
 }
 
-function initialFetch(x){
+function initialFetch(x) {
     $.ajax({
         url: "/fetchForChange",
         type: "get",
@@ -497,15 +493,15 @@ function initialFetch(x){
             let cadeiraSelected;
             let turnosCadeira;
 
-            if(x==0){
+            if (x == 0) {
                 cadeiraSelected = cadeiras[0];
-            }else{
+            } else {
                 cadeiraSelected = $("#mySubjects").val();
             }
 
             turnosCadeira = JSON.parse(data[0].cadeiras)[cadeiraSelected];
 
-            if(x==0){
+            if (x == 0) {
                 let cadeirasIn = '';
                 cadeiras.forEach(cadeira => {
                     cadeirasIn += `<option value="${cadeira}">${cadeira}</option>`
@@ -531,14 +527,14 @@ function initialFetch(x){
                 success: (data) => {
                     const turnos = Object.keys(JSON.parse(data[0].horario));
                     turnos.forEach(turno => {
-                        if (turno != "T"){
+                        if (turno != "T") {
                             toSelectJoin += `<option value="${turno}">${turno}</option>`
                         }
                     })
 
                     $("#joinClasses").html(toSelectJoin);
                 }
-            }) 
+            })
         }
     })
 }
