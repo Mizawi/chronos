@@ -1,14 +1,4 @@
   /*-----------------------------settings div-------------------------------------------------*/
-  
-  #formsettings {
-      padding: 10px 0 10px 0;
-      margin: 10px;
-  }
-  
-  #formsettings>select {
-      margin: 0 0 10px 0;
-  }
-  
   .customButton {
       border: solid 1px #000000;
       color: white;

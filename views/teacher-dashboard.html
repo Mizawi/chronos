@@ -131,9 +131,10 @@
                 <div class="table-responsive" id="query_table_profile"></div>
                 <div class="table-responsive" id="query_table_dashboard"></div>
                 <div class="table-responsive" id="query_table_subjects">
-                    <h2>Your list of students</h2>
+                    <h2>Your students</h2>
                     <br>
-                    <h3>Select a subject to list students</h3>
+                    <h3>List students by subject</h3>
+                    <p>Select a subject to list students</p>
                     <br>
                     Your subjects:<br>
                     <select id="subjectshow">
@@ -148,6 +149,7 @@
                     <br>
                     <h3>Transfer student between classes</h3>
                     <p>You can only perform actions if you select remove and add</p>
+                    <br>
                     <form id="formtransfer">
                         Student number:<br>
                         <input type="text" placeholder="Number" id="student">
@@ -177,7 +179,9 @@
                 <div class="table-responsive" id="query_table_requests"></div>
                 <div class="table-responsive" id="query_table_settings">
                     <div>
-                        <h2>Your settings:</h2>
+                        <h2>Your settings</h2>
+                        <p>You can change your settings here</p>
+                        <br>
                         <form id="formsettings">
                             Timezone:
                             <br>
@@ -188,13 +192,13 @@
                                     <option value="wat">GMT -1</option>
                                     <option value="cdt">GMT -5</option>
                                     <option value="pdt">GMT -7</option>
-                                </select>
+                                </select><br>
                             <br> Theme:
                             <br>
                             <select id="themeselector">
                                     <option value="regulartheme">Regular theme</option>
                                     <option value="darktheme">Dark theme</option>
-                                </select>
+                                </select><br>
                             <br>
                             <button class="customButton" type="button" id="savesettings-button">Save</button>
                         </form>
