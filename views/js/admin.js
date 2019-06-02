@@ -41,6 +41,8 @@ jQuery(function($) {
         $(".settings-admin-div").hide();
         $(".createStudent-admin-div").show();
         $(".admin_table").hide();
+
+        $("#createStudentMsg").text('');
         $('#messagesettings').remove();
     });
 
@@ -72,7 +74,7 @@ jQuery(function($) {
                 $('#query_table').append(content);
 
                 if (theme === "darktheme") {
-                    $(".container-admin100").css("background", "#444a55");
+                    $(".container-admin100").css("background", "rgb(140, 143, 148)");
                 } else {
                     $(".container-admin100").css("background", "linear-gradient(-135deg, #037009, #12bb03)");
                 }
@@ -164,7 +166,12 @@ jQuery(function($) {
             data: {"aluno_nome": aluno_nome, "aluno_numero": aluno_numero },
             dataType: "json",
             success: (data) => {
-                alert("ALUNO CRIADO");
+                if(data.code==1){
+                    $("#createStudentMsg").text(data.msg);
+                }
+                else{
+                    $("#createStudentMsg").text(data.msg);
+                }
                 $("#aluno_numero").val(" ");
                 $("#aluno_nome").val(" ");
             }
@@ -263,7 +270,7 @@ $(document).ready(() => {
     }
 
     if (getCookie("theme") === "darktheme") {
-        $(".container-admin100").css("background", "#444a55");
+        $(".container-admin100").css("background", "rgb(140, 143, 148)");
     } else {
         $(".container-admin100").css("background", "linear-gradient(-135deg, #037009, #12bb03)");
     }

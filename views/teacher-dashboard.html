@@ -120,7 +120,6 @@
                     </a>
                     <a href="#" id="settingsbutton">
                         <i class="fa fa-cog"></i>
-                        <span class="badge-sonar"></span>
                     </a>
                     <a href="#" id="logoutbtn">
                         <i class="fa fa-power-off"></i>
@@ -141,7 +140,7 @@
                     </select>
                     <br>
                     <br>
-                    <button id="show-button" type="button">Show my students</button>
+                    <button class="customButton" id="show-button" type="button">Show my students</button>
                     <br>
                     <hr>
                     <br>
@@ -151,7 +150,7 @@
                     <p>You can only perform actions if you select remove and add</p>
                     <form id="formtransfer">
                         Student number:<br>
-                        <input type="text" id="student">
+                        <input type="text" placeholder="Number" id="student">
                         <br>
                         Subject:<br>
                         <select id="subjectsallowed">
@@ -169,7 +168,7 @@
                         </select>
                         <br>
                         <br>
-                        <button id="transfer-button" type="button">Transfer</button>
+                        <button class="customButton" id="transfer-button" type="button">Transfer</button>
                         <br>
                         <br>
                         <p id="transfermsg"></p>
@@ -178,7 +177,7 @@
                 <div class="table-responsive" id="query_table_requests"></div>
                 <div class="table-responsive" id="query_table_settings">
                     <div>
-                        <h1>Your settings:</h1>
+                        <h2>Your settings:</h2>
                         <form id="formsettings">
                             Timezone:
                             <br>
@@ -197,7 +196,7 @@
                                     <option value="darktheme">Dark theme</option>
                                 </select>
                             <br>
-                            <button type="button" id="savesettings-button">Save</button>
+                            <button class="customButton" type="button" id="savesettings-button">Save</button>
                         </form>
                     </div>
                     </div>

@@ -155,15 +155,20 @@ app.get("/adminSettings", (req, res) => {
 app.post("/adminCreateStudent", (req, res) => {
     var nome = req.body.aluno_nome;
     var numero = req.body.aluno_numero;
-    console.log(nome);
-    console.log(numero);
-    var email = "fc" + numero + "@alunos.fc.ul.pt";
-    var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
-    sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},123,0)`;
-    con.query(sql, (err, result) => {
-        if (err) throw err;
-        res.send(result);
-    })
+
+    if(nome.length>0 && numero.length>0){
+        var email = "fc" + numero + "@alunos.fc.ul.pt";
+        var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
+        sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},123,0)`;
+        con.query(sql, (err, result) => {
+            if (err) throw err;
+            res.send({code: 1, msg:"Student has been created"});
+        })
+    }else{
+        res.send({code: 0, msg:"Fill all fields before create"});
+    }
+
+    
 })
 
 //Student Queries
@@ -256,6 +261,33 @@ app.get("/subject-enroll", (req, res) => {
         })
     })
 })
+
+app.get("/fetchForChange", (req, res) => {
+    con.query('select cadeiras from aluno WHERE numero_aluno = ?', [req.user.numero_aluno], function(err, result) {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/fetchTurnosCadeira", (req, res) => {
+    const cadeira = req.query.cadeira;
+    con.query('select horario from cadeiras WHERE nome = ?', [cadeira], function(err, result) {
+        if (err) throw err;
+        res.send(result);
+    })
+})
+
+app.get("/studentRequest", (req, res) => {
+    const cadeira = req.query.cadeira;
+    const turnoin = req.query.turnoin;
+    const turnojoin = req.query.turnojoin;
+
+    con.query('insert into pedidos (numero_aluno, cadeira, turnosaida, turnoentrada) values (?,?,?,?)', [req.user.numero_aluno, cadeira, turnoin, turnojoin], function(err, result) {
+        if (err) throw err;
+        res.send({code: 1, msg: "Your request is now under approval"});
+    })
+})
+
 
 //Teacher queries
 app.get("/teacher-profile", (req, res) => {
