@@ -57,6 +57,7 @@
     background-color: rgb(11, 133, 11);
 }
 
+<<<<<<< HEAD
 #schedule {
     border: solid rgb(0, 0, 0) 1px;
     border-radius: 10px;
@@ -90,3 +91,9 @@
     color: black;
     text-align: center;
 }
+=======
+  #query_table_pedido{
+      width: 25%;
+      min-width: 320px;
+  }
+>>>>>>> 12b7615a455d039b83f189c59f79985561ce918d

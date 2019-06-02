@@ -345,7 +345,7 @@ jQuery(function($) {
                 $('#query_table_settings').append(content);
 
                 if (theme === "darktheme") {
-                    $(".container-teacher100").css("background", "#444a55");
+                    $(".container-teacher100").css("background", "rgb(140, 143, 148)");
                 } else {
                     $(".container-teacher100").css("background", "linear-gradient(-135deg, #e67300, #ff8c1a)");
                 }
@@ -373,7 +373,7 @@ $(document).ready(() => {
     }
 
     if (getCookie("theme") === "darktheme") {
-        $(".container-teacher100").css("background", "#444a55");
+        $(".container-teacher100").css("background", "rgb(140, 143, 148)");
     } else {
         $(".container-teacher100").css("background", "linear-gradient(-135deg, #e67300, #ff8c1a)");
     }

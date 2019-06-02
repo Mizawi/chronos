@@ -93,6 +93,12 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="#" id="changeButton">
+                                    <i class="fa fa-list-alt" aria-hidden="true"></i>
+                                    <span id="change">Transfer Request</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#" id="subject-enroll-button">
                                     <i class="fa fa-list-alt" aria-hidden="true"></i>
                                     <span id="requests">Subject Enroll</span>
@@ -126,7 +132,6 @@
                     </a>
                     <a href="#" id="settingsbutton">
                         <i class="fa fa-cog"></i>
-                        <span class="badge-sonar"></span>
                     </a>
                     <a href="#" id="logoutbtn">
                         <i class="fa fa-power-off"></i>
@@ -274,7 +279,7 @@
                 </div>
                 <div class="table-responsive" id="query_table_settings">
                     <div>
-                        <h1>Your settings:</h1>
+                        <h2>Your settings:</h2>
                         <form id="formsettings">
                             Timezone:
                             <br>
@@ -293,11 +298,39 @@
                                     <option value="darktheme">Dark theme</option>
                                 </select>
                             <br>
-                            <button type="button" id="savesettings-button">Save</button>
+                            <button class="customButton" type="button" id="savesettings-button">Save</button>
                         </form>
                     </div>
                 </div>
-            </main>
+                <div class="table-responsive" id="query_table_pedido">
+                    <h2>Manage your classes</h2>
+                    <br>
+                    <h3>Request transfers</h3>
+                    <p>You can only request transfers for your subjects</p>
+                    <form id="requestChangeForm">
+                        Subject:<br>
+                        <select id="mySubjects">
+                            
+                        </select>
+                        <br>
+                        Remove from:<br>
+                        <select id="myClasses">
+                            
+                        </select>
+                        <br>
+                        Add to:<br>
+                        <select id="joinClasses">
+                            
+                        </select>
+                        <br>
+                        <br>
+                        <button class="customButton" id="requestChange" type="button">Request</button>
+                        <br>
+                        <br>
+                        <p id="requestmsg"></p>
+                    </form>
+                </div>
+             </main>
             <!-- page-content" -->
         </div>
         <!-- page-wrapper -->

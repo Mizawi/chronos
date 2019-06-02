@@ -36,6 +36,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
+        $('#query_table_pedido').hide();
 
         $('#messagesettings').remove();
 
@@ -110,8 +111,12 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
+        $('#query_table_pedido').show();
 
+        $("#requestmsg").text('');
         $('#messagesettings').remove();
+
+        initialFetch(0);
 
     });
 
@@ -122,6 +127,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
+        $('#query_table_pedido').hide();
 
         $('#messagesettings').remove();
 
@@ -151,6 +157,11 @@ jQuery(function($) {
         $('#query_table_schedule').show();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
+<<<<<<< HEAD
+=======
+        $('#query_table_pedido').hide();
+
+>>>>>>> 12b7615a455d039b83f189c59f79985561ce918d
         $('#messagesettings').remove();
 
         $.ajax({
@@ -217,6 +228,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').show();
         $('#query_table_settings').hide();
+        $('#query_table_pedido').hide();
 
         $('#messagesettings').remove();
 
@@ -254,8 +266,6 @@ jQuery(function($) {
 
     });
 
-
-
     $("#settingsbutton").click(() => {
         $(".container-profile").hide();
         $('#query_table_dashboard').hide();
@@ -263,6 +273,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').show();
+        $('#query_table_pedido').hide();
 
         $('#messagesettings').remove();
     });
@@ -284,11 +295,48 @@ jQuery(function($) {
                 $('#query_table_settings').append(content);
 
                 if (theme === "darktheme") {
-                    $(".container-student100").css("background", "#444a55");
+                    $(".container-student100").css("background", "rgb(140, 143, 148)");
                 } else {
                     $(".container-student100").css("background", "linear-gradient(-135deg, #014483, #1B9CE5)");
                 }
 
+            }
+        })
+    });
+
+    $("#changeButton").click(() => {
+        $(".container-profile").hide();
+        $('#query_table_dashboard').hide();
+        $('#query_table_subjects').hide();
+        $('#query_table_schedule').hide();
+        $('#query_table_subject_enroll').hide();
+        $('#query_table_settings').hide();
+        $('#query_table_pedido').show();
+
+        $("#requestmsg").text('');
+        $('#messagesettings').remove();
+
+        initialFetch(0);
+    });
+
+    $("#requestChange").click(()=> {
+        const cadeira = $("#mySubjects").val();
+        const turnoin = $("#myClasses").val();
+        const turnojoin = $("#joinClasses").val();
+        
+        $.ajax({
+            url: "/studentRequest",
+            type: "get",
+            dataType: "json",
+            data:{
+                cadeira: cadeira,
+                turnoin: turnoin,
+                turnojoin: turnojoin
+            },
+            success: (data) => {
+               if(data.code == 1){
+                   $("#requestmsg").text(data.msg);
+               }
             }
         })
     });
@@ -312,8 +360,12 @@ $(document).ready(() => {
         return "";
     }
 
+    $( "#mySubjects" ).change(() => {
+        initialFetch(1);
+    });
+
     if (getCookie("theme") === "darktheme") {
-        $(".container-student100").css("background", "#444a55");
+        $(".container-student100").css("background", "rgb(140, 143, 148)");
     } else {
         $(".container-student100").css("background", "linear-gradient(-135deg, #014483, #1B9CE5)");
     }
@@ -324,7 +376,7 @@ $(document).ready(() => {
     $('#query_table_schedule').hide();
     $('#query_table_subject_enroll').hide();
     $('#query_table_settings').hide();
-
+    $('#query_table_pedido').show();
 
     $.ajax({
         url: "/student-subject",
@@ -352,6 +404,8 @@ $(document).ready(() => {
             $('#query_table_dashboard').append(content);
         }
     })
+
+    initialFetch(0);
 })
 
 function addHours(t, i) {
@@ -428,6 +482,63 @@ function enroll(s) {
                     }
                 })
             }
+        }
+    })
+}
+
+function initialFetch(x){
+    $.ajax({
+        url: "/fetchForChange",
+        type: "get",
+        dataType: "json",
+        success: (data) => {
+            const cadeiras = Object.keys(JSON.parse(data[0].cadeiras));
+            console.log(JSON.parse(data[0].cadeiras));
+            let cadeiraSelected;
+            let turnosCadeira;
+
+            if(x==0){
+                cadeiraSelected = cadeiras[0];
+            }else{
+                cadeiraSelected = $("#mySubjects").val();
+            }
+
+            turnosCadeira = JSON.parse(data[0].cadeiras)[cadeiraSelected];
+
+            if(x==0){
+                let cadeirasIn = '';
+                cadeiras.forEach(cadeira => {
+                    cadeirasIn += `<option value="${cadeira}">${cadeira}</option>`
+                });
+                $("#mySubjects").html(cadeirasIn);
+            }
+
+            let toSelectIn = '';
+            turnosCadeira.forEach(turno => {
+                toSelectIn += `<option value="${turno}">${turno}</option>`
+            });
+            $("#myClasses").html(toSelectIn);
+
+
+            let toSelectJoin = '';
+            $.ajax({
+                url: "fetchTurnosCadeira",
+                type: "get",
+                dataType: "json",
+                data: {
+                    cadeira: cadeiraSelected
+                },
+                success: (data) => {
+                    const turnos = Object.keys(JSON.parse(data[0].horario));
+                    turnos.forEach(turno => {
+                        if (turno != "T"){
+                            toSelectJoin += `<option value="${turno}">${turno}</option>`
+                        }
+                    })
+
+                    $("#joinClasses").html(toSelectJoin);
+                }
+            }) 
         }
     })
 }

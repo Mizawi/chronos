@@ -137,7 +137,6 @@
                     </a>
                     <a href="#" id="settingsbutton">
                         <i class="fa fa-cog"></i>
-                        <span class="badge-sonar"></span>
                     </a>
                     <a href="#" id="logoutbtn">
                         <i class="fa fa-power-off"></i>
@@ -150,7 +149,7 @@
                 <div class="table-responsive" id="query_table">
                     <div class="settings-admin-div">
                         <div>
-                            <h1>Your settings:</h1>
+                            <h2>Your settings:</h2>
                             <form id="formsettings">
                                 Timezone:
                                 <br>
@@ -169,30 +168,27 @@
                                         <option value="darktheme">Dark theme</option>
                                     </select>
                                 <br>
-                                <button type="button" id="savesettings-button">Save</button>
+                                <button class="customButton" type="button" id="savesettings-button">Save</button>
                             </form>
                         </div>
                         </div>
                         <div class="createStudent-admin-div">
+                            <h2>Create student</h2>
+                            <br>
+                            <h3>Enter name and number to create student</h3>
+                            <br>
                             <form class="criaAluno-form validate-form">
-                                <span class="criaAluno-form-title ">
-                                    CHRONOS CREATE STUDENT
-                                </span>
-            
-                                <div class="form-group">
-                                    <label>Nome Completo</label>
-                                    <input type="text" class="form-control" id="aluno_nome"  placeholder="Nome Completo">
-                                </div>
-                                <div class="form-group">
-                                    <label>Numero Aluno</label>
-                                    <input type="text" class="form-control" id="aluno_numero" placeholder="Numero Aluno">
-                                </div>
-                                <div class="container-criaAluno-form-btn">
-                                    <button type='button' class="criaAluno-form-btn" id="criar_aluno" type="submit">
-                                        Criar Aluno
-                                    </button>
-                                </div>
-            
+                                Name:<br>
+                                <input type="text" id="aluno_nome"  placeholder="Name"><br>
+                                <br>
+                                Number:<br>
+                                <input type="text" id="aluno_numero" placeholder="Number">
+                                <br>
+                                <br>
+                                <button type='button' class="customButton" id="criar_aluno">Criar Aluno</button>
+                                <br>
+                                <br>
+                                <p id="createStudentMsg"></p>
                             </form>
                         </div>
 
