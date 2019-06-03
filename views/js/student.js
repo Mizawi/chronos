@@ -183,9 +183,11 @@ jQuery(function($) {
                             $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
                                 if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
                                     console.log(el)
-                                    el.classList.remove('empty')
-                                    el.classList.add('full')
-                                    el.append(subject + '   ' + '[' + turno + ']')
+                                    if (el.classList.contains('empty')) {
+                                        el.classList.remove('empty')
+                                        el.classList.add('full')
+                                        el.append(subject + '   ' + '[' + turno + ']')
+                                    }
                                 }
                             })
 
@@ -200,10 +202,11 @@ jQuery(function($) {
 
                             $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
                                 if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
-                                    console.log(el)
-                                    el.classList.remove('empty')
-                                    el.classList.add('full')
-                                    el.append(subject + '   ' + '[' + turno + ']')
+                                    if (el.classList.contains('empty')) {
+                                        el.classList.remove('empty')
+                                        el.classList.add('full')
+                                        el.append(subject + '   ' + '[' + turno + ']')
+                                    }
                                 }
                             })
 
