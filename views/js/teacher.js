@@ -441,4 +441,17 @@ $(document).ready(() => {
             $('#query_table_dashboard').append(content);
         }
     })
+
+    $.ajax({
+        url: "/teacher-request",
+        type: "get",
+        dataType: "json",
+        success: (data) => {
+            if(data.code == 1){
+                if(data.requests.length>0){
+                    $("#hasRequests").text(data.requests.length);
+                }
+            }
+        }
+    })
 })

@@ -6,6 +6,10 @@
     background-color: #f1f1f1;
     cursor: pointer;
 }
+
+nav > a{
+    color: white;
+}
 /*-----------------------------settings div-------------------------------------------------*/
   .customButton {
       border: solid 1px #000000;
@@ -1316,7 +1320,7 @@
   .chiller-theme .sidebar-wrapper .sidebar-brand>a,
   .chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
   .chiller-theme .sidebar-footer>a {
-      color: #818896;
+      color: #ffffff;
   }
   
   .chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a,
@@ -1324,7 +1328,7 @@
   .chiller-theme .sidebar-wrapper .sidebar-header .user-info,
   .chiller-theme .sidebar-wrapper .sidebar-brand>a:hover,
   .chiller-theme .sidebar-footer>a:hover i {
-      color: #b8bfce;
+      color: #ffffff;
   }
   
   .page-wrapper.chiller-theme.toggled #close-sidebar {

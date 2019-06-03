@@ -111,7 +111,7 @@ jQuery(function($) {
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
-        $('#query_table_pedido').show();
+        $('#query_table_pedido').hide();
 
         $("#requestmsg").text('');
         $('#messagesettings').remove();
@@ -375,7 +375,7 @@ $(document).ready(() => {
     $('#query_table_schedule').hide();
     $('#query_table_subject_enroll').hide();
     $('#query_table_settings').hide();
-    $('#query_table_pedido').show();
+    $('#query_table_pedido').hide();
 
     $.ajax({
         url: "/student-subject",
