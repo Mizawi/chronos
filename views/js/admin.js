@@ -178,6 +178,7 @@ jQuery(function($) {
                 else{
                     $("#createStudentMsg").text(data.msg);
                 }
+                $("#aluno_curso").val(" ")
                 $("#aluno_numero").val(" ");
                 $("#aluno_nome").val(" ");
             }

@@ -126,9 +126,40 @@ jQuery(function($) {
             type: "get",
             dataType: "json",
             success: (data) => {
-                $('#query_table_requests_answer').remove();
-                content = '<h1 id="query_table_requests_answer">FETCH REQUESTS</h1>'
-                $('#query_table_requests').append(content);
+                $('#query_table_requests').html('');
+                let content = `
+                <h2>Your requests</h2>
+                <br>
+                <h3>List of requests pending</h3>
+                <p>You have to approve or reject in order to transfer the student or not</p>
+                <br>`;
+                
+                if(data.code==1){
+                    const requests = data.requests;
+                    requests.forEach(request => {
+                        const id = request.id;
+                        const cadeira = request.cadeira;
+                        const nraluno = request.numero_aluno;
+                        const turnosaida = request.turnosaida;
+                        const turnoentrada = request.turnoentrada;
+
+                        content += `
+                        <div id="${id}">
+                        <hr>
+                        <p>Request id: ${id}</span></p>
+                        <p>Subject: ${cadeira}</span></p>
+                        <p>Number: ${nraluno}</span></p>
+                        <p>Remove from: ${turnosaida}</span></p>
+                        <p>Add to: ${turnoentrada}</span></p>
+                        <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', ${nraluno}, '${turnosaida}', '${turnoentrada}')">Approve</button>
+                        <button class="customButton rejectButton" type="button" onclick="reject(${id})">Reject</button>
+                        </div>`;
+                    })
+                }else{
+                    content += `<h4>${data.msg}</h4>`;
+                }
+
+                $('#query_table_requests').html(content);
             }
         })
     });
@@ -353,9 +384,6 @@ jQuery(function($) {
             }
         })
     });
-
-
-
 });
 
 $(document).ready(() => {

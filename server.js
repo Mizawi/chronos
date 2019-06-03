@@ -292,7 +292,6 @@ app.get("/studentRequest", (req, res) => {
 
 //Teacher queries
 app.get("/teacher-profile", (req, res) => {
-    console.log(req.user)
     con.query('select * from professor WHERE email = ?', [req.user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
@@ -351,6 +350,7 @@ app.get("/teacher-transfer", (req, res) => {
     const subject = req.query.subject;
     const removefrom = req.query.removefrom;
     const addto = req.query.addto;
+
     if (student.length > 0 && subject.length > 0 && removefrom.length > 0 && addto.length > 0) {
         sql = 'select cadeiras from aluno where numero_aluno = ?;';
 
@@ -380,6 +380,24 @@ app.get("/teacher-transfer-set", (req, res) => {
     })
 })
 
+app.get("/teacherReject", (req, res) => {
+    const requestid = req.query.requestid;
+    sql = `delete from pedidos where id=?`;
+    con.query(sql, [requestid], (err, result) => {
+        if (err) throw err;
+        res.send({code:1, msg:"Request rejected"});
+    })
+})
+
+app.get("/teacherApprove", (req, res) => {
+    const requestid = req.query.requestid;
+    sql = `delete from pedidos where id=?`;
+    con.query(sql, [requestid], (err, result) => {
+        if (err) throw err;
+        res.send({code:1, msg:"Request approved"});
+    })
+})
+
 app.get("/teacher-show", (req, res) => {
     const subject = req.query.subject;
     sql = `select email, numero_aluno from aluno where JSON_EXTRACT(cadeiras , '$.${subject}') IS NOT NULL;`;
@@ -390,10 +408,22 @@ app.get("/teacher-show", (req, res) => {
 })
 
 app.get("/teacher-request", (req, res) => {
-    sql = 'select * from aluno';
-    con.query(sql, (err, result) => {
+    sql = 'select * from pedidos; select cadeiras_teacher from professor where numero_prof = ?';
+    con.query(sql, [req.user.numero_prof], (err, result) => {
         if (err) throw err;
-        res.send(result);
+        const cadeiras = Object.keys(JSON.parse(result[1][0].cadeiras_teacher));
+        const requests = [];
+        result[0].forEach(row => {
+            if(cadeiras.includes(row.cadeira) && JSON.parse(result[1][0].cadeiras_teacher)[row.cadeira]=="regente"){
+                requests.push(row);
+            }
+        })
+
+        if(requests.length > 0){
+            res.send({code: 1, requests: requests, msg:"You have pending requests"});
+        }else{
+            res.send({code: 0, requests: requests, msg:"You do not have pending requests"});
+        }
     })
 })
 

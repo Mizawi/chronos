@@ -210,5 +210,64 @@
     <!-- page-wrapper -->
     </div>
 </body>
+<script>
+    function reject(id){
+        $.ajax({
+            url: "/teacherReject",
+            type: "get",
+            dataType: "json",
+            data: {
+                requestid: id
+            },
+            success: (data) => {
+                console.log(data.msg);
+                $(`#${id}`).remove();
+            }
+        })
+    }
 
+    function approve(id, cadeira, nraluno, turnosaida, turnoentrada){
+        $.ajax({
+            url: "/teacher-transfer",
+            type: "get",
+            dataType: "json",
+            data: {
+                student: nraluno,
+                subject: cadeira,
+                removefrom: turnosaida,
+                addto: turnoentrada
+            },
+            success: (data) => {
+                if(data.code==0){
+                    console.log(data.msg);
+                }else{
+                    cadeiras = data;
+                    $.ajax({
+                        url: "/teacher-transfer-set",
+                        type: "get",
+                        dataType: "json",
+                        data: {
+                            student: nraluno,
+                            cadeiras: cadeiras
+                        },
+                        success: (data) => {
+                            $.ajax({
+                                url: "/teacherApprove",
+                                type: "get",
+                                dataType: "json",
+                                data: {
+                                    requestid: id
+                                },
+                                success: (data) => {
+                                    console.log(data.msg);
+                                    $(`#${id}`).remove();
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    }
+</script>
 </html>
