@@ -231,7 +231,9 @@ jQuery(function($) {
                                     })
                                     turnosjoin = '';
                                     data.turnoscadeira.forEach(turno => {
-                                        turnosjoin += `<option value="${turno}">${turno}</option>`;
+                                        if(!data.turnoatual.includes(turno)){
+                                            turnosjoin += `<option value="${turno}">${turno}</option>`;
+                                        }
                                     })
                                     $('#turnosin').html(turnosin);
                                     $('#turnosjoin').html(turnosjoin);
@@ -269,7 +271,9 @@ jQuery(function($) {
                         })
                         turnosjoin = '';
                         data.turnoscadeira.forEach(turno => {
-                            turnosjoin += `<option value="${turno}">${turno}</option>`;
+                            if(!turnoatual.includes(turno)){
+                                turnosjoin += `<option value="${turno}">${turno}</option>`;
+                            }
                         })
                         $('#turnosin').html(turnosin);
                         $('#turnosjoin').html(turnosjoin);

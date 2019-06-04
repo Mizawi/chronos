@@ -531,7 +531,9 @@ function initialFetch(x) {
                     const turnos = Object.keys(JSON.parse(data[0].horario));
                     turnos.forEach(turno => {
                         if (turno != "T") {
-                            toSelectJoin += `<option value="${turno}">${turno}</option>`
+                            if(!turnosCadeira.includes(turno)){
+                                toSelectJoin += `<option value="${turno}">${turno}</option>`
+                            }
                         }
                     })
 
