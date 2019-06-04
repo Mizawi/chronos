@@ -30,7 +30,7 @@ jQuery(function($) {
     });
 
     $("#profile-button").click(() => {
-        $(".container-profile").show();
+        $("#query_table_profile").show();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -531,7 +531,7 @@ function initialFetch(x) {
                     const turnos = Object.keys(JSON.parse(data[0].horario));
                     turnos.forEach(turno => {
                         if (turno != "T") {
-                            if(!turnosCadeira.includes(turno)){
+                            if (!turnosCadeira.includes(turno)) {
                                 toSelectJoin += `<option value="${turno}">${turno}</option>`
                             }
                         }
