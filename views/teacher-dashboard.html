@@ -94,15 +94,8 @@
                             </li>
 
                             <li class="header-menu">
-                                <span>Extra</span>
                             </li>
-                            <li>
-                                <a>
-                                    <i class="fa fa-book"></i>
-                                    <span>Support</span>
-                                    <span class="badge badge-pill badge-primary">Beta</span>
-                                </a>
-                            </li>
+
 
                         </ul>
                     </div>
@@ -135,8 +128,7 @@
                     <br>
                     <h3>List students by subject</h3>
                     <p>Select a subject to list students</p>
-                    <br>
-                    Your subjects:<br>
+                    <br> Your subjects:<br>
                     <select id="subjectshow">
                     </select>
                     <br>
@@ -153,18 +145,16 @@
                     <form id="formtransfer">
                         Student number:<br>
                         <input type="text" placeholder="Number" id="student">
-                        <br><br>
-                        Subject:<br>
+                        <br><br> Subject:
+                        <br>
                         <select id="subjectsallowed">
                             
                         </select>
-                        <br><br>
-                        Remove from:<br>
+                        <br><br> Remove from:<br>
                         <select id="turnosin">
                             
                         </select>
-                        <br><br>
-                        Add to:<br>
+                        <br><br> Add to:<br>
                         <select id="turnosjoin">
                             
                         </select>
@@ -203,15 +193,15 @@
                             <button class="customButton" type="button" id="savesettings-button">Save</button>
                         </form>
                     </div>
-                    </div>
+                </div>
             </main>
-        <!-- page-content" -->
+            <!-- page-content" -->
         </div>
-    <!-- page-wrapper -->
+        <!-- page-wrapper -->
     </div>
 </body>
 <script>
-    function reject(id){
+    function reject(id) {
         $.ajax({
             url: "/teacherReject",
             type: "get",
@@ -227,7 +217,7 @@
         })
     }
 
-    function approve(id, cadeira, nraluno, turnosaida, turnoentrada){
+    function approve(id, cadeira, nraluno, turnosaida, turnoentrada) {
         $.ajax({
             url: "/teacher-transfer",
             type: "get",
@@ -239,9 +229,9 @@
                 addto: turnoentrada
             },
             success: (data) => {
-                if(data.code==0){
+                if (data.code == 0) {
                     console.log(data.msg);
-                }else{
+                } else {
                     cadeiras = data;
                     $.ajax({
                         url: "/teacher-transfer-set",
@@ -272,25 +262,26 @@
         })
     }
 
-    function refetch(){
+    function refetch() {
         $.ajax({
-                    url: "/teacher-request",
-                    type: "get",
-                    dataType: "json",
-                    success: (data) => {
-                        if(data.code == 1){
-                            if(data.requests.length>0){
-                                $("#hasRequests").text(data.requests.length);
-                            }
-                        }else{
-                            $("#hasRequests").text(data.requests.length);
-                            $('#query_table_requests').html(`<h2>Your requests</h2><br>
+            url: "/teacher-request",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                if (data.code == 1) {
+                    if (data.requests.length > 0) {
+                        $("#hasRequests").text(data.requests.length);
+                    }
+                } else {
+                    $("#hasRequests").text(data.requests.length);
+                    $('#query_table_requests').html(`<h2>Your requests</h2><br>
                                                              <h3>List of requests pending</h3>
                                                              <p>You have to approve or reject in order to transfer the student or not</p>
                                                              <br><h4>${data.msg}</h4>`);
-                        }
-                    }
-                })
+                }
+            }
+        })
     }
 </script>
+
 </html>
