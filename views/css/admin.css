@@ -12,3 +12,8 @@ input[type=text] {
     padding: 5px 15px;
     box-sizing: border-box;
   }
+
+  .createStudent-admin-div{
+    float:left;
+    padding:40px;
+  }

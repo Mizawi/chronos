@@ -185,6 +185,31 @@ jQuery(function($) {
         })
     });
 
+    $("#criar_prof").click(() => {
+        var prof_nome = $("#prof_nome").val()
+        var prof_numero = $("#prof_numero").val()
+
+        $.ajax({
+            url: "/adminCreateProf",
+            type: "post",
+            data: {
+                "prof_nome": prof_nome, 
+                "prof_numero": prof_numero,
+             },
+            dataType: "json",
+            success: (data) => {
+                if(data.code==1){
+                    $("#createProfMsg").text(data.msg);
+                }
+                else{
+                    $("#createProfMsg").text(data.msg);
+                }
+                $("#prof_numero").val(" ");
+                $("#prof_nome").val(" ");
+            }
+        })
+    });
+
     const generalInput = document.getElementById("generalInput");
     // Execute a function when the user releases a key on the keyboard
     generalInput.addEventListener("keyup", function(event) {

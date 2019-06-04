@@ -49,10 +49,10 @@ jQuery(function($) {
                 var info = JSON.parse(data[0].information)
                 content = '<div class="show container-profile">'
                 content += '<div class="container-profile-icon"><h5>Informação Principal</h5><br>'
-                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome:' +
-                    info.nome + '</p><p>Cargo:' +
-                    info.cargo + '</p><p>Numero:' +
-                    info.numero + '</p><p>Email:' +
+                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome: ' +
+                    info.nome + '</p><p>Cargo: ' +
+                    info.cargo + '</p><p>Numero: ' +
+                    info.numero + '</p><p>Email: ' +
                     data[0].email + '</p></div></div>'
                 content += '<div class="container-profile-maininfo"><h5> Contactos e Disponibilização de Informação </h4><br><p> Nome de Utilizador: ' +
                     info.nomeUtilizador + '</p><p> Morada[Pessoal]: ' +
@@ -118,29 +118,6 @@ jQuery(function($) {
 
         initialFetch(0);
 
-    });
-
-    $("#subjects-button").click(() => {
-        $(".container-profile").hide();
-        $('#query_table_dashboard').hide();
-        $('#query_table_subjects').show();
-        $('#query_table_schedule').hide();
-        $('#query_table_subject_enroll').hide();
-        $('#query_table_settings').hide();
-        $('#query_table_pedido').hide();
-
-        $('#messagesettings').remove();
-
-        $.ajax({
-            url: "/student-subject",
-            type: "get",
-            dataType: "json",
-            success: (data) => {
-                $('#query_table_subjects_answer').remove();
-                content = '<h1 id="query_table_subjects_answer">FETCH SUBJECTS</h1>'
-                $('#query_table_subjects').append(content);
-            }
-        })
     });
 
     $("#logoutbtn").click(() => {

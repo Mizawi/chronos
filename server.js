@@ -168,8 +168,23 @@ app.post("/adminCreateStudent", (req, res) => {
     }else{
         res.send({code: 0, msg:"Fill all fields before create"});
     }
+})
 
-    
+app.post("/adminCreateProf", (req, res) => {
+    var nome = req.body.prof_nome;
+    var numero = req.body.prof_numero;
+
+    if(nome.length>0 && numero.length>0){
+        var email = "prof" + numero + "@fc.ul.pt";
+        var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Docente", "email_p": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "prof${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
+        sql = `insert into professor (email,information,password,numero_prof, cadeiras_teacher) VALUES ("${email}",${informacao},"123",${numero},'{}')`;
+        con.query(sql, (err, result) => {
+            if (err) throw err;
+            res.send({code: 1, msg:"Professor has been created"});
+        })
+    }else{
+        res.send({code: 0, msg:"Fill all fields before create"});
+    }
 })
 
 //Student Queries

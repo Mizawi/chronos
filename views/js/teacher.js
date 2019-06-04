@@ -56,10 +56,10 @@ jQuery(function($) {
                 var info = JSON.parse(data[0].information)
                 content = '<div class="show container-profile">'
                 content += '<div class="container-profile-icon"><h5>Informação Principal</h5><br>'
-                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome:' +
-                    info.nome + '</p><p>Cargo:' +
-                    info.cargo + '</p><p>Numero:' +
-                    info.numero + '</p><p>Email:' +
+                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome: ' +
+                    info.nome + '</p><p>Cargo: ' +
+                    info.cargo + '</p><p>Numero: ' +
+                    info.numero + '</p><p>Email: ' +
                     data[0].email + '</p></div></div>'
                 content += '<div class="container-profile-maininfo"><h5> Contactos e Disponibilização de Informação </h4><br><p> Nome de Utilizador: ' +
                     info.nomeUtilizador + '</p><p> Morada[Pessoal]: ' +
