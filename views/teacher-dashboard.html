@@ -222,6 +222,7 @@
             success: (data) => {
                 console.log(data.msg);
                 $(`#${id}`).remove();
+                refetch();
             }
         })
     }
@@ -261,6 +262,7 @@
                                 success: (data) => {
                                     console.log(data.msg);
                                     $(`#${id}`).remove();
+                                    refetch();
                                 }
                             })
                         }
@@ -268,6 +270,27 @@
                 }
             }
         })
+    }
+
+    function refetch(){
+        $.ajax({
+                    url: "/teacher-request",
+                    type: "get",
+                    dataType: "json",
+                    success: (data) => {
+                        if(data.code == 1){
+                            if(data.requests.length>0){
+                                $("#hasRequests").text(data.requests.length);
+                            }
+                        }else{
+                            $("#hasRequests").text(data.requests.length);
+                            $('#query_table_requests').html(`<h2>Your requests</h2><br>
+                                                             <h3>List of requests pending</h3>
+                                                             <p>You have to approve or reject in order to transfer the student or not</p>
+                                                             <br><h4>${data.msg}</h4>`);
+                        }
+                    }
+                })
     }
 </script>
 </html>
