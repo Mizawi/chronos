@@ -5,11 +5,22 @@ var express = require('express'),
     path = require('path'),
     con = require('./database'),
     yes = require('yes-https'),
-    passport = require('passport'),
-    LocalStrategy = require('passport-local').Strategy,
     flash = require("connect-flash");
+    authRoutes = require('./routes/authRoutes');
+const passportSetup = ('./passport-setup');
+const cookieSession = require('cookie-session');
+const passport = require('passport')
+app.use(require('./routes'));
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: ['ptiptr2019']
+}))
+
+app.use(passport.initialize());
+app.use(passport.session())
 
 //Passport
+/*
 passport.use('admin', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'pass',
@@ -86,19 +97,18 @@ passport.deserializeUser((email, done) => {
             break;
     }
 });
+*/
 
 
 app.use(require('serve-static')(__dirname + '/../../public'));
 app.use(require('cookie-parser')());
 app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'ptiptr2019', resave: true, saveUninitialized: true }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(express.json());
 app.use(flash());
 app.use(yes());
 app.use(express.static(path.join(__dirname, '/views')));
-app.use(require('./routes'));
+app.use('/auth', authRoutes);
 
 
 
@@ -459,23 +469,6 @@ app.post("/subject-enroll-submit", (req, res) => {
 //Server Functions
 //Login
 
-app.post("/authAdmin", passport.authenticate('admin', {
-    successRedirect: '/admin',
-    failureRedirect: "/?error=1"
-}));
-
-
-app.post("/authTeacher", passport.authenticate('teacher', {
-    successRedirect: '/teacher-dashboard',
-    failureRedirect: "/?error=1"
-}));
-
-
-app.post("/authStudent", passport.authenticate('student', {
-    successRedirect: '/student-dashboard',
-    failureRedirect: "/?error=1"
-}));
-
 app.post("/auth", (req, res) => {
     email = req.body.email
     password = req.body.pass
@@ -484,7 +477,7 @@ app.post("/auth", (req, res) => {
     switch (role) {
         case 'email.com':
             if (email && password) {
-                res.redirect(307, "/authAdmin")
+                res.redirect("/auth/google/admin")
             }
             break;
 
