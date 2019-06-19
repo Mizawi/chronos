@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((email, done) => {
-    con.query('select * from admin where email=?', [email], (err, result) => {
+    con.query('select * from users where email=?', [email], (err, result) => {
         if (err) throw err;
         done(null, result)
     })
@@ -16,18 +16,30 @@ passport.deserializeUser((email, done) => {
 
 passport.use(
     new GoogleStrategy({
-        callbackURL: '/auth/google/admin',
+        callbackURL: '/auth/google/redirect',
         clientID: '405516367875-dkk9cjbj8vr6viu681lmqhufputcm6vo.apps.googleusercontent.com',
         clientSecret: 'tWGFNFlWbkathxy_3yLVEGwA'
     }, (accessToken, refreshToken, profile, done) => {
-        console.log('aqui')
-        con.query('select * from admin where googleid=?', [profile.id], (err, result) => {
+        sql = 'select * from users where googleid=?'
+        con.query(sql, [profile.id], (err, result) => {
             if (err) throw err;
-            user = ({
-                name: JSON.parse(result[0].information).nome,
-                email: result[0].email
-            })
-            done(null, user)
+            if(result[0].email_admin != undefined){
+                user = ({
+                    email: result[0].email_admin
+                })
+                done(null, user)
+            }else if(result[0].email_student != undefined){
+                user = ({
+                    email: result[0].email_student
+                })
+                done(null, user)
+            }else{
+                user = ({
+                    email: result[0].email_prof
+                })
+                done(null, user)
+            }
+            
         })
     })
 )

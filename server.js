@@ -7,6 +7,7 @@ var express = require('express'),
     yes = require('yes-https'),
     flash = require("connect-flash");
     authRoutes = require('./routes/authRoutes');
+
 const passportSetup = ('./passport-setup');
 const cookieSession = require('cookie-session');
 const passport = require('passport')
@@ -18,86 +19,6 @@ app.use(cookieSession({
 
 app.use(passport.initialize());
 app.use(passport.session())
-
-//Passport
-/*
-passport.use('admin', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'pass',
-        passReqToCallback: true
-    },
-    function(req, email, pass, done) {
-        con.query("select * from admin where email=?", [email], function(err, rows) {
-            if (err) return done(err);
-            if (!rows.length) { return done(null, false, req.flash('loginMessage', 'No user found.')) }
-            if (!(rows[0].password == pass))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            return done(null, rows[0]);
-        });
-    }
-));
-
-passport.use('student', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'pass',
-        passReqToCallback: true
-    },
-    function(req, email, pass, done) {
-        con.query("select * from aluno where email=?", [email], function(err, rows) {
-            if (err) return done(err);
-            if (!rows.length) { return done(null, false, req.flash('loginMessage', 'No user found.')) }
-            if (!(rows[0].password == pass))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            return done(null, rows[0]);
-        });
-    }
-));
-
-passport.use('teacher', new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'pass',
-        passReqToCallback: true
-    },
-    function(req, email, pass, done) {
-        con.query("select * from professor where email=?", [email], function(err, rows) {
-            if (err) return done(err);
-            if (!rows.length) { return done(null, false, req.flash('loginMessage', 'No user found.')) }
-            if (!(rows[0].password == pass))
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-            return done(null, rows[0]);
-        });
-    }
-));
-
-passport.serializeUser((user, done) => {
-    role = user.email.split("@")[1];
-    time = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    con.query("insert into logs (user, timestamp) values (?,?)", [user.email, time]);
-    done(null, user.email, role);
-});
-passport.deserializeUser((email, done) => {
-    role = email.split("@")[1];
-    switch (role) {
-        case 'email.com':
-            con.query("select * from admin where email = ?", [email], function(err, rows) {
-                done(err, rows[0]);
-            });
-            break;
-
-        case 'alunos.fc.ul.pt':
-            con.query("select * from aluno where email = ?", [email], function(err, rows) {
-                done(err, rows[0]);
-            });
-            break;
-
-        case 'fc.ul.pt':
-            con.query("select * from professor where email = ?", [email], function(err, rows) {
-                done(err, rows[0]);
-            });
-            break;
-    }
-});
-*/
 
 
 app.use(require('serve-static')(__dirname + '/../../public'));
@@ -199,7 +120,7 @@ app.post("/adminCreateProf", (req, res) => {
 
 //Student Queries
 app.get("/student-profile", (req, res) => {
-    con.query('select * from aluno WHERE email = ?', [req.user.email], function(err, result) {
+    con.query('select * from aluno WHERE email = ?', [user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -210,23 +131,24 @@ app.put("/student-edit-profile", (req, res) => {
 })
 
 app.get("/student-subject", (req, res) => {
-    con.query('select * from aluno WHERE email = ?', [req.user.email], function(err, result) {
+    con.query('select * from aluno WHERE email = ?', [user.email], function(err, result) {
         if (err) throw err;
+        console.log(user.email)
         res.send(result);
     })
 })
 
 app.get("/session-info", (req, res) => {
-    info = JSON.parse(req.user.information)
-    switch (info.cargo) {
-        case 'Aluno':
-            con.query("select * from aluno where email = ?", [req.user.email], function(err, result) {
+    email = user.email
+    switch (email) {
+        case 'alunos.fc.ul.pt':
+            con.query("select * from aluno where email = ?", [user.email], function(err, result) {
                 res.send(result);
             });
             break;
 
-        case 'Docente':
-            con.query("select * from professor where email = ?", [req.user.email], function(err, result) {
+        case 'fc.ul.pt':
+            con.query("select * from professor where email = ?", [user.email], function(err, result) {
                 res.send(result);
             });
             break;
@@ -235,7 +157,7 @@ app.get("/session-info", (req, res) => {
 
 app.get("/student-schedule", (req, res) => {
     sql = 'select cadeiras from aluno where email=?';
-    con.query(sql, [req.user.email], (err, result) => {
+    con.query(sql, [user.email], (err, result) => {
         if (err) throw err;
         cadeiras = JSON.parse(result[0].cadeiras);
         for (key in cadeiras) {
@@ -264,7 +186,7 @@ app.get("/student-schedule", (req, res) => {
 
 app.get("/subject-enroll", (req, res) => {
     sql = 'select cadeiras, curso, ano from aluno where email=?';
-    con.query(sql, [req.user.email], (err, result) => {
+    con.query(sql, [user.email], (err, result) => {
         if (err) throw err;
         aluno_cadeiras = JSON.parse(result[0].cadeiras);
         aluno_curso = JSON.parse(result[0].curso);
@@ -289,7 +211,7 @@ app.get("/subject-enroll", (req, res) => {
 })
 
 app.get("/fetchForChange", (req, res) => {
-    con.query('select cadeiras from aluno WHERE numero_aluno = ?', [req.user.numero_aluno], function(err, result) {
+    con.query('select cadeiras from aluno WHERE email = ?', [user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -317,7 +239,7 @@ app.get("/studentRequest", (req, res) => {
 
 //Teacher queries
 app.get("/teacher-profile", (req, res) => {
-    con.query('select * from professor WHERE email = ?', [req.user.email], function(err, result) {
+    con.query('select * from professor WHERE email = ?', [user.email], function(err, result) {
         if (err) throw err;
         res.send(result);
     })
@@ -325,7 +247,7 @@ app.get("/teacher-profile", (req, res) => {
 
 app.get("/teacher-fetch", (req, res) => {
     const student = req.query.student;
-    const numero_prof = JSON.parse(req.user.numero_prof);
+    const numero_prof = JSON.parse(user.email);
 
     sql = 'select cadeiras from aluno where numero_aluno = ?;select cadeiras_teacher from professor where numero_prof = ?;';
 
@@ -433,8 +355,8 @@ app.get("/teacher-show", (req, res) => {
 })
 
 app.get("/teacher-request", (req, res) => {
-    sql = 'select * from pedidos; select cadeiras_teacher from professor where numero_prof = ?';
-    con.query(sql, [req.user.numero_prof], (err, result) => {
+    sql = 'select * from pedidos; select cadeiras_teacher from professor where email = ?';
+    con.query(sql, [user.email], (err, result) => {
         if (err) throw err;
         const cadeiras = Object.keys(JSON.parse(result[1][0].cadeiras_teacher));
         const requests = [];
@@ -453,11 +375,11 @@ app.get("/teacher-request", (req, res) => {
 })
 
 app.post("/subject-enroll-submit", (req, res) => {
-    con.query("select * from aluno where email = ?", [req.user.email], function(err, result) {
+    con.query("select * from aluno where email = ?", [user.email], function(err, result) {
         cadeiras = JSON.parse(result[0].cadeiras)
         cadeiras[req.body.subject] = [req.body.turno]
         sql = `UPDATE aluno SET cadeiras = ? WHERE email = ?`;
-        con.query(sql, [JSON.stringify(cadeiras), req.user.email], (err, result) => {
+        con.query(sql, [JSON.stringify(cadeiras), user.email], (err, result) => {
             if (err) throw err;
             res.send({ msg: "Student enroll sucess" });
         })
@@ -468,7 +390,7 @@ app.post("/subject-enroll-submit", (req, res) => {
 
 //Server Functions
 //Login
-
+/*
 app.post("/auth", (req, res) => {
     email = req.body.email
     password = req.body.pass
@@ -498,7 +420,7 @@ app.post("/auth", (req, res) => {
             break;
     }
 })
-
+*/
 
 //Server
 app.listen(process.env.port || 8080);

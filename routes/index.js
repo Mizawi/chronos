@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
 
 //Admin Page Route
 router.get('/admin', (req, res) => {
-    if (req.isAuthenticated()) {
+    /*if (req.isAuthenticated()) {
         if (req.user.email.split("@")[1] == 'email.com') {
             res.sendFile(path.join(__dirname, '../views/admin.html'));
         } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
@@ -19,13 +19,14 @@ router.get('/admin', (req, res) => {
         } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.redirect('/teacher-dashboard');
         }
-    }
+    }*/
+    res.sendFile(path.join(__dirname, '../views/admin.html'));
 });
 
 
 //P-Dashboard Route
 router.get('/teacher-dashboard', function(req, res) {
-    if (req.isAuthenticated()) {
+    /*if (req.isAuthenticated()) {
         if (req.user.email.split("@")[1] == 'email.com') {
             res.redirect('/admin');
         } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
@@ -33,13 +34,14 @@ router.get('/teacher-dashboard', function(req, res) {
         } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.sendFile(path.join(__dirname, '../views/teacher-dashboard.html'));
         }
-    }
+    }*/
+    res.sendFile(path.join(__dirname, '../views/teacher-dashboard.html'));
 
 });
 
 //S-Dashboard Route
 router.get('/student-dashboard', function(req, res) {
-    if (req.isAuthenticated()) {
+    /*if (req.isAuthenticated()) {
         if (req.user.email.split("@")[1] == 'email.com') {
             res.redirect('/admin');
         } else if (req.user.email.split("@")[1] == 'alunos.fc.ul.pt') {
@@ -47,7 +49,8 @@ router.get('/student-dashboard', function(req, res) {
         } else if (req.user.email.split("@")[1] == 'fc.ul.pt') {
             res.redirect('/teacher-dashboard');
         }
-    }
+    }*/
+    res.sendFile(path.join(__dirname, '../views/student-dashboard.html'));
 });
 
 router.get('/logout', function(req, res) {
