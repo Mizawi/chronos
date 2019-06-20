@@ -4,6 +4,7 @@ GoogleStrategy = require('passport-google-oauth20')
 con = require('./database')
 
 passport.serializeUser((user, done) => {
+    console.log(user)
     done(null, user.email)
 })
 
