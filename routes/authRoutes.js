@@ -2,24 +2,24 @@ var router = require('express').Router();
 var passport = require('../passport-setup');
 
 
-router.get('/google', passport.authenticate('google',{
+router.get('/google', passport.authenticate('google', {
     scope: ['profile']
 }));
 
-router.get("/google/redirect",passport.authenticate('google'), (req,res) =>{
+router.get("/google/redirect", passport.authenticate('google'), (req, res) => {
 
     console.log(req.user.email.split("@")[1])
     switch (req.user.email.split("@")[1]) {
         case 'email.com':
-                res.redirect("/admin")
+            res.redirect("/admin")
             break;
 
         case 'alunos.fc.ul.pt':
-                res.redirect("/student-dashboard")
+            res.redirect("/student-dashboard")
             break;
 
         case 'fc.ul.pt':
-                res.redirect("/teacher-dashboard")
+            res.redirect("/teacher-dashboard")
             break;
 
         default:

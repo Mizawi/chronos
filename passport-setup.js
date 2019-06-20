@@ -1,6 +1,6 @@
 passport = require('passport'),
-//LocalStrategy = require('passport-local').Strategy,
-GoogleStrategy = require('passport-google-oauth20')
+    //LocalStrategy = require('passport-local').Strategy,
+    GoogleStrategy = require('passport-google-oauth20')
 con = require('./database')
 
 passport.serializeUser((user, done) => {
@@ -8,10 +8,24 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((email, done) => {
-    con.query('select * from users where email=?', [email], (err, result) => {
-        if (err) throw err;
-        done(null, result)
-    })
+    role = email.split("@")[1];
+    switch (role) {
+        case 'email.com':
+            con.query('select * from admin where email=?', [email], (err, result) => {
+                if (err) throw err;
+                done(null, result)
+            })
+        case 'alunos.fc.ul.pt':
+            con.query('select * from aluno where email=?', [email], (err, result) => {
+                if (err) throw err;
+                done(null, result)
+            })
+        case 'fc.ul.pt':
+            con.query('select * from professor where email=?', [email], (err, result) => {
+                if (err) throw err;
+                done(null, result)
+            })
+    }
 })
 
 passport.use(
@@ -23,23 +37,23 @@ passport.use(
         sql = 'select * from users where googleid=?'
         con.query(sql, [profile.id], (err, result) => {
             if (err) throw err;
-            if(result[0].email_admin != undefined){
+            if (result[0].email_admin != undefined) {
                 user = ({
                     email: result[0].email_admin
                 })
                 done(null, user)
-            }else if(result[0].email_student != undefined){
+            } else if (result[0].email_student != undefined) {
                 user = ({
                     email: result[0].email_student
                 })
                 done(null, user)
-            }else{
+            } else {
                 user = ({
                     email: result[0].email_prof
                 })
                 done(null, user)
             }
-            
+
         })
     })
 )

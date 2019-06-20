@@ -6,7 +6,7 @@ var express = require('express'),
     con = require('./database'),
     yes = require('yes-https'),
     flash = require("connect-flash");
-    authRoutes = require('./routes/authRoutes');
+authRoutes = require('./routes/authRoutes');
 
 const passportSetup = ('./passport-setup');
 const cookieSession = require('cookie-session');
@@ -88,16 +88,16 @@ app.post("/adminCreateStudent", (req, res) => {
     var numero = req.body.aluno_numero;
     var curso = req.body.aluno_curso;
 
-    if(nome.length>0 && numero.length>0){
+    if (nome.length > 0 && numero.length > 0) {
         var email = "fc" + numero + "@alunos.fc.ul.pt";
         var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Aluno", "emailp": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "fc${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
         sql = `insert into aluno (email,information,password,cadeiras,numero_aluno, curso, ano) VALUES ("${email}",${informacao},"123",'{}',${numero},${curso},0)`;
         con.query(sql, (err, result) => {
             if (err) throw err;
-            res.send({code: 1, msg:"Student has been created"});
+            res.send({ code: 1, msg: "Student has been created" });
         })
-    }else{
-        res.send({code: 0, msg:"Fill all fields before create"});
+    } else {
+        res.send({ code: 0, msg: "Fill all fields before create" });
     }
 })
 
@@ -105,16 +105,16 @@ app.post("/adminCreateProf", (req, res) => {
     var nome = req.body.prof_nome;
     var numero = req.body.prof_numero;
 
-    if(nome.length>0 && numero.length>0){
+    if (nome.length > 0 && numero.length > 0) {
         var email = "prof" + numero + "@fc.ul.pt";
         var informacao = `'{"nome": "${nome}" , "sexo": " ", "cargo": "Docente", "email_p": " ", "morada": " ", "numero": "${numero}", "valido": " ", "emitidoEm": " ", "profissao": " ", "estadoCivil": " ", "contribuinte": " ", "nacionalidade": " ", "dataNascimento": " ", "localdeEmissao": " ", "nomeUtilizador": "prof${numero}", "concelhoNascimento": " ", "distritoNascimento": " ", "freguesiaNascimento": " ", "documentoDeIdentificacao": " "}'`;
         sql = `insert into professor (email,information,password,numero_prof, cadeiras_teacher) VALUES ("${email}",${informacao},"123",${numero},'{}')`;
         con.query(sql, (err, result) => {
             if (err) throw err;
-            res.send({code: 1, msg:"Professor has been created"});
+            res.send({ code: 1, msg: "Professor has been created" });
         })
-    }else{
-        res.send({code: 0, msg:"Fill all fields before create"});
+    } else {
+        res.send({ code: 0, msg: "Fill all fields before create" });
     }
 })
 
@@ -139,8 +139,8 @@ app.get("/student-subject", (req, res) => {
 })
 
 app.get("/session-info", (req, res) => {
-    email = user.email
-    switch (email) {
+    role = user.email.split("@")[1];
+    switch (role) {
         case 'alunos.fc.ul.pt':
             con.query("select * from aluno where email = ?", [user.email], function(err, result) {
                 res.send(result);
@@ -232,7 +232,7 @@ app.get("/studentRequest", (req, res) => {
 
     con.query('insert into pedidos (numero_aluno, cadeira, turnosaida, turnoentrada) values (?,?,?,?)', [req.user.numero_aluno, cadeira, turnoin, turnojoin], function(err, result) {
         if (err) throw err;
-        res.send({code: 1, msg: "Your request is now under approval"});
+        res.send({ code: 1, msg: "Your request is now under approval" });
     })
 })
 
@@ -332,7 +332,7 @@ app.get("/teacherReject", (req, res) => {
     sql = `delete from pedidos where id=?`;
     con.query(sql, [requestid], (err, result) => {
         if (err) throw err;
-        res.send({code:1, msg:"Request rejected"});
+        res.send({ code: 1, msg: "Request rejected" });
     })
 })
 
@@ -341,7 +341,7 @@ app.get("/teacherApprove", (req, res) => {
     sql = `delete from pedidos where id=?`;
     con.query(sql, [requestid], (err, result) => {
         if (err) throw err;
-        res.send({code:1, msg:"Request approved"});
+        res.send({ code: 1, msg: "Request approved" });
     })
 })
 
@@ -361,15 +361,15 @@ app.get("/teacher-request", (req, res) => {
         const cadeiras = Object.keys(JSON.parse(result[1][0].cadeiras_teacher));
         const requests = [];
         result[0].forEach(row => {
-            if(cadeiras.includes(row.cadeira) && JSON.parse(result[1][0].cadeiras_teacher)[row.cadeira]=="regente"){
+            if (cadeiras.includes(row.cadeira) && JSON.parse(result[1][0].cadeiras_teacher)[row.cadeira] == "regente") {
                 requests.push(row);
             }
         })
 
-        if(requests.length > 0){
-            res.send({code: 1, requests: requests, msg:"You have pending requests"});
-        }else{
-            res.send({code: 0, requests: requests, msg:"You do not have pending requests"});
+        if (requests.length > 0) {
+            res.send({ code: 1, requests: requests, msg: "You have pending requests" });
+        } else {
+            res.send({ code: 0, requests: requests, msg: "You do not have pending requests" });
         }
     })
 })
