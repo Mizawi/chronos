@@ -7,24 +7,6 @@ passport.serializeUser((user, done) => {
 })
 
 passport.deserializeUser((email, done) => {
-    /*role = email.split("@")[1];
-    switch (role) {
-        case 'email.com':
-            con.query('select * from admin where email=?', [email], (err, result) => {
-                if (err) throw err;
-                done(null, result)
-            })
-        case 'alunos.fc.ul.pt':
-            con.query('select * from aluno where email=?', [email], (err, result) => {
-                if (err) throw err;
-                done(null, result)
-            })
-        case 'fc.ul.pt':
-            con.query('select * from professor where email=?', [email], (err, result) => {
-                if (err) throw err;
-                done(null, result)
-            })
-    }*/
     done(null, email)
 })
 
