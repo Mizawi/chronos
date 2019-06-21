@@ -133,7 +133,6 @@ app.put("/student-edit-profile", (req, res) => {
 app.get("/student-subject", (req, res) => {
     con.query('select * from aluno WHERE email = ?', [user.email], function(err, result) {
         if (err) throw err;
-        console.log(user.email)
         res.send(result);
     })
 })

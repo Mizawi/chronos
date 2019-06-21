@@ -1,15 +1,13 @@
 passport = require('passport'),
-    //LocalStrategy = require('passport-local').Strategy,
-    GoogleStrategy = require('passport-google-oauth20')
+GoogleStrategy = require('passport-google-oauth20')
 con = require('./database')
 
 passport.serializeUser((user, done) => {
-    console.log(user)
     done(null, user.email)
 })
 
 passport.deserializeUser((email, done) => {
-    role = email.split("@")[1];
+    /*role = email.split("@")[1];
     switch (role) {
         case 'email.com':
             con.query('select * from admin where email=?', [email], (err, result) => {
@@ -26,7 +24,8 @@ passport.deserializeUser((email, done) => {
                 if (err) throw err;
                 done(null, result)
             })
-    }
+    }*/
+    done(null, email)
 })
 
 passport.use(

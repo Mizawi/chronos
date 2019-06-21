@@ -8,23 +8,22 @@ router.get('/google', passport.authenticate('google', {
 
 router.get("/google/redirect", passport.authenticate('google'), (req, res) => {
 
-    console.log(req.user.email.split("@")[1])
     switch (req.user.email.split("@")[1]) {
         case 'email.com':
             res.redirect("/admin")
-            break;
+        break;
 
         case 'alunos.fc.ul.pt':
             res.redirect("/student-dashboard")
-            break;
+        break;
 
         case 'fc.ul.pt':
             res.redirect("/teacher-dashboard")
-            break;
+        break;
 
         default:
             res.redirect("/?error=1")
-            break;
+        break;
     }
 });
 
