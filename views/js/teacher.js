@@ -133,13 +133,13 @@ jQuery(function($) {
                 <h3>List of requests pending</h3>
                 <p>You have to approve or reject in order to transfer the student or not</p>
                 <br>`;
-                
-                if(data.code==1){
+
+                if (data.code == 1) {
                     const requests = data.requests;
                     requests.forEach(request => {
                         const id = request.id;
                         const cadeira = request.cadeira;
-                        const nraluno = request.numero_aluno;
+                        const emailaluno = request.email_aluno;
                         const turnosaida = request.turnosaida;
                         const turnoentrada = request.turnoentrada;
 
@@ -148,14 +148,14 @@ jQuery(function($) {
                         <hr>
                         <p>Request id: ${id}</span></p>
                         <p>Subject: ${cadeira}</span></p>
-                        <p>Number: ${nraluno}</span></p>
+                        <p>Student Email: ${emailaluno}</span></p>
                         <p>Remove from: ${turnosaida}</span></p>
                         <p>Add to: ${turnoentrada}</span></p>
-                        <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', ${nraluno}, '${turnosaida}', '${turnoentrada}')">Approve</button>
+                        <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', ${emailaluno}, '${turnosaida}', '${turnoentrada}')">Approve</button>
                         <button class="customButton rejectButton" type="button" onclick="reject(${id})">Reject</button>
                         </div>`;
                     })
-                }else{
+                } else {
                     content += `<h4>${data.msg}</h4>`;
                 }
 
@@ -163,9 +163,9 @@ jQuery(function($) {
             }
         })
     });
-    
+
     $("#subjects-button").click(() => {
-        $('#student').on('keydown', function(event){
+        $('#student').on('keydown', function(event) {
             if (event.which == 13) {
                 event.preventDefault();
             }
@@ -199,7 +199,7 @@ jQuery(function($) {
 
     $("#student").keyup(() => {
         const student = $("#student").val();
-        if(student.length > 3){
+        if (student.length > 3) {
             $.ajax({
                 url: "/teacher-fetch",
                 type: "get",
@@ -208,7 +208,7 @@ jQuery(function($) {
                     student: student,
                 },
                 success: (data) => {
-                    if(data.code == 1){
+                    if (data.code == 1) {
                         firstsubject = data.matched[0];
                         subjectsallowed = '';
                         data.matched.forEach(subj => {
@@ -224,26 +224,26 @@ jQuery(function($) {
                                 subject: firstsubject
                             },
                             success: (data) => {
-                                if(data.code == 1){
+                                if (data.code == 1) {
                                     turnosin = '';
                                     data.turnoatual.forEach(turno => {
                                         turnosin += `<option value="${turno}">${turno}</option>`;
                                     })
                                     turnosjoin = '';
                                     data.turnoscadeira.forEach(turno => {
-                                        if(!data.turnoatual.includes(turno)){
+                                        if (!data.turnoatual.includes(turno)) {
                                             turnosjoin += `<option value="${turno}">${turno}</option>`;
                                         }
                                     })
                                     $('#turnosin').html(turnosin);
                                     $('#turnosjoin').html(turnosjoin);
-                                }else{
+                                } else {
                                     $('#turnosin').html('');
                                     $('#turnosjoin').html('');
                                 }
                             }
                         })
-                    }else{
+                    } else {
                         $('#subjectsallowed').html('');
                     }
                 }
@@ -254,7 +254,7 @@ jQuery(function($) {
     $("#subjectsallowed").change(() => {
         const student = $("#student").val();
         const subject = $("#subjectsallowed").val();
-        if(student.length > 3){
+        if (student.length > 3) {
             $.ajax({
                 url: "/teacher-fetch-classes",
                 type: "get",
@@ -264,20 +264,20 @@ jQuery(function($) {
                     subject: subject
                 },
                 success: (data) => {
-                    if(data.code == 1){
+                    if (data.code == 1) {
                         turnosin = '';
                         data.turnoatual.forEach(turno => {
                             turnosin += `<option value="${turno}">${turno}</option>`;
                         })
                         turnosjoin = '';
                         data.turnoscadeira.forEach(turno => {
-                            if(!turnoatual.includes(turno)){
+                            if (!turnoatual.includes(turno)) {
                                 turnosjoin += `<option value="${turno}">${turno}</option>`;
                             }
                         })
                         $('#turnosin').html(turnosin);
                         $('#turnosjoin').html(turnosjoin);
-                    }else{
+                    } else {
                         $('#turnosin').html('');
                         $('#turnosjoin').html('');
                     }
@@ -301,7 +301,7 @@ jQuery(function($) {
                 $('#query_table_subjects_answer').remove();
                 let content = "<table class='admin_table' id='query_table_subjects_answer'> <thead class='' > <tr><th >Number </th> <th> Email </th></tr></thead>"
                 data.forEach(item => {
-                    content += '<tr><td>' + item.numero_aluno  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
+                    content += '<tr><td>' + item.numero_aluno + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
                 });
                 content += "</table>"
                 $('#query_table_subjects').append(content);
@@ -317,7 +317,7 @@ jQuery(function($) {
         const removefrom = $("#turnosin").val();
         const addto = $("#turnosjoin").val();
         $("#student").val('');
-        
+
         $.ajax({
             url: "/teacher-transfer",
             type: "get",
@@ -329,10 +329,10 @@ jQuery(function($) {
                 addto: addto
             },
             success: (data) => {
-                if(data.code==0){
+                if (data.code == 0) {
                     $('#transfermsg').text('');
                     $('#transfermsg').append(data.msg);
-                }else{
+                } else {
                     cadeiras = data;
                     $.ajax({
                         url: "/teacher-transfer-set",
@@ -365,7 +365,7 @@ jQuery(function($) {
 
     $("#savesettings-button").click(() => {
         $('#messagesettings').remove();
-        
+
         $.ajax({
             url: "/adminSettings",
             type: "get",
@@ -427,16 +427,16 @@ $(document).ready(() => {
             $('#query_table_dashboard_answer').remove();
             var info = JSON.parse(data[0].cadeiras_teacher)
             content = '<div class="card-deck">'
-            for (var key in info){
+            for (var key in info) {
                 //var attrName = key; CHAVE
                 //var attrValue = obj[key]; VALUE
-            
+
                 content += '<div class="card" style="width: 18rem;">'
                 content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
                 content += '<div class="card-body">'
-                content += '<h5 class="'+key+'">'+key+'</h5>'
-                content += '<p class="card-text">BEM VINDO A '+key+'</p>'
-                content += '<a class="btn '+key+'">Gerir Página</a>'
+                content += '<h5 class="' + key + '">' + key + '</h5>'
+                content += '<p class="card-text">BEM VINDO A ' + key + '</p>'
+                content += '<a class="btn ' + key + '">Gerir Página</a>'
                 content += '</div>'
                 content += '</div>'
                 content += '<br>'
@@ -451,8 +451,8 @@ $(document).ready(() => {
         type: "get",
         dataType: "json",
         success: (data) => {
-            if(data.code == 1){
-                if(data.requests.length>0){
+            if (data.code == 1) {
+                if (data.requests.length > 0) {
                     $("#hasRequests").text(data.requests.length);
                 }
             }

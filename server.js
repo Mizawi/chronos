@@ -298,9 +298,9 @@ app.get("/teacher-transfer", (req, res) => {
     const addto = req.query.addto;
 
     if (student.length > 0 && subject.length > 0 && removefrom.length > 0 && addto.length > 0) {
-        sql = 'select cadeiras from aluno where numero_aluno = ?;';
+        sql = 'select cadeiras from aluno where email_aluno = ?;';
 
-        con.query(sql, [student], (err, result) => {
+        con.query(sql, [student.email], (err, result) => {
             if (err) throw err;
             turnosatuais = JSON.parse(result[0].cadeiras)[subject];
             turnosnovos = turnosatuais.filter(turno => turno != removefrom);

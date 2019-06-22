@@ -217,13 +217,13 @@
         })
     }
 
-    function approve(id, cadeira, nraluno, turnosaida, turnoentrada) {
+    function approve(id, cadeira, email_aluno, turnosaida, turnoentrada) {
         $.ajax({
             url: "/teacher-transfer",
             type: "get",
             dataType: "json",
             data: {
-                student: nraluno,
+                student: email_aluno,
                 subject: cadeira,
                 removefrom: turnosaida,
                 addto: turnoentrada
@@ -238,7 +238,7 @@
                         type: "get",
                         dataType: "json",
                         data: {
-                            student: nraluno,
+                            student: email_aluno,
                             cadeiras: cadeiras
                         },
                         success: (data) => {

@@ -157,7 +157,7 @@ jQuery(function($) {
                             console.log('Informacao: ' + turno, diaSemana, horaInicial, horaFinal)
 
 
-                            $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
+                            $(document.getElementById(horaInicial)).find('td').each((x, el) => {
                                 if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
                                     console.log(el)
                                     if (el.classList.contains('empty')) {
@@ -177,7 +177,7 @@ jQuery(function($) {
 
                             console.log('Informacao: ' + turno, diaSemana, horaInicial, horaFinal)
 
-                            $(document.getElementById(horaInicial)).find('td').each(function(x, el) {
+                            $(document.getElementById(horaInicial)).find('td').each((x, el) => {
                                 if (parseInt(el.id) == parseInt(horario_subject[parseInt(i) + 1][0])) {
                                     if (el.classList.contains('empty')) {
                                         el.classList.remove('empty')
@@ -186,7 +186,6 @@ jQuery(function($) {
                                     }
                                 }
                             })
-
                         }
                         i = i + 2
                     }
