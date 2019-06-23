@@ -39,6 +39,8 @@ jQuery(function($) {
 
     $("#profile-button").click(() => {
         $(".container-profile").show();
+        $(".container-profile-2").show();
+
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_requests').hide();
@@ -53,6 +55,7 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('.container-profile').remove();
+                $(".container-profile-2").remove();
                 var info = JSON.parse(data[0].information)
                 content = '<div class="show container-profile">'
 
@@ -97,6 +100,8 @@ jQuery(function($) {
 
     $("#dashboard-button").click(() => {
         $(".container-profile").hide();
+        $(".container-profile-2").hide();
+
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_requests').hide();
@@ -120,6 +125,8 @@ jQuery(function($) {
 
     $("#requests-button").click(() => {
         $(".container-profile").hide();
+        $(".container-profile-2").hide();
+
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_requests').show();
@@ -178,6 +185,8 @@ jQuery(function($) {
         });
 
         $(".container-profile").hide();
+        $(".container-profile-2").hide();
+
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').show();
         $('#query_table_requests').hide();
@@ -360,6 +369,8 @@ jQuery(function($) {
 
     $("#settingsbutton").click(() => {
         $(".container-profile").hide();
+        $(".container-profile-2").hide();
+
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_requests').hide();
@@ -420,6 +431,8 @@ $(document).ready(() => {
     }
 
     $(".container-profile").hide();
+    $(".container-profile-2").hide();
+
     $('#query_table_dashboard').show();
     $('#query_table_subjects').hide();
     $('#query_table_requests').hide();
