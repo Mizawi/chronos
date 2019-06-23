@@ -104,7 +104,32 @@ jQuery(function($) {
 
         $("#requestmsg").text('');
         $('#messagesettings').remove();
+        $.ajax({
+            url: "/student-subject",
+            type: "get",
+            dataType: "json",
+            success: (data) => {
+                $('.card-deck').remove();
+                var info = JSON.parse(data[0].cadeiras)
+                content = '<div class="card-deck">'
+                for (var key in info) {
+                    //var attrName = key; CHAVE
+                    //var attrValue = obj[key]; VALUE
 
+                    content += '<div class="card" style="width: 18rem;">'
+                    content += '<img class="card-img-top" src="images/base_cadeiras.png" alt="Card image cap">'
+                    content += '<div class="card-body">'
+                    content += '<h5 class="' + key + '">' + key + '</h5>'
+                    content += '<p class="card-text">BEM VINDO A ' + key + '</p>'
+                    content += '<a class="btn ' + key + '">Página Inicial</a>'
+                    content += '</div>'
+                    content += '</div>'
+                    content += '<br>'
+                }
+                content += '</div>'
+                $('#query_table_dashboard').append(content);
+            }
+        })
         initialFetch(0);
 
     });
@@ -212,7 +237,7 @@ jQuery(function($) {
                     content += '<div class="card-body">'
                     content += '<h3 class="w3-center">' + data[i].key + '</h3> <br>'
                     for (var t in turnos) {
-                        content += '<a class="selectTurn" id=' + t + "_" + data[i].key + '>'
+                        content += '<a class="selectTurn show" id=' + t + "_" + data[i].key + '>'
                         content += '<br><h3 class="w3-center" id="card-text">[' + t + '] </h3><h5 class="w3-center">' + numberToDay(turnos[t][0]) + '</h5>'
                         content += '<h5 class="card-text w3-center">' + turnos[t][1] + ' - ' + addHours(turnos[t][1], '0' + turnos[t][2] + ':00') + '</h5> <br>'
                         content += '<input class="btnTurn" id="btn' + t + "_" + data[i].key + '" type="button" onclick="changeClass(' + t + "_" + data[i].key + ')" value="Select"> </>'
@@ -220,13 +245,12 @@ jQuery(function($) {
                         content += '<br>'
                     }
                     content += '</div>'
-                    content += '<input class="subject-enroll-submit-btn" id="submit-btn' + t + "_" + data[i].key + '" type="button" onclick="enroll(' + data[i].key + ')" value="Submit"> </>'
                     content += '</div>'
                     content += '<br>'
 
                 }
 
-                content += '</div>'
+                content += '<input class="subject-enroll-submit-btn" id="submit-btn" type="button" onclick="enroll()" value="Submit"> </> </div>'
                 $('#query_table_subject_enroll').append(content);
             }
         })
@@ -355,7 +379,7 @@ $(document).ready(() => {
         type: "get",
         dataType: "json",
         success: (data) => {
-            $('#query_table_dashboard_answer').remove();
+            $('.card-deck').remove();
             var info = JSON.parse(data[0].cadeiras)
             content = '<div class="card-deck">'
             for (var key in info) {
@@ -421,41 +445,61 @@ function numberToDay(number) {
 }
 
 function changeClass(s) {
+    console.log(s)
     if (s.classList.contains('selectTurn')) {
         s.classList.remove('selectTurn');
         s.classList.add('selectedTurn');
         document.getElementById('btn' + s.id).value = "Unselect"
+        if (s.id[2] == '1') {;
+            $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
 
+        } else if (s.id[2] == '2') {
+
+            $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
+
+
+        }
     } else if (s.classList.contains('selectedTurn')) {
         s.classList.remove('selectedTurn');
         s.classList.add('selectTurn');
         document.getElementById('btn' + s.id).value = "Select"
+        if (s.id[2] == '1') {
+
+            $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
+
+
+        } else if (s.id[2] == '2') {
+
+            $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
+
+        }
     }
-
-
 }
 
-function enroll(s) {
-    var card = document.querySelectorAll('.selectedTurn');
-    Array.prototype.forEach.call(card, function(element, index) {
-        subject = element.id.split("_")[1]
-        turno = element.id.split("_")[0]
-        if (s.id == subject) {
-            if (turno.includes("TP")) {
-                $.ajax({
-                    url: "/subject-enroll-submit",
-                    type: "POST",
-                    data: { "subject": subject, "turno": turno },
-                    dataType: "json",
-                    success: (data) => {
-                        alert(subject + " : " + data.msg + ' in ' + turno);
-                        $('#' + turno + "_" + subject).remove('selectedTurn')
-                        $('#' + subject).remove()
-                    }
-                })
-            }
+
+function enroll() {
+    var subject_turnos = []
+    var cardlist = document.querySelectorAll('.selectedTurn');
+    console.log('cardlist: ', cardlist)
+    Array.prototype.forEach.call(cardlist, function(card, index) {
+        console.log('card: ', card)
+        if ((card.id.split("_")[0]).includes("TP")) {
+            $('#' + (card.id.split("_")[0]) + "_" + (card.id.split("_")[1])).remove('selectedTurn')
+            $('#' + (card.id.split("_")[1])).remove()
+            subject_turnos.push(card.id)
         }
     })
+    $.ajax({
+        url: "/subject-enroll-submit",
+        type: "POST",
+        data: { 'subject-turnos': subject_turnos },
+        dataType: "json",
+        success: (data) => {
+            alert(data.msg);
+        }
+    })
+
+
 }
 
 function initialFetch(x) {

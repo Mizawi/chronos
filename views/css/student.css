@@ -50,35 +50,102 @@
     -moz-transition: background-color .2s ease-in;
     -webkit-transition: background-color .2s ease-in;
     transition: background-color .2s ease-in;
-    border-radius: 50px
+    border-radius: 50px;
+    display: show;
 }
 
 .selectedTurn btnTurn:hover {
     background-color: rgb(11, 133, 11);
 }
 
+.selectTurn .btnTurn {
+    display: show;
+}
+
 #schedule {
-    border: solid rgb(0, 0, 0) 1px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
+    margin-left: 15%;
+}
+
+table {
+    border-collapse: separate;
+    border: solid rgba(41, 40, 40, 0) 1px;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+}
+
+td,
+th {
+    border: solid rgb(41, 40, 40) 1px;
+}
+
+th {
+    background-color: rgb(41, 40, 40);
+    border-top: none;
 }
 
 .days #vazio {
-    width: 50px
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-top-right-radius: 0%;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
 }
 
 .days th {
     width: 200px;
     height: 50px;
-    background-color: rgb(54, 51, 51);
+    background-color: rgb(41, 40, 40);
     color: white;
     text-align: center;
 }
 
+.days th:last-child {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
+#lasthour {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-top-left-radius: 0%;
+    border-top-right-radius: 0%;
+    border-bottom-right-radius: 0%;
+}
+
 .hours {
-    background-color: rgb(54, 51, 51);
+    border-left: none;
+    background-color: rgb(41, 40, 40);
     color: white;
     text-align: center;
+}
+
+.hours#lasthour {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-top-left-radius: 0%;
+    border-bottom-right-radius: 0%;
+    border-top-right-radius: 0%;
+}
+
+.lastblock {
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;
+    border-top-left-radius: 0%;
+    border-bottom-left-radius: 0%;
+    border-top-right-radius: 0%;
+}
+
+th {
+    background-color: rgb(41, 40, 40);
 }
 
 .empty {
@@ -86,14 +153,27 @@
 }
 
 .full {
-    background-color: rgb(0, 139, 204);
-    color: black;
+    background: -webkit-linear-gradient(-135deg, #0c5da8, #2b90be);
+    background: -o-linear-gradient(-135deg, #0c5da8, #2b90be);
+    background: -moz-linear-gradient(-135deg, #0c5da8, #2b90be);
+    background: linear-gradient(-135deg, #0c5da8, #2b90be);
+    color: whitesmoke;
+    font-size: 15px;
     text-align: center;
 }
 
 #query_table_pedido {
+    color: whitesmoke;
+    border: solid rgb(41, 40, 40) 1px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(41, 40, 40);
+    padding: 20px;
     width: 25%;
     min-width: 320px;
+    text-align: center;
+    align-content: center;
 }
 
 select {
@@ -104,9 +184,20 @@ select {
     background-color: #f1f1f1;
     cursor: pointer;
 }
+
+.blockdiv {
+    background-color: rgb(109, 109, 109);
+}
+
+.blockdiv .btnTurn {
+    border: solid rgb(109, 109, 109) 1px;
+    background-color: rgb(109, 109, 109);
+    pointer-events: none
+}
+
 input[type=text] {
     border-radius: 4px;
     width: 70%;
     padding: 5px 15px;
     box-sizing: border-box;
-  }
+}

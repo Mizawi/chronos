@@ -253,14 +253,14 @@
                             <td class="empty" id="4" rowspan="3"></td>
                             <td class="empty" id="5" rowspan="3"></td>
                             <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
+                            <td class="empty lastblock" id="7" rowspan="3"></td>
 
                         </tr>
                         <tr id="18:00">
                             <td class="hours">18:00</td>
                         </tr>
                         <tr id="18:30">
-                            <td class="hours">18:30</td>
+                            <td class="hours" id="lasthour">18:30</td>
                         </tr>
                     </table>
                 </div>
@@ -294,9 +294,7 @@
                     </div>
                 </div>
                 <div class="table-responsive" id="query_table_pedido">
-                    <h2>Manage your classes</h2>
-                    <br>
-                    <h3>Request transfers</h3>
+                    <h3>Transfer Request Form</h3>
                     <p>You can only request transfers for your subjects</p>
                     <br>
                     <form id="requestChangeForm">
@@ -313,7 +311,7 @@
                             
                         </select><br>
                         <br>
-                        <button class="customButton" id="requestChange" type="button">Request</button>
+                        <button class="customButton w3-center" id="requestChange" type="button">Request</button>
                         <br>
                         <br>
                         <p id="requestmsg"></p>

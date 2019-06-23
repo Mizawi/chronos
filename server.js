@@ -376,12 +376,17 @@ app.get("/teacher-request", (req, res) => {
 app.post("/subject-enroll-submit", (req, res) => {
     con.query("select * from aluno where email = ?", [user.email], function(err, result) {
         cadeiras = JSON.parse(result[0].cadeiras)
-        cadeiras[req.body.subject] = [req.body.turno]
-        sql = `UPDATE aluno SET cadeiras = ? WHERE email = ?`;
-        con.query(sql, [JSON.stringify(cadeiras), user.email], (err, result) => {
-            if (err) throw err;
-            res.send({ msg: "Student enroll sucess" });
+        console.log(req.body)
+        cadeiras_insc = req.body['subject-turnos']
+        console.log(cadeiras_insc)
+        Array.prototype.forEach.call(cadeiras_insc, function(s_t, index) {
+            cadeiras[s_t.split("_")[1]] = [s_t.split("_")[0]]
+            sql = `UPDATE aluno SET cadeiras = ? WHERE email = ?`;
+            con.query(sql, [JSON.stringify(cadeiras), user.email], (err, result) => {
+                if (err) throw err;
+            })
         })
+        res.send({ msg: "Student enroll sucess" })
     })
 });
 

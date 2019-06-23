@@ -785,26 +785,14 @@
     }
     
     .login100-form-btn:hover {
-        background: -webkit-linear-gradient(-135deg, #15a545, #379277);
-        background: -o-linear-gradient(-135deg, #15a545, #379277);
-        background: -moz-linear-gradient(-135deg, #15a545, #379277);
-        background: linear-gradient(-135deg, #15a545, #379277);
+        box-shadow: inset 0 0 0 2em var(--hover);
         border: 2px solid #010201;
         width: 300px;
         height: 300px;
         font-size: 20px;
         color: #000;
-    }
-    
-    @keyframes pulse {
-        0% {
-            box-shadow: 0 0 0 0 var(--hover);
-        }
-    }
-    
-    .login100-form-btn:focus {
-        animation: pulse 10s;
-        box-shadow: 0 0 0 2em rgb(64, 134, 23);
+        animation: pulse 1s;
+        box-shadow: 0 0 0 2em rgba(#000, 2);
     }
     
     .admin100-form-btn:hover {
