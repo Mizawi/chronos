@@ -46,72 +46,61 @@ jQuery(function($) {
             dataType: "json",
             success: (data) => {
                 $('.container-profile').remove();
+                $('.container-profile-2').remove();
+
                 var info = JSON.parse(data[0].information)
                 content = '<div class="show container-profile">'
+
                 content += '<div class="container-profile-icon"><h5>Informação Principal</h5><br>'
-                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome: ' +
-                    info.nome + '</p><p>Cargo: ' +
-                    info.cargo + '</p><p>Numero: ' +
-                    info.numero + '</p><p>Email: ' +
+                content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div><div class="container-profile-icon-info"><p>Nome:    <p class="text-info-2">' +
+                    info.nome + '</p></p><br><p>Cargo: <p class="text-info-2">' +
+                    info.cargo + '</p></p><br><p>Numero: <p class="text-info-2">' +
+                    info.numero + '</p></p><br><p>Email: <p class="text-info-2">' +
                     data[0].email + '</p></div></div>'
-                content += '<div class="container-profile-maininfo"><h5> Contactos e Disponibilização de Informação </h4><br><p> Nome de Utilizador: ' +
-                    info.nomeUtilizador + '</p><p> Morada[Pessoal]: ' +
-                    info.morada + ' </p><p> Email[Pessoal]: ' +
-                    info.emailp + ' </p><p> Email[Institucional]: ' +
-                    data[0].email + '</p></div>'
-                content += '<div class="container-profile-personaldata"><h5>Dados Pessoais</h5><br><p> Nomes Próprios: ' +
-                    info.nome.split(" ")[0] + ' ' + info.nome.split(" ")[1] + ' </p><p> Apelidos: ' +
-                    info.nome.split(" ")[info.nome.split(" ").length - 1] + ' </p><p> Sexo: ' +
-                    info.sexo + ' </p><p> Nº Documento de Identificação: ' +
-                    info.documentoDeIdentificacao + ' </p><p> Local de Emissão: ' +
-                    info.localdeEmissao + ' </p><p> Emitido em: ' +
-                    info.emitidoEm + ' </p><p> Válido até: ' +
-                    info.valido + '</p><p> Nº de Contribuinte: ' +
-                    info.contribuinte + '</p><p> Profissão: ' +
-                    info.profissao + ' </p><p> Estado Civil: ' +
-                    info.estadoCivil + ' </p><p> Data de Nascimento: ' +
-                    info.dataNascimento + ' </p><p> Nacionalidade: ' +
-                    info.nacionalidade + ' </p><p> Freguesia de Nascimento: ' +
-                    info.freguesiaNascimento + ' </p><p> Concelho de Nascimento: ' +
-                    info.concelhoNascimento + ' </p><p> Distrito de Nascimento: ' +
-                    info.distritoNascimento + '</p></div>'
-                content += '<div class="container-profile-form-btn"><button class="profile-edit-btn" id="edit-profile-button">Edit</button></div></div>'
+
+                content += '<div class="container-profile-maininfo"><h5> Contactos e Disponibilização de Informação </h4><br><p> Nome de Utilizador: <p class="text-info-2">' +
+                    info.nomeUtilizador + '</p></p><br><p> Morada[Pessoal]: <p class="text-info-2">' +
+                    info.morada + ' </p></p><br><p> Email[Pessoal]: <p class="text-info-2">' +
+                    info.emailp + ' </p></p><br><p> Email[Institucional]: <p class="text-info-2">' +
+                    data[0].email + '</p></p></div>'
+                content += '</div>'
+
+                content += '<div class="show container-profile-2">'
+                content += '<div class="container-profile-personaldata"><h5>Dados Pessoais</h5><br><p> Nomes Próprios: <p class="text-info-2">' +
+                    info.nome.split(" ")[0] + ' ' + info.nome.split(" ")[1] + '</p></p> <br><p> Apelidos: <p class="text-info-2">' +
+                    info.nome.split(" ")[info.nome.split(" ").length - 1] + '</p> </p><br><p> Sexo: <p class="text-info-2">' +
+                    info.sexo + '</p></p><br><p> Nº Documento de Identificação: <p class="text-info-2">' +
+                    info.documentoDeIdentificacao + '</p></p><br><p> Local de Emissão: <p class="text-info-2">' +
+                    info.localdeEmissao + '</p></p><br><p> Emitido em: <p class="text-info-2">' +
+                    info.emitidoEm + '</p></p><br><p> Válido até: <p class="text-info-2">' +
+                    info.valido + '</p></p><br><p> Nº de Contribuinte: <p class="text-info-2">' +
+                    info.contribuinte + '</p></p><br><p> Profissão: <p class="text-info-2">' +
+                    info.profissao + '</p></p><br><p> Estado Civil: <p class="text-info-2">' +
+                    info.estadoCivil + '</p></p><br><p> Data de Nascimento: <p class="text-info-2">' +
+                    info.dataNascimento + '</p></p><br><p> Nacionalidade: <p class="text-info-2">' +
+                    info.nacionalidade + '</p></p><br><p> Freguesia de Nascimento: <p class="text-info-2">' +
+                    info.freguesiaNascimento + '</p></p><br><p> Concelho de Nascimento: <p class="text-info-2">' +
+                    info.concelhoNascimento + '</p></p><br><p> Distrito de Nascimento: <p class="text-info-2">' +
+                    info.distritoNascimento + '</p></p></div>'
+                content += '</div>'
+
                 $('#query_table_profile').append(content);
 
             }
         });
     });
 
-    $("#edit-profile-button").on('click', function() {
-        $('.container-profile').remove();
-        content = '<div class="show container-profile"><form method="POST" action="/student-edit-form"> <div class="container-profile-icon"> <h5>Informação Principal</h5><br>'
-        content += '<div class="container-profile-icon-image"><img src="images/user.jpg" alt="User picture"> </div>'
-        content += '<div class="container-profile-icon-info"><p>Nome:</p><p>Cargo:</p><p>Numero:</p><p>Email:</p></div></div>'
-        content += '<div class="container-profile-maininfo"><h5> Contactos e Disponibilização de Informação </h4><br>'
-        content += '<p> Nome de Utilizador: </p>'
-        content += '<p> Morada[Pessoal]: <input type="text" name="morada"/> </p>'
-        content += '<p> Email[Pessoal]: <input type="text" name="emailp"/>'
-        content += '</p><p> Email[Institucional]: </p></div>'
-        content += '<div class="container-profile-personaldata"><h5>Dados Pessoais</h5><br><p> Nomes Próprios: </p><p> Apelidos: </p><p> Sexo: </p>'
-        content += '<p> Nº Documento de Identificação:<input type="text" name="documentoDeIdentificacao" /></p>'
-        content += '<p> Local de Emissão: <input type="text" name="localDeEmissao" /> </p>'
-        content += '<p>Emitido em: <input type="text" name="emitidoEm" /></p><p> Válido até: <input type="text" name="validoAte"/> </p>'
-        content += '<p> Nº de Contribuinte: <input type="text" name="contribuinte"/></p><p> Profissão: <input type="text" name="profissao" /> </p>'
-        content += '<p> Estado Civil: <input type="text" name="estadoCivil" /> </p>'
-        content += '<p> Data de Nascimento:</p><p> Nacionalidade:  </p><p> Freguesia de Nascimento:  </p><p> Concelho de Nascimento:</p><p> Distrito de Nascimento:</p></div> '
-        content += '<input type="submit"/></div></form></div></div>'
-        $('#query_table_profile').append(content);
-
-    });
 
     $("#dashboard-button").click(() => {
         $(".container-profile").hide();
+        $('.container-profile-2').hide();
         $('#query_table_dashboard').show();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
         $('#query_table_pedido').hide();
+
 
         $("#requestmsg").text('');
         $('#messagesettings').remove();
@@ -129,6 +118,7 @@ jQuery(function($) {
 
     $("#schedule-button").click(() => {
         $(".container-profile").hide();
+        $('.container-profile-2').hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').show();
@@ -136,6 +126,7 @@ jQuery(function($) {
         $('#query_table_settings').hide();
         $('#query_table_pedido').hide();
         $('#messagesettings').remove();
+
 
         $.ajax({
             url: "/student-schedule",
@@ -198,6 +189,7 @@ jQuery(function($) {
 
     $("#subject-enroll-button").click(() => {
         $(".container-profile").hide();
+        $('.container-profile-2').hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -243,6 +235,7 @@ jQuery(function($) {
 
     $("#settingsbutton").click(() => {
         $(".container-profile").hide();
+        $('.container-profile-2').hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
@@ -281,15 +274,17 @@ jQuery(function($) {
 
     $("#changeButton").click(() => {
         $(".container-profile").hide();
+        $('.container-profile-2').hide();
         $('#query_table_dashboard').hide();
         $('#query_table_subjects').hide();
         $('#query_table_schedule').hide();
         $('#query_table_subject_enroll').hide();
         $('#query_table_settings').hide();
         $('#query_table_pedido').show();
-
+        $('#container-profile-2').hide();
         $("#requestmsg").text('');
         $('#messagesettings').remove();
+
 
         initialFetch(0);
     });
@@ -352,6 +347,8 @@ $(document).ready(() => {
     $('#query_table_subject_enroll').hide();
     $('#query_table_settings').hide();
     $('#query_table_pedido').hide();
+    $('.container-profile-2').hide();
+
 
     $.ajax({
         url: "/student-subject",
