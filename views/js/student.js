@@ -237,11 +237,11 @@ jQuery(function($) {
                     content += '<div class="card-body">'
                     content += '<h3 class="w3-center">' + data[i].key + '</h3> <br>'
                     for (var t in turnos) {
+                        content += '<button class="btnTurn" id="btn' + t + "_" + data[i].key + '" type="button" onclick="changeClass(' + t + "_" + data[i].key + ')">'
                         content += '<a class="selectTurn show" id=' + t + "_" + data[i].key + '>'
                         content += '<br><h3 class="w3-center" id="card-text">[' + t + '] </h3><h5 class="w3-center">' + numberToDay(turnos[t][0]) + '</h5>'
                         content += '<h5 class="card-text w3-center">' + turnos[t][1] + ' - ' + addHours(turnos[t][1], '0' + turnos[t][2] + ':00') + '</h5> <br>'
-                        content += '<input class="btnTurn" id="btn' + t + "_" + data[i].key + '" type="button" onclick="changeClass(' + t + "_" + data[i].key + ')" value="Select"> </>'
-                        content += '</a>'
+                        content += '</a></button>'
                         content += '<br>'
                     }
                     content += '</div>'
@@ -250,7 +250,7 @@ jQuery(function($) {
 
                 }
 
-                content += '<input class="subject-enroll-submit-btn" id="submit-btn" type="button" onclick="enroll()" value="Submit"> </> </div>'
+                content += '<input class="subject-enroll-submit-btn" id="submit-btn" type="button" onclick="enroll()" value="Submit"> </></div>'
                 $('#query_table_subject_enroll').append(content);
             }
         })
@@ -445,33 +445,31 @@ function numberToDay(number) {
 }
 
 function changeClass(s) {
-    console.log(s)
-    if (s.classList.contains('selectTurn')) {
-        s.classList.remove('selectTurn');
-        s.classList.add('selectedTurn');
-        document.getElementById('btn' + s.id).value = "Unselect"
-        if (s.id[2] == '1') {;
-            $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
+    if (s.classList.contains('blockdiv') == false) {
+        if (s.classList.contains('selectTurn')) {
+            s.classList.remove('selectTurn');
+            s.classList.add('selectedTurn');
+            document.getElementById('btn' + s.id).value = "Unselect"
+            if (s.id[2] == '1') {;
+                $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
+            } else if (s.id[2] == '2') {
+                $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
+            }
 
-        } else if (s.id[2] == '2') {
+        } else if (s.classList.contains('selectedTurn')) {
+            s.classList.remove('selectedTurn');
+            s.classList.add('selectTurn');
+            document.getElementById('btn' + s.id).value = "Select"
+            if (s.id[2] == '1') {
 
-            $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).addClass('blockdiv');
-
-
-        }
-    } else if (s.classList.contains('selectedTurn')) {
-        s.classList.remove('selectedTurn');
-        s.classList.add('selectTurn');
-        document.getElementById('btn' + s.id).value = "Select"
-        if (s.id[2] == '1') {
-
-            $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
+                $('#TP' + (parseInt(s.id[2]) + 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
 
 
-        } else if (s.id[2] == '2') {
+            } else if (s.id[2] == '2') {
 
-            $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
+                $('#TP' + (parseInt(s.id[2]) - 1) + s.id.substring(3, s.id.length)).removeClass('blockdiv');
 
+            }
         }
     }
 }
@@ -480,24 +478,27 @@ function changeClass(s) {
 function enroll() {
     var subject_turnos = []
     var cardlist = document.querySelectorAll('.selectedTurn');
-    console.log('cardlist: ', cardlist)
-    Array.prototype.forEach.call(cardlist, function(card, index) {
-        console.log('card: ', card)
-        if ((card.id.split("_")[0]).includes("TP")) {
-            $('#' + (card.id.split("_")[0]) + "_" + (card.id.split("_")[1])).remove('selectedTurn')
-            $('#' + (card.id.split("_")[1])).remove()
-            subject_turnos.push(card.id)
-        }
-    })
-    $.ajax({
-        url: "/subject-enroll-submit",
-        type: "POST",
-        data: { 'subject-turnos': subject_turnos },
-        dataType: "json",
-        success: (data) => {
-            alert(data.msg);
-        }
-    })
+    console.log(cardlist.length)
+    if (cardlist.length != 0) {
+        Array.prototype.forEach.call(cardlist, function(card, index) {
+            if ((card.id.split("_")[0]).includes("TP")) {
+                $('#' + (card.id.split("_")[0]) + "_" + (card.id.split("_")[1])).remove('selectedTurn')
+                $('#' + (card.id.split("_")[1])).remove()
+                subject_turnos.push(card.id)
+            }
+        })
+        $.ajax({
+            url: "/subject-enroll-submit",
+            type: "POST",
+            data: { 'subject-turnos': subject_turnos },
+            dataType: "json",
+            success: (data) => {
+                alert(data.msg);
+            }
+        })
+    } else {
+        alert('You need to select at least one subject T and TP')
+    }
 
 
 }
@@ -509,7 +510,6 @@ function initialFetch(x) {
         dataType: "json",
         success: (data) => {
             const cadeiras = Object.keys(JSON.parse(data[0].cadeiras));
-            console.log(JSON.parse(data[0].cadeiras));
             let cadeiraSelected;
             let turnosCadeira;
 

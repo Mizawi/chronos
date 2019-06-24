@@ -454,25 +454,24 @@
     }
     
     .subject-enroll-submit-btn {
-        font-family: Montserrat-Bold;
         font-size: 15px;
         line-height: 1.5;
         color: #fff;
         text-transform: uppercase;
-        width: 40%;
-        height: 40px;
+        width: 20%;
+        height: 10%;
         border-radius: 100px;
-        border: 2px solid #1B9CE5;
-        background: #1a1a1d;
-        display: -webkit-box;
-        display: -webkit-flex;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        border: 2px solid rgb(0, 0, 0);
+        background: -webkit-linear-gradient(-135deg, #353535, #7c7c7c);
+        background: -o-linear-gradient(-135deg, #353535, #7c7c7c);
+        background: -moz-linear-gradient(-135deg, #353535, #7c7c7c);
+        background: linear-gradient(-135deg, #353535, #7c7c7c);
+        position: relative;
         padding: 0 25px;
-        margin-left: 50px;
+        margin-top: 5%;
+        margin-bottom: 1%;
+        margin-left: 70%;
+        margin-right: 50%;
         -webkit-transition: all 0.4s;
         -o-transition: all 0.4s;
         -moz-transition: all 0.4s;
@@ -480,8 +479,11 @@
     }
     
     .subject-enroll-submit-btn:hover {
-        background: #1B9CE5;
-        color: #000;
+        background: -webkit-linear-gradient(-135deg, #266b0b, #48be2b);
+        background: -o-linear-gradient(-135deg, #266b0b, #48be2b);
+        background: -moz-linear-gradient(-135deg, #266b0b, #48be2b);
+        background: linear-gradient(-135deg, #266b0b, #48be2b);
+        color: rgb(0, 0, 0);
     }
     
     .container-subjects {
@@ -884,7 +886,12 @@
         }
     }
     
-    @media (max-width: 411px) {
+    @media (max-width: 450px) {
+        .subject-enroll-submit-btn {
+            width: 70%;
+            margin-right: 80%;
+            margin-left: 40%;
+        }
         .wrap-login100 {
             padding: 1px 2px 3px 0px;
         }
