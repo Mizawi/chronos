@@ -229,7 +229,7 @@ app.get("/studentRequest", (req, res) => {
     const turnoin = req.query.turnoin;
     const turnojoin = req.query.turnojoin;
 
-    con.query('insert into pedidos (numero_aluno, cadeira, turnosaida, turnoentrada) values (?,?,?,?)', [req.user.numero_aluno, cadeira, turnoin, turnojoin], function(err, result) {
+    con.query('insert into pedidos (email_aluno, cadeira, turnosaida, turnoentrada) values (?,?,?,?)', [user.email, cadeira, turnoin, turnojoin], function(err, result) {
         if (err) throw err;
         res.send({ code: 1, msg: "Your request is now under approval" });
     })
@@ -246,15 +246,14 @@ app.get("/teacher-profile", (req, res) => {
 
 app.get("/teacher-fetch", (req, res) => {
     const student = req.query.student;
-    const numero_prof = JSON.parse(user.email);
+    const numero_prof = user.email;
 
-    sql = 'select cadeiras from aluno where numero_aluno = ?;select cadeiras_teacher from professor where numero_prof = ?;';
+    sql = 'select cadeiras from aluno where numero_aluno = ?;select cadeiras_teacher from professor where email = ?;';
 
     con.query(sql, [student, numero_prof], (err, result) => {
         if (result[0].length > 0 && result[1].length > 0) {
             let cadeirasin = Object.keys(JSON.parse(result[0][0].cadeiras));
             let subjects = Object.keys(JSON.parse(result[1][0].cadeiras_teacher));
-
             let matched = [];
             subjects.forEach(subj => {
                 cadeirasin.forEach(cad => {
@@ -296,11 +295,18 @@ app.get("/teacher-transfer", (req, res) => {
     const subject = req.query.subject;
     const removefrom = req.query.removefrom;
     const addto = req.query.addto;
+    const type = req.query.type;
+    let sql = '';
 
     if (student.length > 0 && subject.length > 0 && removefrom.length > 0 && addto.length > 0) {
-        sql = 'select cadeiras from aluno where email_aluno = ?;';
+        if(type=="number"){
+            sql = 'select cadeiras from aluno where numero_aluno = ?;';
+        }else{
+            sql = 'select cadeiras from aluno where email = ?;';
+        }
+        
 
-        con.query(sql, [student.email], (err, result) => {
+        con.query(sql, [student], (err, result) => {
             if (err) throw err;
             turnosatuais = JSON.parse(result[0].cadeiras)[subject];
             turnosnovos = turnosatuais.filter(turno => turno != removefrom);
@@ -318,8 +324,18 @@ app.get("/teacher-transfer", (req, res) => {
 app.get("/teacher-transfer-set", (req, res) => {
     const student = req.query.student;
     const cadeiras = req.query.cadeiras;
+    const type = req.query.type;
+    let sql = '';
+    console.log(student);
+    console.log(cadeiras);
     const newinfo = JSON.stringify(cadeiras);
-    sql = `UPDATE aluno SET cadeiras = '${newinfo}' WHERE numero_aluno = ${student};`;
+
+    if(type=="number"){
+        sql = `UPDATE aluno SET cadeiras = '${newinfo}' WHERE numero_aluno = ${student};`;
+    }else{
+        sql = `UPDATE aluno SET cadeiras = '${newinfo}' WHERE email = '${student}';`;
+    }
+    
     con.query(sql, (err, result) => {
         if (err) throw err;
         res.send({ msg: "Student classes changed successfully" });

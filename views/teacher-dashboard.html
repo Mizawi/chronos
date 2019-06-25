@@ -242,9 +242,12 @@
                 student: email_aluno,
                 subject: cadeira,
                 removefrom: turnosaida,
-                addto: turnoentrada
+                addto: turnoentrada,
+                type: "string"
             },
             success: (data) => {
+                console.log("In function response");
+                console.log(data);
                 if (data.code == 0) {
                     console.log(data.msg);
                 } else {
@@ -255,9 +258,12 @@
                         dataType: "json",
                         data: {
                             student: email_aluno,
-                            cadeiras: cadeiras
+                            cadeiras: cadeiras,
+                            type: "string"
                         },
                         success: (data) => {
+                            console.log("In function response 2");
+                            console.log(data);
                             $.ajax({
                                 url: "/teacherApprove",
                                 type: "get",
@@ -266,6 +272,8 @@
                                     requestid: id
                                 },
                                 success: (data) => {
+                                    console.log("In function response 3");
+                                    console.log(data);
                                     console.log(data.msg);
                                     $(`#${id}`).remove();
                                     refetch();

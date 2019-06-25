@@ -164,7 +164,7 @@ jQuery(function($) {
                         <p>Student Email: ${emailaluno}</span></p>
                         <p>Remove from: ${turnosaida}</span></p>
                         <p>Add to: ${turnoentrada}</span></p>
-                        <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', ${emailaluno}, '${turnosaida}', '${turnoentrada}')">Approve</button>
+                        <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', '${emailaluno}', '${turnosaida}', '${turnoentrada}')">Approve</button>
                         <button class="customButton rejectButton" type="button" onclick="reject(${id})">Reject</button>
                         </div>`;
                     })
@@ -341,7 +341,8 @@ jQuery(function($) {
                 student: student,
                 subject: subject,
                 removefrom: removefrom,
-                addto: addto
+                addto: addto,
+                type: "number"
             },
             success: (data) => {
                 if (data.code == 0) {
@@ -355,7 +356,8 @@ jQuery(function($) {
                         dataType: "json",
                         data: {
                             student: student,
-                            cadeiras: cadeiras
+                            cadeiras: cadeiras,
+                            type: "number"
                         },
                         success: (data) => {
                             $('#transfermsg').text('');
