@@ -123,49 +123,65 @@
             <main class="container-teacher100">
                 <div class="table-responsive" id="query_table_profile"></div>
                 <div class="table-responsive" id="query_table_dashboard"></div>
+
+
                 <div class="table-responsive" id="query_table_subjects">
-                    <h2>Your students</h2>
-                    <br>
-                    <h3>List students by subject</h3>
-                    <p>Select a subject to list students</p>
-                    <br> Your subjects:<br>
-                    <select id="subjectshow">
-                    </select>
-                    <br>
-                    <br>
-                    <button class="customButton" id="show-button" type="button">Show my students</button>
-                    <br>
-                    <hr>
-                    <br>
-                    <h2>Manage your classes</h2>
-                    <br>
-                    <h3>Transfer student between classes</h3>
-                    <p>All fields will be filled while you write student's number</p>
-                    <br>
-                    <form id="formtransfer">
-                        Student number:<br>
-                        <input type="text" placeholder="Number" id="student">
-                        <br><br> Subject:
+
+                    <div id= "query_table_list_students">
+
+                        <h2>Your students</h2>
                         <br>
-                        <select id="subjectsallowed">
-                            
-                        </select>
-                        <br><br> Remove from:<br>
-                        <select id="turnosin">
-                            
-                        </select>
-                        <br><br> Add to:<br>
-                        <select id="turnosjoin">
-                            
+                        <h3>List students by subject</h3>
+                        <p>Select a subject to list students</p>
+                        <br> Your subjects:<br>
+                        <select id="subjectshow">
                         </select>
                         <br>
                         <br>
-                        <button class="customButton" id="transfer-button" type="button">Transfer</button>
+                        <button class="customButton w3-center" id="show-button" type="button">Show my students</button>
                         <br>
+                        <hr>
                         <br>
-                        <p id="transfermsg"></p>
-                    </form>
+
+                    </div>
+
+                    <div id= "query_table_transfer_student">
+
+                        <h2>Manage your classes</h2>
+                        <br>
+                        <h3>Transfer student between classes</h3>
+                        <p>All fields will be filled while you write student's number</p>
+                        <br>
+
+                        <form id="formtransfer">
+                            Student number:<br>
+                            <input type="text" placeholder="Number" id="student">
+                            <br><br> Subject:
+                            <br>
+                            <select id="subjectsallowed">
+                                
+                            </select>
+                            <br><br> Remove from:<br>
+                            <select id="turnosin">
+                                
+                            </select>
+                            <br><br> Add to:<br>
+                            <select id="turnosjoin">
+                                
+                            </select>
+                            <br>
+                            <br>
+                            <button class="customButton w3-center" id="transfer-button" type="button">Transfer</button>
+                            <br>
+                            <br>
+                            <p id="transfermsg"></p>
+                        </form>
+
+                    </div>
+
                 </div>
+
+
                 <div class="table-responsive" id="query_table_requests"></div>
                 <div class="table-responsive" id="query_table_settings">
                     <div>
