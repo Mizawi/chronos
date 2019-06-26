@@ -319,7 +319,7 @@ jQuery(function($) {
                     content += '<tr><td>' + item.numero_aluno + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
                 });
                 content += "</table>"
-                $('#query_table_subjects').append(content);
+                $('#query_table_list_students').append(content);
             }
         })
     });
