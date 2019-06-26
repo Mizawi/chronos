@@ -157,8 +157,7 @@ jQuery(function($) {
                         const turnoentrada = request.turnoentrada;
 
                         content += `
-                        <div id="${id}">
-                        <hr>
+                        <div style="background-color:#000000; padding:10px; border-radius:10px" id="${id}">
                         <p>Request id: ${id}</span></p>
                         <p>Subject: ${cadeira}</span></p>
                         <p>Student Email: ${emailaluno}</span></p>
@@ -166,7 +165,8 @@ jQuery(function($) {
                         <p>Add to: ${turnoentrada}</span></p>
                         <button class="customButton approveButton" type="button" onclick="approve(${id}, '${cadeira}', '${emailaluno}', '${turnosaida}', '${turnoentrada}')">Approve</button>
                         <button class="customButton rejectButton" type="button" onclick="reject(${id})">Reject</button>
-                        </div>`;
+                        </div>
+                        <br>`;
                     })
                 } else {
                     content += `<h4>${data.msg}</h4>`;
@@ -475,6 +475,7 @@ $(document).ready(() => {
             if (data.code == 1) {
                 if (data.requests.length > 0) {
                     $("#hasRequests").text(data.requests.length);
+
                 }
             }
         }
