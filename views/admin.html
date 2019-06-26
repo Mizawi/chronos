@@ -140,8 +140,8 @@
             <!-- sidebar-wrapper  -->
             <main class="container-admin100">
                 <div class="table-responsive" id="query_table">
+
                     <div class="settings-admin-div">
-                        <div>
                             <h2>Your settings</h2>
                             <p>You can change your settings here</p>
                             <br>
@@ -165,48 +165,50 @@
                                 <br>
                                 <button class="customButton" type="button" id="savesettings-button">Save</button>
                             </form>
+                    </div>
+
+                    <div id="admin-dashboard-fuctions">
+                        <div id="createStudent-admin-div">
+                            <h2>Create Student</h2>
+                            <br>
+                            <h3>You can create a student here</h3>
+                            <p>Enter name, course and number for student before creation</p>
+                            <br>
+                            <form class="criaAluno-form validate-form">
+                                Name:<br>
+                                <input type="text" id="aluno_nome" placeholder="Name"><br>
+                                <br> Course id:<br>
+                                <input type="text" id="aluno_curso" placeholder="Course"><br>
+                                <br> Number:
+                                <br>
+                                <input type="text" id="aluno_numero" placeholder="Number"><br>
+                                <br>
+                                <button type='button' class="customButton" id="criar_aluno">Create Student</button>
+                                <br>
+                                <br>
+                                <p id="createStudentMsg"></p>
+                            </form>
                         </div>
-                    </div>
-                    <div class="createStudent-admin-div">
-                        <h2>Create student</h2>
                         <br>
-                        <h3>You can create a student here</h3>
-                        <p>Enter name, course and number for student before creation</p>
-                        <br>
-                        <form class="criaAluno-form validate-form">
-                            Name:<br>
-                            <input type="text" id="aluno_nome" placeholder="Name"><br>
-                            <br> Course id:<br>
-                            <input type="text" id="aluno_curso" placeholder="Course"><br>
-                            <br> Number:
+                        <div id="createProf-admin-div">
+                            <h2>Create Teacher</h2>
                             <br>
-                            <input type="text" id="aluno_numero" placeholder="Number"><br>
+                            <h3>You can create a teacher here</h3>
+                            <p>Enter name and number for teacher before creation</p>
                             <br>
-                            <button type='button' class="customButton" id="criar_aluno">Criar Aluno</button>
-                            <br>
-                            <br>
-                            <p id="createStudentMsg"></p>
-                        </form>
-                    </div>
-                    <vr></vr>
-                    <div class="createStudent-admin-div">
-                        <h2>Create professor</h2>
-                        <br>
-                        <h3>You can create a professor here</h3>
-                        <p>Enter name and number for teacher before creation</p>
-                        <br>
-                        <form class="criaAluno-form validate-form">
-                            Name:<br>
-                            <input type="text" id="prof_nome" placeholder="Name"><br>
-                            <br> Number:
-                            <br>
-                            <input type="text" id="prof_numero" placeholder="Number"><br>
-                            <br>
-                            <button type='button' class="customButton" id="criar_prof">Criar Professor</button>
-                            <br>
-                            <br>
-                            <p id="createProfMsg"></p>
-                        </form>
+                            <form class="criaAluno-form validate-form">
+                                Name:<br>
+                                <input type="text" id="prof_nome" placeholder="Name"><br>
+                                <br> Number:
+                                <br>
+                                <input type="text" id="prof_numero" placeholder="Number"><br>
+                                <br>
+                                <button type='button' class="customButton" id="criar_prof">Create Teacher</button>
+                                <br>
+                                <br>
+                                <p id="createProfMsg"></p>
+                            </form>
+                        </div>
                     </div>
 
                 </div>

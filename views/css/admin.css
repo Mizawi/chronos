@@ -13,7 +13,41 @@ input[type=text] {
     box-sizing: border-box;
   }
 
-  .createStudent-admin-div{
-    float:left;
-    padding:40px;
-  }
+.title_table{
+  text-align: center;
+}
+
+#admin-dashboard-fuctions{
+  display: -webkit-inline-box;
+}
+
+#createStudent-admin-div{
+  color: whitesmoke;
+  border: solid rgb(41, 40, 40) 1px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: rgb(41, 40, 40);
+  padding: 20px;
+  width: 60%;
+  min-width: 320px;
+  text-align: center;
+  align-content: center;
+  height: fit-content;
+}
+
+#createProf-admin-div{
+  color: whitesmoke;
+  border: solid rgb(41, 40, 40) 1px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: rgb(41, 40, 40);
+  padding: 20px;
+  width: 60%;
+  min-width: 320px;
+  text-align: center;
+  align-content: center;
+  margin-left: 5%;
+  height: fit-content;
+}

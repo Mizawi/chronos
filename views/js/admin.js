@@ -39,7 +39,7 @@ jQuery(function($) {
     $("#dashboard-button").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-        $(".createStudent-admin-div").show();
+        $("#admin-dashboard-fuctions").show();
         $(".admin_table").hide();
 
         $("#createStudentMsg").text('');
@@ -49,7 +49,7 @@ jQuery(function($) {
     $("#settingsbutton").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").show();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
 
         $('#query-table-answer').remove();
         $('#messagesettings').remove();
@@ -58,7 +58,7 @@ jQuery(function($) {
     $("#savesettings-button").click(() => {
         $(".search-admin-bar").hide();
         $('#messagesettings').remove();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
         
         $.ajax({
             url: "/adminSettings",
@@ -86,7 +86,7 @@ jQuery(function($) {
     $("#searchAll").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
             url: "/searchAll",
@@ -96,7 +96,7 @@ jQuery(function($) {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
                 let content = "<table class='admin_table' id='query-table-answer'>"
-                content += "<thead class='' > <tr> <th> Name </th> <th> Email </th> </tr> </thead>"
+                content += "<thead class='' > <tr> <th class='title_table' colspan='2'> ALL USERS </th> </tr><tr> <th> Name </th> <th> Email </th> </tr> </thead>"
                 data.forEach(datai => {
                     datai.forEach(item => {
                         const info = JSON.parse(item.information);
@@ -110,9 +110,9 @@ jQuery(function($) {
     });
 
     $("#searchStudents").click(() => {
-        $(".search-admin-bar").show();
+        $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
             url: "/searchStudent",
@@ -121,7 +121,8 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th >Name </th> <th> Email </th></tr></thead>"
+                let content = "<table class='admin_table' id='query-table-answer'>"
+                content += "<thead class='' > <tr> <th class='title_table' colspan='2'> ALL STUDENTS </th> <tr> <th> Name </th> <th> Email </th> </tr> </thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
                     content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
@@ -137,7 +138,7 @@ jQuery(function($) {
     $("#searchTeachers").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
             url: "/searchTeacher",
@@ -146,7 +147,8 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th >Name </th> <th> Email </th></tr></thead>"
+                let content = "<table class='admin_table' id='query-table-answer'>"
+                content += "<thead class='' > <tr> <th class='title_table' colspan='2'> ALL TEACHERS </th> <tr><th >Name </th> <th> Email </th></tr></thead>"
                 data.forEach(item => {
                     const info = JSON.parse(item.information);
                     content += '<tr><td>' + info.nome  + '</td>' + '<td>' + item.email + '</td>' + '</tr>'
@@ -217,7 +219,7 @@ jQuery(function($) {
         if (event.keyCode === 13) {
             // Cancel the default action, if needed
             event.preventDefault();
-            $(".createStudent-admin-div").hide();
+            $("#admin-dashboard-fuctions").hide();
             valor_a_pesquisar = document.getElementById("generalInput").value
             $("#generalInput").val('');
 
@@ -264,7 +266,7 @@ jQuery(function($) {
     $("#getLogs").click(() => {
         $(".search-admin-bar").hide();
         $(".settings-admin-div").hide();
-        $(".createStudent-admin-div").hide();
+        $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
             url: "/getLogs",
@@ -273,7 +275,8 @@ jQuery(function($) {
             success: (data) => {
                 $('#messagesettings').remove();
                 $('#query-table-answer').remove();
-                let content = "<table class='admin_table' id='query-table-answer'> <thead class='' > <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
+                let content = "<table class='admin_table' id='query-table-answer'>"
+                content += "<thead class='' > <tr> <th class='title_table' colspan='2'> ALL LOGS </th> <tr><th>User</th> <th>Timestamp</th> </tr> </thead>"
                 for (key in data) {                    
                     content += '<tr><td>' + data[key].user  + '</td>' + '<td>' + data[key].timestamp + '</td>' + '</tr>'
                 }
@@ -310,6 +313,6 @@ $(document).ready(() => {
     $(".search-admin-bar").hide();
     $(".settings-admin-div").hide();
 
-    $(".createStudent-admin-div").show();
+    $("#admin-dashboard-fuctions").show();
     $(".admin_table").hide();
 } )

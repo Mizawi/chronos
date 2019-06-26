@@ -604,8 +604,7 @@
     }
     
     #query-table-answer {
-        width: 750px;
-        height: 250px;
+        width: 550px;
         overflow: hidden;
     }
     /*------------------------------------------------------------------
@@ -1503,7 +1502,6 @@
     table.admin_table {
         border: 1px solid white;
         background-color: #6A7381;
-        width: 100%;
         text-align: center;
     }
     
