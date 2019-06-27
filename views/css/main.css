@@ -606,7 +606,9 @@
     #query-table-answer {
         width: 550px;
         overflow: hidden;
+        border-radius: 20px;
     }
+
     /*------------------------------------------------------------------
 [  ]*/
     
