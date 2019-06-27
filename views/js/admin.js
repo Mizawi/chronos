@@ -38,7 +38,7 @@ jQuery(function($) {
 
     $("#dashboard-button").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").hide();
+        $("#settings-admin-div").hide();
         $("#admin-dashboard-fuctions").show();
         $(".admin_table").hide();
 
@@ -48,7 +48,7 @@ jQuery(function($) {
 
     $("#settingsbutton").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").show();
+        $("#settings-admin-div").show();
         $("#admin-dashboard-fuctions").hide();
 
         $('#query-table-answer').remove();
@@ -85,7 +85,7 @@ jQuery(function($) {
 
     $("#searchAll").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").hide();
+        $("#settings-admin-div").hide();
         $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
@@ -111,7 +111,7 @@ jQuery(function($) {
 
     $("#searchStudents").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").hide();
+        $("#settings-admin-div").hide();
         $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
@@ -137,7 +137,7 @@ jQuery(function($) {
 
     $("#searchTeachers").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").hide();
+        $("#settings-admin-div").hide();
         $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
@@ -229,7 +229,7 @@ jQuery(function($) {
                 dataType: "json",
                 data: { texto_pesquisa: valor_a_pesquisar },
                 success: (data) => {
-                    $(".settings-admin-div").hide();
+                    $("#settings-admin-div").hide();
                     $('#messagesettings').remove();
                     $('#query-table-answer').remove();
 
@@ -265,7 +265,7 @@ jQuery(function($) {
 
     $("#getLogs").click(() => {
         $(".search-admin-bar").hide();
-        $(".settings-admin-div").hide();
+        $("#settings-admin-div").hide();
         $("#admin-dashboard-fuctions").hide();
 
         $.ajax({
@@ -311,7 +311,7 @@ $(document).ready(() => {
     }
 
     $(".search-admin-bar").hide();
-    $(".settings-admin-div").hide();
+    $("#settings-admin-div").hide();
 
     $("#admin-dashboard-fuctions").show();
     $(".admin_table").hide();

@@ -257,3 +257,19 @@ input[type=text] {
     padding: 5px 15px;
     box-sizing: border-box;
 }
+
+#settings-student-div{
+    color: whitesmoke;
+    border: solid rgb(41, 40, 40) 1px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background-color: rgb(41, 40, 40);
+    padding: 20px;
+    width: fit-content;
+    min-width: 320px;
+    text-align: center;
+    align-content: center;
+    margin-left: 5%;
+    height: fit-content;
+}

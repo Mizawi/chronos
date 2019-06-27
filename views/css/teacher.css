@@ -61,7 +61,7 @@ input[type=text] {
     height: fit-content;
 }
 
-#query_table_settings{
+#settings-teacher-div{
     color: whitesmoke;
     border: solid rgb(41, 40, 40) 1px;
     -moz-border-radius: 10px;
