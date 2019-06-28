@@ -1,6 +1,6 @@
 const mysql = require('mysql');
 const fs = require('fs');
-/*
+
 // Database Connection for Production
 
 
@@ -8,7 +8,7 @@ const fs = require('fs');
 //II        UNCOMMENT TO DEPLOY TO GCLOUD/COMMENT FOR LOCAL DEVELOPMENT       II//
 //II==========================================================================II//
 
-
+/*
 let config = {
 
     user: process.env.SQL_USER,
