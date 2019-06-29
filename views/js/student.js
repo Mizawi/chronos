@@ -152,6 +152,8 @@ jQuery(function($) {
         $('#query_table_pedido').hide();
         $('#messagesettings').remove();
 
+        $('#schedule').remove();
+
         /* Criacao da tabela de horario dinamicamente */
         content = '<table class="w3-center" id="schedule" border="1">'
         content += '<tr class="days"> <th id="vazio"></th> <th id="Segunda-feira">Segunda-feira</th> <th id="Terca-feira">Terça-feira</th>'

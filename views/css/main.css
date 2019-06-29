@@ -87,8 +87,8 @@
     }
     
     a:hover {
-        text-decoration: none;
-        color: #57b846;
+        text-decoration: underline;
+        color: #000000;
     }
     /*---------------------------------------------*/
     
