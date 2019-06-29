@@ -8,9 +8,8 @@
     <meta name="description" content="Student Section">
     <meta name="theme-color" content="#317EFB">
 
-    <script defer src="js/loadCSS.js"></script>
+    <script async src="js/loadCSS.js"></script>
     <link rel="manifest" href="json/manifest.json">
-
     <!--===============================================================================================-->
     <link rel="preload" href="vendor/w3/w3.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="vendor/w3/w3.css"></noscript>
     <!--===============================================================================================-->
@@ -24,18 +23,18 @@
     <!--===============================================================================================-->
     <link rel="preload" href="vendor/select2/select2.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="vendor/select2/select2.min.css"></noscript>
     <!--===============================================================================================-->
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link rel="preload" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.6/css/all.css"></noscript>
     <!--===============================================================================================-->
     <link rel="preload" href="css/util.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="css/util.css"></noscript>
-    <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="css/main.css"></noscript>
     <link rel="preload" href="css/student.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="css/student.css"></noscript>
+    <link rel="preload" href="css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="css/main.css"></noscript>
     <!--===============================================================================================-->
     <script defer src="vendor/jquery/jquery-3.2.1.min.js "></script>
     <!--===============================================================================================-->
-    <script async src="vendor/bootstrap/js/popper.js "></script>
-    <script async src="vendor/bootstrap/js/bootstrap.min.js "></script>
+    <script defer src="vendor/bootstrap/js/popper.js "></script>
+    <script defer src="vendor/bootstrap/js/bootstrap.min.js "></script>
     <!--===============================================================================================-->
-    <script async src="vendor/select2/select2.min.js "></script>
+    <script defer src="vendor/select2/select2.min.js "></script>
     <!--===============================================================================================-->
     <script defer src="js/student.js"></script>
     <script defer src="js/main.js"></script>
@@ -136,136 +135,7 @@
                 <div class="table-responsive" id="query_table_dashboard"></div>
                 <div class="table-responsive" id="query_table_subjects"></div>
                 <div class="table-responsive" id="query_table_schedule">
-                    <table class="w3-center" id="schedule" border="1">
-                        <tr class="days">
-                            <th id="vazio"></th>
-                            <th id="Segunda-feira">Segunda-feira</th>
-                            <th id="Terca-feira">Terça-feira</th>
-                            <th id="Quarta-feira">Quarta-feira</th>
-                            <th id="Quinta-feira">Quinta-feira</th>
-                            <th id="Sexta-feira">Sexta-feira</th>
-                            <th id="Sabado">Sábado</th>
-                        </tr>
-                        <tr id="8:30">
-                            <td class="hours">8:30</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
 
-
-
-                        </tr>
-                        <tr id="9:00">
-                            <td class="hours">9:00</td>
-                        </tr>
-                        <tr id="9:30">
-                            <td class="hours">9:30</td>
-                        </tr>
-                        <tr id="10:00">
-                            <td class="hours">10:00</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
-
-
-                        </tr>
-                        <tr id="10:30">
-                            <td class="hours">10:30</td>
-                        </tr>
-                        <tr id="11:00">
-                            <td class="hours">11:00</td>
-                        </tr>
-                        <tr id="11:30">
-                            <td class="hours">11:30</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
-
-
-                        </tr>
-                        <tr id="12:00">
-                            <td class="hours">12:00</td>
-                        </tr>
-                        <tr id="12:30">
-                            <td class="hours">12:30</td>
-                        </tr>
-                        <tr id="13:00">
-                            <td class="hours">13:00</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
-
-
-                        </tr>
-                        <tr id="13:30">
-                            <td class="hours">13:30</td>
-                        </tr>
-                        <tr id="14:00">
-                            <td class="hours">14:00</td>
-                        </tr>
-                        <tr id="14:30">
-                            <td class="hours">14:30</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
-
-
-                        </tr>
-                        <tr id="15:00">
-                            <td class="hours">15:00</td>
-                        </tr>
-                        <tr id="15:30">
-                            <td class="hours">15:30</td>
-                        </tr>
-                        <tr id="16:00">
-                            <td class="hours">16:00</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty" id="7" rowspan="3"></td>
-
-
-                        </tr>
-                        <tr id="16:30">
-                            <td class="hours">16:30</td>
-                        </tr>
-                        <tr id="17:00">
-                            <td class="hours">17:00</td>
-                        </tr>
-                        <tr id="17:30">
-                            <td class="hours">17:30</td>
-                            <td class="empty" id="2" rowspan="3"></td>
-                            <td class="empty" id="3" rowspan="3"></td>
-                            <td class="empty" id="4" rowspan="3"></td>
-                            <td class="empty" id="5" rowspan="3"></td>
-                            <td class="empty" id="6" rowspan="3"></td>
-                            <td class="empty lastblock" id="7" rowspan="3"></td>
-
-                        </tr>
-                        <tr id="18:00">
-                            <td class="hours">18:00</td>
-                        </tr>
-                        <tr id="18:30">
-                            <td class="hours" id="lasthour">18:30</td>
-                        </tr>
-                    </table>
                 </div>
                 <div class="table-responsive" id="query_table_subject_enroll">
                 </div>

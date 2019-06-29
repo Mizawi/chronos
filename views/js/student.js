@@ -152,6 +152,36 @@ jQuery(function($) {
         $('#query_table_pedido').hide();
         $('#messagesettings').remove();
 
+        /* Criacao da tabela de horario dinamicamente */
+        content = '<table class="w3-center" id="schedule" border="1">'
+        content += '<tr class="days"> <th id="vazio"></th> <th id="Segunda-feira">Segunda-feira</th> <th id="Terca-feira">Terça-feira</th>'
+        content += '<th id="Quarta-feira">Quarta-feira</th> <th id="Quinta-feira">Quinta-feira</th> <th id="Sexta-feira">Sexta-feira</th> '
+        content += '<th id="Sabado">Sábado</th> </tr>'
+        content += '<tr id="8:30"> <td class="hours">8:30</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td>'
+        content += '<td class="empty" id="4" rowspan="3"></td> <td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td>'
+        content += '<td class="empty" id="7" rowspan="3"></td></tr>'
+        content += '<tr id="9:00"> <td class="hours">9:00</td> </tr> <tr id="9:30">  <td class="hours">9:30</td> </tr>'
+        content += '<tr id="10:00"> <td class="hours">10:00</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td>'
+        content += '<td class="empty" id="4" rowspan="3"></td> <td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td>'
+        content += '<td class="empty" id="7" rowspan="3"></td> </tr>'
+        content += '<tr id="10:30"> <td class="hours">10:30</td> </tr> <tr id="11:00"> <td class="hours">11:00</td> </tr>'
+        content += '<tr id="11:30"> <td class="hours">11:30</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td>'
+        content += '<td class="empty" id="4" rowspan="3"></td> <td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td>'
+        content += '<td class="empty" id="7" rowspan="3"></td> </tr> <tr id="12:00"> <td class="hours">12:00</td> </tr> <tr id="12:30"><td class="hours">12:30</td></tr>'
+        content += '<tr id="13:00"> <td class="hours">13:00</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td> <td class="empty" id="4" rowspan="3"></td>'
+        content += '<td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td> <td class="empty" id="7" rowspan="3"></td> </tr>'
+        content += '<tr id="13:30"> <td class="hours">13:30</td> </tr> <tr id="14:00"> <td class="hours">14:00</td> </tr> <tr id="14:30">'
+        content += '<td class="hours">14:30</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td> <td class="empty" id="4" rowspan="3"></td>'
+        content += '<td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td> <td class="empty" id="7" rowspan="3"></td>'
+        content += '</tr> <tr id="15:00"> <td class="hours">15:00</td> </tr> <tr id="15:30"> <td class="hours">15:30</td> </tr>'
+        content += '<tr id="16:00"> <td class="hours">16:00</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td>'
+        content += '<td class="empty" id="4" rowspan="3"></td> <td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td>'
+        content += '<td class="empty" id="7" rowspan="3"></td> </tr> <tr id="16:30"> <td class="hours">16:30</td> </tr> <tr id="17:00"> <td class="hours">17:00</td>'
+        content += '</tr> <tr id="17:30"> <td class="hours">17:30</td> <td class="empty" id="2" rowspan="3"></td> <td class="empty" id="3" rowspan="3"></td> <td class="empty" id="4" rowspan="3"></td>'
+        content += '<td class="empty" id="5" rowspan="3"></td> <td class="empty" id="6" rowspan="3"></td> <td class="empty lastblock" id="7" rowspan="3"></td>'
+        content += '</tr> <tr id="18:00"> <td class="hours">18:00</td> </tr> <tr id="18:30"> <td class="hours" id="lasthour">18:30</td> </tr> </table>'
+
+        $('#query_table_schedule').append(content);
 
         $.ajax({
             url: "/student-schedule",
