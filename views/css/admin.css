@@ -67,3 +67,22 @@ input[type=text] {
   margin-left: 5%;
   height: fit-content;
 }
+
+
+@media only screen and (max-width: 600px) {
+  #admin-dashboard-fuctions{
+    display: block;
+  }
+
+  #createStudent-admin-div{
+    margin-left: 3%;
+  }
+
+  #createProf-admin-div{
+    margin-left: 3%;
+  }
+
+  .admin_table{
+    width: 0;
+  }
+}
