@@ -4,6 +4,10 @@ var path = require('path');
 var passport = require('passport');
 
 
+router.get('/loaderio-b410d97765acaf573fe83387e555de26', function(req, res) {
+    res.sendFile(path.join(__dirname, '../views/loaderio.html'))
+});
+
 //Home Page Route
 router.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, '../views/index.html'));
