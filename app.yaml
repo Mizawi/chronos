@@ -5,9 +5,9 @@ env_variables:
   SQL_USER: admin
   SQL_PASSWORD: ptiptr2019
   SQL_DATABASE: chronosdb
-  INSTANCE_CONNECTION_NAME: chronos-234322:europe-west3:chronos-instance
+  INSTANCE_CONNECTION_NAME: chronos-234322:europe-west3:chronos-instance , chronos-234322:europe-west3:chronos-instance-replica
 beta_settings:
-  cloud_sql_instances: chronos-234322:europe-west3:chronos-instance
+  cloud_sql_instances: chronos-234322:europe-west3:chronos-instance , chronos-234322:europe-west3:chronos-instance-replica
 
 handlers:
 - url: /.*
