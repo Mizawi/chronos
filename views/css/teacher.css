@@ -80,3 +80,21 @@ input[type=text] {
 #query_table_subjects{
     display: -webkit-inline-box;
 }
+
+@media only screen and (max-width: 600px) {
+    .card{
+        margin-left: 10%;
+    }
+
+    #query_table_subjects{
+        display: block;
+    }
+
+    #query_table_list_students{
+        margin-left: 3%;
+    }
+
+    #query_table_transfer_student{
+        margin-left: 3%;
+    }
+}

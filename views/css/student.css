@@ -273,3 +273,31 @@ input[type=text] {
     margin-left: 5%;
     height: fit-content;
 }
+
+@media only screen and (max-width: 600px) {
+
+    .card{
+        margin-left: 10%;
+    }
+
+    #query_table_subject_enroll{
+        overflow: hidden;
+    }
+
+    #query_table_subject_enroll_answer{
+        color: whitesmoke;
+    }
+
+    #schedule{
+        margin-left: 0;
+    }
+
+    #query_table_subject_enroll_answer.card-deck{
+        color: whitesmoke;
+        width: 70%;
+        height: 50%;
+        margin-left: 0;
+    }
+
+    
+} 

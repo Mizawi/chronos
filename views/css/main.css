@@ -1102,6 +1102,7 @@
         border-radius: 0 4px 4px 0px;
         width: 35px;
         transition-delay: 0.3s;
+        z-index: 1;
     }
     
     .page-wrapper.toggled #show-sidebar {
@@ -1538,3 +1539,15 @@
     .card {
         border-radius: 10px;
     }
+
+    @media only screen and (max-width: 600px) {
+      
+        .admin_table{
+          margin: auto;
+        }
+
+        #query-table-answer{
+            width: 0;
+        }
+
+      }
