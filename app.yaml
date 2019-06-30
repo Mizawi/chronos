@@ -1,6 +1,6 @@
 # [START app_yaml]
-runtime: nodejs
-env: flex
+runtime: nodejs8
+env: standard
 env_variables:
   SQL_USER: admin
   SQL_PASSWORD: ptiptr2019
@@ -11,6 +11,6 @@ beta_settings:
 
 handlers:
 - url: /.*
-  script: true
+  script: auto
   secure: always
   redirect_http_response_code: 301
