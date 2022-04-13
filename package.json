@@ -19,7 +19,7 @@
   "homepage": "https://gitlab.com/Wowlly/pti_ptr#README",
   "description": "",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^3.2.2",
     "body-parser": "^1.18.3",
     "config": "^3.0.1",
     "connect-flash": "^0.1.1",
